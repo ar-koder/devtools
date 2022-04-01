@@ -1,4 +1,6 @@
 {
+    "name": "arnaud-ritti/symfony-demo",
+    "description": "symfony-demo",
     "type": "project",
     "license": "proprietary",
     "minimum-stability": "stable",
