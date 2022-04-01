@@ -97,7 +97,7 @@ jobs:
 
       # Build assets for dev and prod
       - run: npm run dev
-      - run: npm run prod
+      - run: npm run build
 
   cypress:
     runs-on: ubuntu-latest
