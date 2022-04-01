@@ -1,18 +1,59 @@
 {
     "devDependencies": {
+        "@babel/core": "^7.17.8",
+        "@babel/eslint-parser": "^7.17.0",
+        "@babel/plugin-proposal-class-properties": "^7.16.7",
+        "@babel/plugin-proposal-decorators": "^7.17.8",
+        "@babel/plugin-transform-runtime": "^7.17.0",
         "@hotwired/stimulus": "^3.0.0",
         "@symfony/stimulus-bridge": "^3.0.0",
         "@symfony/webpack-encore": "^1.7.0",
+        "autoprefixer": "^10.4.4",
         "core-js": "^3.0.0",
+        "cypress": "^9.5.3",
+        "eslint": "^7.32.0",
+        "eslint-config-standard": "^16.0.3",
+        "eslint-plugin-import": "^2.25.4",
+        "eslint-plugin-node": "^11.1.0",
+        "eslint-plugin-promise": "^5.2.0",
+        "husky": "^7.0.4",
+        "jest": "^27.5.1",
+        "postcss": "^8.4.12",
+        "postcss-loader": "^6.2.1",
+        "prettier": "^2.6.1",
         "regenerator-runtime": "^0.13.2",
+        "stylelint": "^14.6.1",
+        "stylelint-config-prettier": "^9.0.3",
+        "stylelint-config-standard": "^25.0.0",
+        "stylelint-prettier": "^2.0.0",
+        "tailwindcss": "^3.0.23",
         "webpack-notifier": "^1.6.0"
     },
     "license": "UNLICENSED",
     "private": true,
+    "engines": {
+        "node": "14.x"
+    },
+    "browserslist": [
+        "> 0.5%",
+        "not ie 11",
+        "not op_mini all"
+    ],
     "scripts": {
+        "prepare": "husky install",
         "dev-server": "encore dev-server",
         "dev": "encore dev",
         "watch": "encore dev --watch",
-        "build": "encore production --progress"
+        "build": "encore production --progress",
+        "cy:open": "cypress open",
+        "cy:run": "cypress run",
+        "cy:run:record": "cypress run --record",
+        "format": "npm run format:js && npm run format:css",
+        "format:css": "prettier --write 'assets/**/*.{css,pcss}'",
+        "format:js": "prettier --write 'assets/**/*.{js,jsx}'",
+        "lint": "npm run lint:js && npm run lint:css",
+        "lint:js": "eslint . --ext .js,.jsx,.ts,.tsx,.vue --fix",
+        "lint:css": "stylelint 'assets/**/*.{pcss,css}' --fix",
+        "test:unit": "jest"
     }
 }
