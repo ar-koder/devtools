@@ -49,7 +49,7 @@ jobs:
 
       # Install environment and application
       - run: composer install --ansi --no-interaction --no-progress --prefer-dist --optimize-autoloader
-      - run: npm ci
+      - run: npm install --no-audit
 
       # Prepare tests
       - run: symfony console cache:clear
@@ -106,7 +106,7 @@ jobs:
           restore-keys: ${{ runner.os }}-composer-
 
       - run: composer install --ansi --no-interaction --no-progress --prefer-dist --optimize-autoloader
-      - run: npm ci --no-audit
+      - run: npm install --no-audit
 
       # Lint files
       - run: npm run lint:js --no-fix
@@ -157,7 +157,7 @@ jobs:
           restore-keys: ${{ runner.os }}-composer-
 
       - run: composer install --ansi --no-interaction --no-progress --prefer-dist --optimize-autoloader
-      - run: npm ci
+      - run: npm install --no-audit
 
       # Start Symfony Server
       - run: APP_ENV=test symfony serve --port 8000 --daemon
