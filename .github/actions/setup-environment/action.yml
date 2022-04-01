@@ -6,7 +6,7 @@ runs:
     - run: echo "PHP_VERSION=8.0" >> $GITHUB_ENV
       shell: bash
 
-    - run: echo "NODE_VERSION=14" >> $GITHUB_ENV
+    - run: echo "NODE_VERSION=16" >> $GITHUB_ENV
       shell: bash
 
     - run: echo "IS_DEPENDABOT=${{ startsWith(github.head_ref, 'dependabot') == true }}" >> $GITHUB_ENV
