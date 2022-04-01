@@ -18,9 +18,11 @@
         "eslint-plugin-promise": "^5.2.0",
         "husky": "^7.0.4",
         "jest": "^27.5.1",
+        "lint-staged": "^12.3.7",
         "postcss": "^8.4.12",
         "postcss-loader": "^6.2.1",
         "prettier": "^2.6.1",
+        "prettier-plugin-twig-melody": "^0.4.6",
         "regenerator-runtime": "^0.13.2",
         "stylelint": "^14.6.1",
         "stylelint-config-prettier": "^9.0.3",
@@ -48,12 +50,18 @@
         "cy:open": "cypress open",
         "cy:run": "cypress run",
         "cy:run:record": "cypress run --record",
-        "format": "npm run format:js && npm run format:css",
+        "format": "npm run format:js && npm run format:css && npm run format:twig",
+        "format:twig": "prettier --write 'templates/**/*.twig'",
         "format:css": "prettier --write 'assets/**/*.{css,pcss}'",
         "format:js": "prettier --write 'assets/**/*.{js,jsx}'",
         "lint": "npm run lint:js && npm run lint:css",
         "lint:js": "eslint . --ext .js,.jsx,.ts,.tsx,.vue --fix",
         "lint:css": "stylelint 'assets/**/*.{pcss,css}' --fix",
         "test:unit": "jest"
+    },
+    "lint-staged": {
+        "*.js": "eslint --cache --fix",
+        "*.--fix": "stylelint --fix",
+        "*.format:twig": "prettier --write"
     }
 }
