@@ -3,7 +3,7 @@ module.exports = {
   '*.{js,jsx,ts,tsx,vue}': ['prettier --write', 'npm run lint:js --'],
   '*.{pcss,css}': ['prettier --write', 'npm run lint:css --'],
   '*.{json,md}': ['prettier --write'],
-  '*.{twig}': [
+  '*.twig': [
     'prettier --write',
     'bin/console lint:twig'
   ],

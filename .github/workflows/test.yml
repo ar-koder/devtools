@@ -1,0 +1,151 @@
+name: Tests & Lint
+
+on:
+  push: ~
+
+env:
+  TZ: Europe/Paris
+
+jobs:
+  php:
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: ./.github/actions/setup-environment
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ env.PHP_VERSION }}
+          coverage: none
+          extensions: iconv, intl
+          ini-values: date.timezone=${{ env.TZ }}
+          tools: symfony
+
+      - uses: actions/setup-node@v2
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - uses: actions/cache@v2
+        with:
+          path: ${{ env.COMPOSER_CACHE_DIR }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: ${{ runner.os }}-composer-
+
+      # Check dependencies
+      - run: symfony composer validate
+      - run: symfony check:security
+
+      # Install environment and application
+      - run: composer install --ansi --no-interaction --no-progress --prefer-dist --optimize-autoloader
+      - run: npm ci
+
+      # Prepare tests
+      - run: symfony console cache:clear
+      - run: APP_ENV=test symfony console doctrine:schema:validate # force APP_ENV=test because only the test database is created
+      - run: symfony console api:swagger:export > /dev/null # Check if ApiPlatform is correctly configured
+
+      # Init database
+      - run: symfony console doctrine:schema:validate --skip-sync
+      - run: symfony console doctrine:migrations:migrate -q
+      - run: symfony console doctrine:fixtures:load -vvv --no-interaction
+
+      # Lint Twig, Yaml and XLIFF files
+      - run: symfony console lint:twig templates
+      - run: symfony console lint:yaml config --parse-tags
+      - run: symfony console lint:xliff translations
+      - run: symfony console lint:container
+
+      # Run static code analysis tools
+      - run: symfony php bin/phpinsights -n --ansi --format=github-action
+      - run: symfony php bin/rector process --dry-run
+      - run: APP_ENV=test symfony php bin/phpunit # See https://github.com/symfony/symfony-docs/pull/15228
+
+  javascript:
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: ./.github/actions/setup-environment
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ env.PHP_VERSION }}
+          coverage: none
+          extensions: iconv, intl
+          ini-values: date.timezone=${{ env.TZ }}
+          tools: symfony
+
+      - uses: actions/setup-node@v2
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - uses: actions/cache@v2
+        with:
+          path: ${{ env.COMPOSER_CACHE_DIR }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: ${{ runner.os }}-composer-
+
+      - run: composer install --ansi --no-interaction --no-progress --prefer-dist --optimize-autoloader
+      - run: npm ci --no-audit
+
+      # Lint files
+      - run: npm run lint:js --no-fix
+      - run: npm run lint:css --no-fix
+
+      # Build assets for dev and prod
+      - run: npm run dev
+      - run: npm run prod
+
+  cypress:
+    runs-on: ubuntu-18.04
+    name: cypress
+    strategy:
+      fail-fast: false
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: ./.github/actions/setup-environment
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ env.PHP_VERSION }}
+          coverage: none
+          extensions: iconv, intl
+          ini-values: date.timezone=${{ env.TZ }}
+          tools: symfony
+
+      - uses: actions/setup-node@v2
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - uses: actions/cache@v2
+        with:
+          path: ${{ env.COMPOSER_CACHE_DIR }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: ${{ runner.os }}-composer-
+
+      - run: composer install --ansi --no-interaction --no-progress --prefer-dist --optimize-autoloader
+      - run: npm ci
+
+      # Start Symfony Server
+      - run: APP_ENV=test symfony serve --port 8000 --daemon
+      - run: echo "CYPRESS_BASE_URL=https://localhost:8000" >> $GITHUB_ENV
+
+      - name: Run Cypress
+        uses: cypress-io/github-action@v2
+        with:
+          spec: ${{ matrix.cypress.spec }}
+          # To uncomment when the project will be configured on Cypress Dashboard
+          #record: true
+          #parallel: true
+          #group: ${{ matrix.cypress.group }}
+        #env:
+        #    CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+
+      - name: Run Cypress
+        uses: cypress-io/github-action@v2
