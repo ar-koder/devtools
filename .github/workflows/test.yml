@@ -43,7 +43,7 @@ jobs:
 
       # Prepare tests
       - run: symfony console cache:clear
-      - run: APP_ENV=test symfony console doctrine:schema:validate --no-sync # force APP_ENV=test because only the test database is created
+      - run: APP_ENV=test symfony console doctrine:schema:validate --skip-sync # force APP_ENV=test because only the test database is created
       - run: symfony console api:swagger:export > /dev/null # Check if ApiPlatform is correctly configured
 
       # Init database
