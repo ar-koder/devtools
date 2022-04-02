@@ -6,3 +6,4 @@
 
 # BUILD FILES
 /node_modules/*
+/cypress/*

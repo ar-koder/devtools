@@ -1,4 +1,6 @@
 vendor/
+cypress/
+node_modules/
 public/
 var/
 assets/_generated
