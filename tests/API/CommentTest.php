@@ -9,7 +9,7 @@ class CommentTest extends ApiTestCase
 {
     public function testGetAll(): void
     {
-        $response = static::createClient()->request('GET', '/api/comments');
+        static::createClient()->request('GET', '/api/comments');
         $this->assertResponseIsSuccessful();
         $this->assertResponseHeaderSame('content-type', 'application/ld+json; charset=utf-8');
         $this->assertJsonContains([

@@ -9,7 +9,7 @@ class PostTest extends ApiTestCase
 {
     public function testGetAll(): void
     {
-        $response = static::createClient()->request('GET', '/api/posts');
+        static::createClient()->request('GET', '/api/posts');
         $this->assertResponseIsSuccessful();
         $this->assertResponseHeaderSame('content-type', 'application/ld+json; charset=utf-8');
         $this->assertJsonContains([
