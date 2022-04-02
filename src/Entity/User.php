@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use Doctrine\DBAL\Types\Types;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiSubresource;
 use App\Repository\UserRepository;
@@ -25,29 +26,38 @@ class User
     #[ORM\CustomIdGenerator(class: 'doctrine.uuid_generator')]
     private ?Uuid $id = null;
 
-    #[ORM\Column(type: 'string', length: 255)]
-    private $name;
+    #[ORM\Column(type: Types::STRING, length: 255)]
+    private ?string $name = null;
 
-    #[ORM\Column(type: 'string', length: 255)]
-    private $email;
+    #[ORM\Column(type: Types::STRING, length: 255)]
+    private ?string $email = null;
 
-    #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private $phone;
+    #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
+    private ?string $phone = null;
 
-    #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private $website;
+    #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
+    private ?string $website = null;
 
+    /**
+     * @var Collection<Post>
+     */
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Post::class, orphanRemoval: true)]
     #[ApiSubresource]
-    private $posts;
+    private Collection $posts;
 
+    /**
+     * @var Collection<Todo>
+     */
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Todo::class, orphanRemoval: true)]
     #[ApiSubresource]
-    private $todos;
+    private Collection $todos;
 
+    /**
+     * @var Collection<Album>
+     */
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Album::class, orphanRemoval: true)]
     #[ApiSubresource]
-    private $albums;
+    private Collection $albums;
 
     public function __construct()
     {
@@ -112,7 +122,7 @@ class User
     /**
      * @return Collection<int, Post>
      */
-    public function getPosts(): \Doctrine\Common\Collections\ArrayCollection
+    public function getPosts(): Collection
     {
         return $this->posts;
     }
@@ -140,7 +150,7 @@ class User
     /**
      * @return Collection<int, Todo>
      */
-    public function getTodos(): \Doctrine\Common\Collections\ArrayCollection
+    public function getTodos(): Collection
     {
         return $this->todos;
     }
@@ -168,7 +178,7 @@ class User
     /**
      * @return Collection<int, Album>
      */
-    public function getAlbums(): \Doctrine\Common\Collections\ArrayCollection
+    public function getAlbums(): Collection
     {
         return $this->albums;
     }

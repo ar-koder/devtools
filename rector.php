@@ -20,13 +20,12 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $containerConfigurator->import(LevelSetList::UP_TO_PHP_80);
     $containerConfigurator->import(SetList::DEAD_CODE);
     $containerConfigurator->import(SetList::CODE_QUALITY);
-    $containerConfigurator->import(SetList::CODING_STYLE);
 
     // get services (needed for register a single rule)
-    // $services = $containerConfigurator->services();
+    $services = $containerConfigurator->services();
 
     // register a single rule
-    // $services->set(TypedPropertyRector::class);
+    $services->set(\Rector\Php74\Rector\Property\TypedPropertyRector::class);
 
     // Symfony
     $containerConfigurator->import(SymfonySetList::SYMFONY_60);

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\DataFixtures;
 
+use Faker\Factory;
 use App\Entity\Album;
 use App\Entity\Photo;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -20,7 +21,7 @@ class PhotoFixtures extends Fixture implements DependentFixtureInterface
 
     public function load(ObjectManager $manager): void
     {
-        $faker = Faker\Factory::create('fr_FR');
+        $faker = Factory::create('fr_FR');
         for ($i = 0; $i < 5000; ++$i) {
             /** @var Album $album */
             $album = $this->getReference(sprintf('%s-%s', AlbumFixtures::REFERENCE, $faker->numberBetween(0, 99)));
@@ -37,7 +38,7 @@ class PhotoFixtures extends Fixture implements DependentFixtureInterface
     }
 
     /**
-     * @return array<class-string<\App\DataFixtures\AlbumFixtures>>
+     * @return array<class-string<AlbumFixtures>>
      */
     public function getDependencies(): array
     {

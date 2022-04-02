@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use Doctrine\DBAL\Types\Types;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiSubresource;
 use App\Repository\PostRepository;
@@ -25,19 +26,22 @@ class Post
     #[ORM\CustomIdGenerator(class: 'doctrine.uuid_generator')]
     private ?Uuid $id = null;
 
-    #[ORM\Column(type: 'string', length: 255)]
-    private $title;
+    #[ORM\Column(type: Types::STRING, length: 255)]
+    private ?string $title = null;
 
-    #[ORM\Column(type: 'text', nullable: true)]
-    private $body;
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $body = null;
 
+    /**
+     * @var Collection<Comment>
+     */
     #[ORM\OneToMany(mappedBy: 'post', targetEntity: Comment::class, orphanRemoval: true)]
     #[ApiSubresource]
-    private $comments;
+    private Collection $comments;
 
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'posts')]
     #[ORM\JoinColumn(nullable: false)]
-    private $user;
+    private ?User $user = null;
 
     public function __construct()
     {

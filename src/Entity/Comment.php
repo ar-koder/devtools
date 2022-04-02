@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use Doctrine\DBAL\Types\Types;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\CommentRepository;
 use Doctrine\ORM\Mapping as ORM;
@@ -22,18 +23,18 @@ class Comment
     #[ORM\CustomIdGenerator(class: 'doctrine.uuid_generator')]
     private ?Uuid $id = null;
 
-    #[ORM\Column(type: 'string', length: 255)]
-    private $title;
+    #[ORM\Column(type: Types::STRING, length: 255)]
+    private ?string $title = null;
 
-    #[ORM\Column(type: 'string', length: 255)]
-    private $email;
+    #[ORM\Column(type: Types::STRING, length: 255)]
+    private ?string $email = null;
 
-    #[ORM\Column(type: 'text')]
-    private $body;
+    #[ORM\Column(type: Types::TEXT)]
+    private ?string $body = null;
 
     #[ORM\ManyToOne(targetEntity: Post::class, inversedBy: 'comments')]
     #[ORM\JoinColumn(nullable: false)]
-    private $post;
+    private ?Post $post = null;
 
     public function getId(): ?Uuid
     {

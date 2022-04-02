@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 namespace App\Controller\Admin;
 
+use Iterator;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Menu\CrudMenuItem;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Menu\DashboardMenuItem;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Menu\SectionMenuItem;
 use App\Entity\Album;
 use App\Entity\Comment;
 use App\Entity\Photo;
@@ -22,8 +26,6 @@ class DashboardController extends AbstractDashboardController
     public function index(): Response
     {
         return $this->render('admin/dashboard.html.twig');
-
-        return parent::index();
 
         // Option 1. You can make your dashboard redirect to some common page of your backend
         //
@@ -49,7 +51,7 @@ class DashboardController extends AbstractDashboardController
     }
 
     /**
-     * @return \Iterator<\EasyCorp\Bundle\EasyAdminBundle\Config\Menu\CrudMenuItem|\EasyCorp\Bundle\EasyAdminBundle\Config\Menu\DashboardMenuItem|\EasyCorp\Bundle\EasyAdminBundle\Config\Menu\SectionMenuItem>
+     * @return Iterator<(CrudMenuItem | DashboardMenuItem | SectionMenuItem)>
      */
     public function configureMenuItems(): iterable
     {

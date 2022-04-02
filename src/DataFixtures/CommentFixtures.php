@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\DataFixtures;
 
+use Faker\Factory;
 use App\Entity\Comment;
 use App\Entity\Post;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -15,7 +16,7 @@ class CommentFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager): void
     {
-        $faker = Faker\Factory::create('fr_FR');
+        $faker = Factory::create('fr_FR');
         for ($i = 0; $i < 1000; ++$i) {
             /** @var Post $post */
             $post = $this->getReference(sprintf('%s-%s', PostFixtures::REFERENCE, $faker->numberBetween(0, 99)));
@@ -32,7 +33,7 @@ class CommentFixtures extends Fixture implements DependentFixtureInterface
     }
 
     /**
-     * @return array<class-string<\App\DataFixtures\PostFixtures>>
+     * @return array<class-string<PostFixtures>>
      */
     public function getDependencies(): array
     {

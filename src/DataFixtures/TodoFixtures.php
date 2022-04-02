@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\DataFixtures;
 
+use Faker\Factory;
 use App\Entity\Todo;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -15,7 +16,7 @@ class TodoFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager): void
     {
-        $faker = Faker\Factory::create('fr_FR');
+        $faker = Factory::create('fr_FR');
         for ($i = 0; $i < 200; ++$i) {
             /** @var User $user */
             $user = $this->getReference(sprintf('%s-%s', UserFixtures::REFERENCE, $faker->numberBetween(0, 9)));
@@ -30,7 +31,7 @@ class TodoFixtures extends Fixture implements DependentFixtureInterface
     }
 
     /**
-     * @return array<class-string<\App\DataFixtures\UserFixtures>>
+     * @return array<class-string<UserFixtures>>
      */
     public function getDependencies(): array
     {

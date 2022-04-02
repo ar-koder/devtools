@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use Doctrine\DBAL\Types\Types;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiSubresource;
 use App\Repository\AlbumRepository;
@@ -25,16 +26,19 @@ class Album
     #[ORM\CustomIdGenerator(class: 'doctrine.uuid_generator')]
     private ?Uuid $id = null;
 
-    #[ORM\Column(type: 'string', length: 255)]
-    private $title;
+    #[ORM\Column(type: Types::STRING, length: 255)]
+    private ?string $title = null;
 
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'albums')]
     #[ORM\JoinColumn(nullable: false)]
-    private $user;
+    private ?User $user = null;
 
+    /**
+     * @var Collection<Photo>
+     */
     #[ORM\OneToMany(mappedBy: 'album', targetEntity: Photo::class, orphanRemoval: true)]
     #[ApiSubresource]
-    private $photos;
+    private Collection $photos;
 
     public function __construct()
     {
@@ -73,7 +77,7 @@ class Album
     /**
      * @return Collection<int, Photo>
      */
-    public function getPhotos(): \Doctrine\Common\Collections\ArrayCollection
+    public function getPhotos(): Collection
     {
         return $this->photos;
     }
