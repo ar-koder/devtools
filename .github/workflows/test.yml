@@ -48,7 +48,7 @@ jobs:
 
       # Init database
       - run: symfony console doctrine:schema:validate --skip-sync
-      - run: symfony console doctrine:migrations:migrate -q
+      - run: symfony console doctrine:migrations:migrate --no-interaction
       - run: symfony console doctrine:schema:validate
       - run: symfony console doctrine:fixtures:load -vvv --no-interaction
 
