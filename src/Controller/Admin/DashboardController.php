@@ -4,10 +4,6 @@ declare(strict_types=1);
 
 namespace App\Controller\Admin;
 
-use Iterator;
-use EasyCorp\Bundle\EasyAdminBundle\Config\Menu\CrudMenuItem;
-use EasyCorp\Bundle\EasyAdminBundle\Config\Menu\DashboardMenuItem;
-use EasyCorp\Bundle\EasyAdminBundle\Config\Menu\SectionMenuItem;
 use App\Entity\Album;
 use App\Entity\Comment;
 use App\Entity\Photo;
@@ -15,8 +11,12 @@ use App\Entity\Post;
 use App\Entity\Todo;
 use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Menu\CrudMenuItem;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Menu\DashboardMenuItem;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Menu\SectionMenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
+use Iterator;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 

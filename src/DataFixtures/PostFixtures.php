@@ -4,19 +4,15 @@ declare(strict_types=1);
 
 namespace App\DataFixtures;
 
-use Faker\Factory;
 use App\Entity\Post;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
-use Faker;
+use Faker\Factory;
 
 class PostFixtures extends Fixture implements DependentFixtureInterface
 {
-    /**
-     * @var string
-     */
     public const REFERENCE = 'post';
 
     public function load(ObjectManager $manager): void

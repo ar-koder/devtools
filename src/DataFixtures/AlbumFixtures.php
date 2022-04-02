@@ -4,19 +4,15 @@ declare(strict_types=1);
 
 namespace App\DataFixtures;
 
-use Faker\Factory;
 use App\Entity\Album;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
-use Faker;
+use Faker\Factory;
 
 class AlbumFixtures extends Fixture implements DependentFixtureInterface
 {
-    /**
-     * @var string
-     */
     public const REFERENCE = 'album';
 
     public function load(ObjectManager $manager): void

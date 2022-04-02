@@ -4,17 +4,13 @@ declare(strict_types=1);
 
 namespace App\DataFixtures;
 
-use Faker\Factory;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
-use Faker;
+use Faker\Factory;
 
 class UserFixtures extends Fixture
 {
-    /**
-     * @var string
-     */
     public const REFERENCE = 'user';
 
     public function load(ObjectManager $manager): void

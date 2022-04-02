@@ -4,13 +4,12 @@ declare(strict_types=1);
 
 namespace App\DataFixtures;
 
-use Faker\Factory;
 use App\Entity\Todo;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
-use Faker;
+use Faker\Factory;
 
 class TodoFixtures extends Fixture implements DependentFixtureInterface
 {
