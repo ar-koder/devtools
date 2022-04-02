@@ -42,12 +42,11 @@ jobs:
       - run: npm install --no-audit
 
       # Prepare tests
-      - run: symfony console cache:clear
+      - run: APP_ENV=test symfony console cache:clear
 
       # Init database
-      - run: APP_ENV=test symfony console doctrine:schema:validate --skip-sync
+      - run: symfony console doctrine:schema:validate --skip-sync
       - run: APP_ENV=test symfony console doctrine:migrations:migrate --no-interaction
-      - run: APP_ENV=test symfony console doctrine:schema:validate
       - run: APP_ENV=test symfony console doctrine:fixtures:load -vvv --no-interaction
 
       # Lint Twig, Yaml and XLIFF files

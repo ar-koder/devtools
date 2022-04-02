@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20220331110302 extends AbstractMigration
+final class Version20220402131245 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -23,10 +23,18 @@ final class Version20220331110302 extends AbstractMigration
         $this->addSql('CREATE TABLE admin_user (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, email VARCHAR(180) NOT NULL, roles CLOB NOT NULL --(DC2Type:json)
         , password VARCHAR(255) NOT NULL)');
         $this->addSql('CREATE UNIQUE INDEX UNIQ_AD8A54A9E7927C74 ON admin_user (email)');
+        $this->addSql('CREATE TABLE album (id BLOB NOT NULL --(DC2Type:uuid)
+        , user_id BLOB NOT NULL --(DC2Type:uuid)
+        , title VARCHAR(255) NOT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE INDEX IDX_39986E43A76ED395 ON album (user_id)');
         $this->addSql('CREATE TABLE comment (id BLOB NOT NULL --(DC2Type:uuid)
         , post_id BLOB NOT NULL --(DC2Type:uuid)
         , title VARCHAR(255) NOT NULL, email VARCHAR(255) NOT NULL, body CLOB NOT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE INDEX IDX_9474526C4B89032C ON comment (post_id)');
+        $this->addSql('CREATE TABLE photo (id BLOB NOT NULL --(DC2Type:uuid)
+        , album_id BLOB NOT NULL --(DC2Type:uuid)
+        , title VARCHAR(255) NOT NULL, url VARCHAR(255) NOT NULL, thumbnail_url VARCHAR(255) NOT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE INDEX IDX_14B784181137ABCF ON photo (album_id)');
         $this->addSql('CREATE TABLE post (id BLOB NOT NULL --(DC2Type:uuid)
         , user_id BLOB NOT NULL --(DC2Type:uuid)
         , title VARCHAR(255) NOT NULL, body CLOB DEFAULT NULL, PRIMARY KEY(id))');
@@ -47,7 +55,9 @@ final class Version20220331110302 extends AbstractMigration
     {
         // this down() migration is auto-generated, please modify it to your needs
         $this->addSql('DROP TABLE admin_user');
+        $this->addSql('DROP TABLE album');
         $this->addSql('DROP TABLE comment');
+        $this->addSql('DROP TABLE photo');
         $this->addSql('DROP TABLE post');
         $this->addSql('DROP TABLE todo');
         $this->addSql('DROP TABLE user');
