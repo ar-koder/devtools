@@ -136,14 +136,10 @@ jobs:
 
       - name: Run Cypress
         uses: cypress-io/github-action@v2
-        with:
-          spec: ${{ matrix.cypress.spec }}
+        #with:
           # To uncomment when the project will be configured on Cypress Dashboard
           #record: true
           #parallel: true
           #group: ${{ matrix.cypress.group }}
         #env:
         #    CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
-
-      - name: Run Cypress
-        uses: cypress-io/github-action@v2
