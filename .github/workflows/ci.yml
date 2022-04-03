@@ -103,6 +103,9 @@ jobs:
 
   auto_approve_and_merge:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write 
     needs: [php, javascript, cypress]
     if: (github.actor == 'dependabot[bot]')
     steps:
