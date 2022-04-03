@@ -90,8 +90,9 @@ jobs:
           ref: ${{ github.event_name == 'pull_request_target' && github.event.pull_request.head.sha || '' }}
 
       - uses: ./.github/actions/setup-environment
-
       - run: echo "CYPRESS_BASE_URL=https://localhost:8000" >> $GITHUB_ENV
+      - run: APP_ENV=test symfony serve --port 8000 --daemon
+
 
       - name: Run Cypress
         if: ${{ env.IS_DEPENDABOT == 'false' && ! github.event.pull_request.draft }}
@@ -99,7 +100,6 @@ jobs:
         with:
           build: npm run build
           command: npm run cy:run
-          start: APP_ENV=test symfony serve --port 8000 --daemon
           wait-on: ${{ env.CYPRESS_BASE_URL }}
 
   auto_approve_and_merge:
