@@ -1,13 +1,13 @@
-name: CI - PR
+name: CI
 
 on:
   pull_request:
     types: [opened, synchronize, reopened, ready_for_review]
   pull_request_target:
     types: [opened, synchronize, reopened, ready_for_review]
-
-env:
-  TZ: Europe/Paris
+  push:
+    branches:
+      - "main"
 
 jobs:
   php:
@@ -24,32 +24,9 @@ jobs:
 
       - uses: ./.github/actions/setup-environment
 
-      - uses: shivammathur/setup-php@v2
-        with:
-          php-version: ${{ env.PHP_VERSION }}
-          coverage: none
-          extensions: iconv, intl
-          ini-values: date.timezone=${{ env.TZ }}
-          tools: symfony
-
-      - uses: actions/setup-node@v2
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-          cache: 'npm'
-
-      - uses: actions/cache@v2
-        with:
-          path: ${{ env.COMPOSER_CACHE_DIR }}
-          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
-          restore-keys: ${{ runner.os }}-composer-
-
       # Check dependencies
       - run: symfony composer validate
       - run: symfony check:security
-
-      # Install environment and application
-      - run: composer install --ansi --no-interaction --no-progress --prefer-dist --optimize-autoloader
-      - run: npm install --no-audit
 
       # Prepare tests
       - run: symfony console cache:clear
@@ -85,28 +62,6 @@ jobs:
 
       - uses: ./.github/actions/setup-environment
 
-      - uses: shivammathur/setup-php@v2
-        with:
-          php-version: ${{ env.PHP_VERSION }}
-          coverage: none
-          extensions: iconv, intl
-          ini-values: date.timezone=${{ env.TZ }}
-          tools: symfony
-
-      - uses: actions/setup-node@v2
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-          cache: 'npm'
-
-      - uses: actions/cache@v2
-        with:
-          path: ${{ env.COMPOSER_CACHE_DIR }}
-          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
-          restore-keys: ${{ runner.os }}-composer-
-
-      - run: composer install --ansi --no-interaction --no-progress --prefer-dist --optimize-autoloader
-      - run: npm install --no-audit
-
       # Lint files
       - run: npm run lint:js --no-fix
       - run: npm run lint:css --no-fix
@@ -126,9 +81,6 @@ jobs:
       (github.event_name != 'pull_request_target' && github.actor != 'dependabot[bot]')
     runs-on: ubuntu-latest
     name: cypress
-    strategy:
-      fail-fast: false
-
     steps:
       - uses: actions/checkout@v2
         with:
@@ -136,43 +88,16 @@ jobs:
 
       - uses: ./.github/actions/setup-environment
 
-      - uses: shivammathur/setup-php@v2
-        with:
-          php-version: ${{ env.PHP_VERSION }}
-          coverage: none
-          extensions: iconv, intl
-          ini-values: date.timezone=${{ env.TZ }}
-          tools: symfony
-
-      - uses: actions/setup-node@v2
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-          cache: 'npm'
-
-      - uses: actions/cache@v2
-        with:
-          path: ${{ env.COMPOSER_CACHE_DIR }}
-          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
-          restore-keys: ${{ runner.os }}-composer-
-
-      - run: composer install --ansi --no-interaction --no-progress --prefer-dist --optimize-autoloader
-      - run: npm install --no-audit
-
-      # Start Symfony Server
-      - run: APP_ENV=test symfony serve --port 8000 --daemon
       - run: echo "CYPRESS_BASE_URL=https://localhost:8000" >> $GITHUB_ENV
 
       - name: Run Cypress
         if: ${{ env.IS_DEPENDABOT == 'false' && ! github.event.pull_request.draft }}
         uses: cypress-io/github-action@v2
-          #with:
-          # To uncomment when the project will be configured on Cypress Dashboard
-          #record: true
-          #parallel: true
-        #group: ${{ matrix.cypress.group }}
-        #env:
-        #    CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
-
+        with:
+          build: npm run build
+          command: npm run cy:run
+          start: APP_ENV=test symfony serve --port 8000 --daemon
+          wait-on: ${{ env.CYPRESS_BASE_URL }}
 
   auto_approve_and_merge:
     runs-on: ubuntu-latest
