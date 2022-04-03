@@ -100,7 +100,6 @@ jobs:
         uses: cypress-io/github-action@v2
         with:
           build: npm run build
-          wait-on: ${{ env.CYPRESS_BASE_URL }}
 
   auto_approve_and_merge:
     runs-on: ubuntu-latest
