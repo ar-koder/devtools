@@ -117,9 +117,10 @@ jobs:
         uses: dependabot/fetch-metadata@v1.1.1
         with:
           github-token: '${{ secrets.GITHUB_TOKEN }}'
-      - uses: ahmadnassri/action-dependabot-auto-merge@v2
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - run: gh pr merge --auto --merge "$PR_URL"
+        env:
+          PR_URL: ${{github.event.pull_request.html_url}}
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
   deploy-staging:
     runs-on: ubuntu-latest
