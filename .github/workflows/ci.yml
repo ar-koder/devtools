@@ -70,7 +70,7 @@ jobs:
 
       # Build assets for dev and prod
       - run: npm run dev
-      - run: npm run prod
+      - run: npm run build
 
   cypress:
     # If the PR is coming from a fork (pull_request_target), ensure it's opened by "dependabot[bot]".
