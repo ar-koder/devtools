@@ -1,0 +1,50 @@
+# https://docs.github.com/en/actions
+
+name: Deploy
+
+on: # yamllint disable-line rule:truthy
+  workflow_dispatch:
+    inputs:
+      HOST:
+        required: true
+        type: choice
+        description: ""
+        options:
+          - production
+          - staging
+      environment:
+        description: 'Environment to run tests against'
+        type: environment
+        required: false
+      TAG:
+        description: ""
+        required: false
+        type: string
+      REVISION:
+        description: ""
+        required: false
+        type: string
+      BRANCH:
+        description: ""
+        required: false
+        type: string
+    secrets:
+      PRIVATE_KEY:
+        required: true
+
+# It is important to specify "concurrency" for the workflow,
+# to prevent concurrency between different deploys.
+concurrency: production_environment
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.inputs.HOST && (github.event.inputs.TAG || github.event.inputs.REVISION || github.event.inputs.BRANCH) }}
+    steps:
+      - uses: ./.github/workflows/deploy.yml
+        with:
+          HOST: ${{ github.event.inputs.HOST }}
+          TAG: ${{ github.event.inputs.TAG }}
+          REVISION: ${{ github.event.inputs.REVISION }}
+          BRANCH: ${{ github.event.inputs.BRANCH }}
+          PRIVATE_KEY: ${{ github.event.secrets.PRIVATE_KEY }}

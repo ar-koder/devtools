@@ -7,10 +7,7 @@ on: # yamllint disable-line rule:truthy
     inputs:
       HOST:
         required: true
-        type: choice
-        options:
-          - production
-          - staging
+        type: string
       TAG:
         required: false
         type: string
