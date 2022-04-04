@@ -21,9 +21,6 @@ on: # yamllint disable-line rule:truthy
         required: false
         default: "main"
         type: string
-    secrets:
-      PRIVATE_KEY:
-        required: true
 
 jobs:
   deploy:
@@ -33,5 +30,4 @@ jobs:
       HOST: ${{ github.event.inputs.HOST }}
       TAG: ${{ github.event.inputs.TAG }}
       BRANCH: ${{ github.event.inputs.BRANCH }}
-    secrets:
-      PRIVATE_KEY: ${{ github.event.secrets.PRIVATE_KEY }}
+      PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
