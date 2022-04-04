@@ -1,6 +1,14 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-composer validate
-php bin/phpunit
-npx lint-staged --relative
+if which composer >/dev/null; then
+  composer validate
+fi
+
+if which php >/dev/null; then
+  php bin/phpunit
+fi
+
+if which npx >/dev/null; then
+  npx lint-staged --relative
+fi

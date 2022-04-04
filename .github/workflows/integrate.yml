@@ -49,7 +49,7 @@ jobs:
       - run: npm run lint:css --no-fix
 
       # Tests
-      - run: npm run test:unit
+      - run: npm run test:unit --if-present
 
       # Build assets for dev and prod
       - run: npm run dev

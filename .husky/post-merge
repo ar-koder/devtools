@@ -1,5 +1,10 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-composer install --ansi --no-interaction --no-progress --prefer-dist --optimize-autoloader
-npm install
+if which composer >/dev/null; then
+  composer install --ansi --no-interaction --no-progress --prefer-dist --optimize-autoloader
+fi
+
+if which npm >/dev/null; then
+  npm install
+fi
