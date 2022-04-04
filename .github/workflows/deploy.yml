@@ -37,11 +37,11 @@ jobs:
         uses: deployphp/action@v1
         with:
           private-key: ${{ secrets.PRIVATE_KEY }}
-          dep: deploy --tag=${{ inputs.TAG }} -n
+          dep: deploy --tag=${{ inputs.TAG }} -n ${{ inputs.HOST }}
 
       - name: Deploy branch ${{ inputs.BRANCH }}
         if: ${{ inputs.BRANCH }}
         uses: deployphp/action@v1
         with:
           private-key: ${{ secrets.PRIVATE_KEY }}
-          dep: deploy --branch=${{ inputs.BRANCH }} -n
+          dep: deploy --branch=${{ inputs.BRANCH }} -n ${{ inputs.HOST }}
