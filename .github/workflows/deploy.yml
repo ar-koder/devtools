@@ -1,6 +1,6 @@
 # https://docs.github.com/en/actions
 
-name: Deploy
+name: Manual deploy
 
 on: # yamllint disable-line rule:truthy
   workflow_call:
@@ -16,6 +16,7 @@ on: # yamllint disable-line rule:truthy
         type: string
       BRANCH:
         required: false
+        default: "main"
         type: string
     secrets:
       PRIVATE_KEY:

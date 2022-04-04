@@ -12,10 +12,6 @@ on: # yamllint disable-line rule:truthy
         options:
           - production
           - staging
-      environment:
-        description: 'Environment to run tests against'
-        type: environment
-        required: false
       TAG:
         description: ""
         required: false
