@@ -11,9 +11,6 @@ on: # yamllint disable-line rule:truthy
       TAG:
         required: false
         type: string
-      REVISION:
-        required: false
-        type: string
       BRANCH:
         required: false
         default: "main"

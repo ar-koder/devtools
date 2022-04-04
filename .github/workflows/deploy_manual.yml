@@ -25,10 +25,6 @@ on: # yamllint disable-line rule:truthy
       PRIVATE_KEY:
         required: true
 
-# It is important to specify "concurrency" for the workflow,
-# to prevent concurrency between different deploys.
-concurrency: production_environment
-
 jobs:
   deploy:
     if: ${{ github.event.inputs.HOST && (github.event.inputs.TAG || github.event.inputs.BRANCH) }}
