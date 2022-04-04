@@ -1,9 +1,11 @@
+# https://docs.github.com/en/actions
+
+name: Release
+
 on:
   push:
     tags:
       - '*'
-
-name: Release
 
 jobs:
   integrate:
