@@ -24,9 +24,6 @@ on: # yamllint disable-line rule:truthy
 # to prevent concurrency between different deploys.
 concurrency: production_environment
 
-env:
-  PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
-
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -39,12 +36,12 @@ jobs:
         if: ${{ inputs.TAG }}
         uses: deployphp/action@v1
         with:
-          private-key: ${{ env.PRIVATE_KEY }}
+          private-key: ${{ secrets.PRIVATE_KEY }}
           dep: deploy --tag=${{ inputs.TAG }} -n
 
       - name: Deploy branch ${{ inputs.BRANCH }}
         if: ${{ inputs.BRANCH }}
         uses: deployphp/action@v1
         with:
-          private-key: ${{ env.PRIVATE_KEY }}
+          private-key: ${{ secrets.PRIVATE_KEY }}
           dep: deploy --branch=${{ inputs.BRANCH }} -n
