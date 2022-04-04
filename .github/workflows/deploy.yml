@@ -1,0 +1,58 @@
+# https://docs.github.com/en/actions
+
+name: Deploy
+
+on: # yamllint disable-line rule:truthy
+  workflow_call:
+    inputs:
+      HOST:
+        required: true
+        type: choice
+        options:
+          - production
+          - staging
+      TAG:
+        required: false
+        type: string
+      REVISION:
+        required: false
+        type: string
+      BRANCH:
+        required: false
+        type: string
+    secrets:
+      PRIVATE_KEY:
+        required: true
+
+# It is important to specify "concurrency" for the workflow,
+# to prevent concurrency between different deploys.
+concurrency: production_environment
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    if: ${{ inputs.HOST && (inputs.TAG || inputs.REVISION || inputs.REVISION) }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./.github/actions/setup-environment
+
+      - name: Deploy tag ${{ inputs.TAG }}
+        if: ${{ inputs.TAG }}
+        uses: deployphp/action@v1
+        with:
+          private-key: ${{ secrets.PRIVATE_KEY }}
+          dep: deploy --tag=${{ inputs.TAG }} -n
+
+      - name: Deploy revision ${{ inputs.REVISION }}
+        if: ${{ inputs.REVISION }}
+        uses: deployphp/action@v1
+        with:
+          private-key: ${{ secrets.PRIVATE_KEY }}
+          dep: deploy --revision=${{ inputs.REVISION }} -n
+
+      - name: Deploy branch ${{ inputs.BRANCH }}
+        if: ${{ inputs.BRANCH }}
+        uses: deployphp/action@v1
+        with:
+          private-key: ${{ secrets.PRIVATE_KEY }}
+          dep: deploy --branch=${{ inputs.BRANCH }} -n

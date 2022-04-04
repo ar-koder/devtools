@@ -3,7 +3,7 @@
     "description": "symfony-demo",
     "type": "project",
     "license": "proprietary",
-    "minimum-stability": "stable",
+    "minimum-stability": "RC",
     "prefer-stable": true,
     "require": {
         "php": ">=8.0",
@@ -107,6 +107,7 @@
         }
     },
     "require-dev": {
+        "deployer/deployer": "^7",
         "doctrine/doctrine-fixtures-bundle": "^3.4",
         "fzaninotto/faker": "^1.5",
         "justinrainbow/json-schema": "^5.2",
