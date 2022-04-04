@@ -1,0 +1,27 @@
+on:
+  push:
+    tags:
+      - '*'
+
+name: Release
+
+jobs:
+  integrate:
+    uses: ./.github/workflows/integrate.yml
+  build:
+    name: Release
+    needs: integrate
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          draft: false
+          prerelease: false
