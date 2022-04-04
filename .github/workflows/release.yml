@@ -27,3 +27,8 @@ jobs:
           release_name: Release ${{ github.ref }}
           draft: false
           prerelease: false
+      - uses: ./.github/actions/deploy
+        with:
+          HOST: staging
+          BRANCH: main
+          PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}

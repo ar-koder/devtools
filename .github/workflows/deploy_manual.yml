@@ -19,6 +19,7 @@ on: # yamllint disable-line rule:truthy
       BRANCH:
         description: ""
         required: false
+        default: "main"
         type: string
     secrets:
       PRIVATE_KEY:
@@ -35,7 +36,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - uses: ./.github/workflows/deploy.yml
+      - uses: ./.github/actions/deploy
         with:
           HOST: ${{ github.event.inputs.HOST }}
           TAG: ${{ github.event.inputs.TAG }}
