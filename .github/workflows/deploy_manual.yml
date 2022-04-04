@@ -31,14 +31,11 @@ concurrency: production_environment
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest
     if: ${{ github.event.inputs.HOST && (github.event.inputs.TAG || github.event.inputs.BRANCH) }}
-    steps:
-      - uses: actions/checkout@v3
-
-      - uses: ./.github/actions/deploy
-        with:
-          HOST: ${{ github.event.inputs.HOST }}
-          TAG: ${{ github.event.inputs.TAG }}
-          BRANCH: ${{ github.event.inputs.BRANCH }}
-          PRIVATE_KEY: ${{ github.event.secrets.PRIVATE_KEY }}
+    uses: ./.github/actions/deploy.yml@main
+    with:
+      HOST: ${{ github.event.inputs.HOST }}
+      TAG: ${{ github.event.inputs.TAG }}
+      BRANCH: ${{ github.event.inputs.BRANCH }}
+    secrets:
+      PRIVATE_KEY: ${{ github.event.secrets.PRIVATE_KEY }}
