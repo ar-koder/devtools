@@ -19,9 +19,13 @@ on: # yamllint disable-line rule:truthy
       PRIVATE_KEY:
         required: true
 
+
 # It is important to specify "concurrency" for the workflow,
 # to prevent concurrency between different deploys.
 concurrency: production_environment
+
+env:
+  PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
 
 jobs:
   deploy:
@@ -35,12 +39,12 @@ jobs:
         if: ${{ inputs.TAG }}
         uses: deployphp/action@v1
         with:
-          private-key: ${{ secrets.PRIVATE_KEY }}
+          private-key: ${{ env.PRIVATE_KEY }}
           dep: deploy --tag=${{ inputs.TAG }} -n
 
       - name: Deploy branch ${{ inputs.BRANCH }}
         if: ${{ inputs.BRANCH }}
         uses: deployphp/action@v1
         with:
-          private-key: ${{ secrets.PRIVATE_KEY }}
+          private-key: ${{ env.PRIVATE_KEY }}
           dep: deploy --branch=${{ inputs.BRANCH }} -n

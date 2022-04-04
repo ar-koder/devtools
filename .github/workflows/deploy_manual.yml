@@ -30,4 +30,3 @@ jobs:
       HOST: ${{ github.event.inputs.HOST }}
       TAG: ${{ github.event.inputs.TAG }}
       BRANCH: ${{ github.event.inputs.BRANCH }}
-      PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
