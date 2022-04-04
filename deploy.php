@@ -18,6 +18,12 @@ host('production')
     ->set('remote_user', 'af58e_aritti')
     ->set('deploy_path', '~/sites/json-placeholder.arnaud-ritti.fr');
 
+host('staging')
+    ->set('port', '22')
+    ->set('hostname', 'af58e.ftp.infomaniak.com')
+    ->set('remote_user', 'af58e_aritti')
+    ->set('deploy_path', '~/sites/json-placeholder.staging.arnaud-ritti.fr');
+
 // Tasks
 task('npm:build', function () {
     runLocally('npm run build');
