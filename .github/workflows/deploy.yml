@@ -1,6 +1,6 @@
 # https://docs.github.com/en/actions
 
-name: Manual deploy
+name: Deploy
 
 on: # yamllint disable-line rule:truthy
   workflow_call:
@@ -29,7 +29,7 @@ concurrency: production_environment
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    if: ${{ inputs.HOST && (inputs.TAG || inputs.REVISION || inputs.REVISION) }}
+    if: ${{ inputs.HOST && (inputs.TAG || inputs.BRANCH) }}
     steps:
       - uses: actions/checkout@v3
       - uses: ./.github/actions/setup-environment
@@ -40,13 +40,6 @@ jobs:
         with:
           private-key: ${{ secrets.PRIVATE_KEY }}
           dep: deploy --tag=${{ inputs.TAG }} -n
-
-      - name: Deploy revision ${{ inputs.REVISION }}
-        if: ${{ inputs.REVISION }}
-        uses: deployphp/action@v1
-        with:
-          private-key: ${{ secrets.PRIVATE_KEY }}
-          dep: deploy --revision=${{ inputs.REVISION }} -n
 
       - name: Deploy branch ${{ inputs.BRANCH }}
         if: ${{ inputs.BRANCH }}

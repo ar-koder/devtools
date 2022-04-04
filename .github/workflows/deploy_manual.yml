@@ -16,10 +16,6 @@ on: # yamllint disable-line rule:truthy
         description: ""
         required: false
         type: string
-      REVISION:
-        description: ""
-        required: false
-        type: string
       BRANCH:
         description: ""
         required: false
@@ -35,12 +31,11 @@ concurrency: production_environment
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    if: ${{ github.event.inputs.HOST && (github.event.inputs.TAG || github.event.inputs.REVISION || github.event.inputs.BRANCH) }}
+    if: ${{ github.event.inputs.HOST && (github.event.inputs.TAG || github.event.inputs.BRANCH) }}
     steps:
       - uses: ./.github/workflows/deploy.yml
         with:
           HOST: ${{ github.event.inputs.HOST }}
           TAG: ${{ github.event.inputs.TAG }}
-          REVISION: ${{ github.event.inputs.REVISION }}
           BRANCH: ${{ github.event.inputs.BRANCH }}
           PRIVATE_KEY: ${{ github.event.secrets.PRIVATE_KEY }}
