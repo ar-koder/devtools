@@ -1,0 +1,30 @@
+# https://docs.github.com/en/actions
+
+name: Deploy
+
+on: # yamllint disable-line rule:truthy
+  workflow_call:
+    inputs:
+      username:
+        required: true
+        type: string
+    secrets:
+      PRIVATE_KEY:
+        required: true
+
+# It is important to specify "concurrency" for the workflow,
+# to prevent concurrency between different deploys.
+concurrency: production_environment
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./.github/actions/setup-environment
+
+      - name: Deploy
+        uses: deployphp/action@v1
+        with:
+          private-key: ${{ secrets.PRIVATE_KEY }}
+          dep: deploy
