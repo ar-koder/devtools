@@ -32,7 +32,7 @@ concurrency: production_environment
 jobs:
   deploy:
     if: ${{ github.event.inputs.HOST && (github.event.inputs.TAG || github.event.inputs.BRANCH) }}
-    uses: ./.github/actions/deploy.yml@main
+    uses: ./.github/workflows/deploy.yml@main
     with:
       HOST: ${{ github.event.inputs.HOST }}
       TAG: ${{ github.event.inputs.TAG }}
