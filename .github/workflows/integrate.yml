@@ -1,37 +1,18 @@
-name: CI
+# https://docs.github.com/en/actions
 
-on:
-  pull_request:
-    types: [opened, synchronize, reopened, ready_for_review]
-    branches:
-      - "main"
-  pull_request_target:
-    types: [opened, synchronize, reopened, ready_for_review]
-    branches:
-      - "main"
+name: "Integrate"
+
+on: # yamllint disable-line rule:truthy
+  pull_request: null
   push:
     branches:
       - "main"
 
-permissions:
-  pull-requests: write
-  issues: write
-  repository-projects: write
-  contents: write
-
 jobs:
   php:
-    # If the PR is coming from a fork (pull_request_target), ensure it's opened by "dependabot[bot]".
-    # Otherwise, clone it normally.
-    if: |
-      (github.event_name == 'pull_request_target' && github.actor == 'dependabot[bot]') ||
-      (github.event_name != 'pull_request_target' && github.actor != 'dependabot[bot]')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-        with:
-          ref: ${{ github.event_name == 'pull_request_target' && github.event.pull_request.head.sha || '' }}
-
       - uses: ./.github/actions/setup-environment
 
       # Check dependencies
@@ -58,17 +39,9 @@ jobs:
       - run: APP_ENV=test symfony php bin/phpunit # See https://github.com/symfony/symfony-docs/pull/15228
 
   javascript:
-    # If the PR is coming from a fork (pull_request_target), ensure it's opened by "dependabot[bot]".
-    # Otherwise, clone it normally.
-    if: |
-      (github.event_name == 'pull_request_target' && github.actor == 'dependabot[bot]') ||
-      (github.event_name != 'pull_request_target' && github.actor != 'dependabot[bot]')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-        with:
-          ref: ${{ github.event_name == 'pull_request_target' && github.event.pull_request.head.sha || '' }}
-
       - uses: ./.github/actions/setup-environment
 
       # Lint files
@@ -83,18 +56,10 @@ jobs:
       - run: npm run build
 
   cypress:
-    # If the PR is coming from a fork (pull_request_target), ensure it's opened by "dependabot[bot]".
-    # Otherwise, clone it normally.
-    if: |
-      (github.event_name == 'pull_request_target' && github.actor == 'dependabot[bot]') ||
-      (github.event_name != 'pull_request_target' && github.actor != 'dependabot[bot]')
     runs-on: ubuntu-latest
     name: cypress
     steps:
       - uses: actions/checkout@v3
-        with:
-          ref: ${{ github.event_name == 'pull_request_target' && github.event.pull_request.head.sha || '' }}
-
       - uses: ./.github/actions/setup-environment
 
       # Start Symfony Server
