@@ -1,0 +1,23 @@
+monitors:
+  production:
+    policy_id: '123456'
+    name: "JSON Placeholder"
+    type: "SIMPLE"
+    frequency: 10
+    uri: https://json-placeholder.arnaud-ritti.fr
+    locations: 2
+    status: "ENABLED"
+    options:
+      verifySSL: true
+
+  staging:
+    policy_id: '123456'
+    name: "JSON Placeholder (staging)"
+    type: "SIMPLE"
+    frequency: 10
+    uri: https://json-placeholder.staging.arnaud-ritti.fr
+    locations: 2
+    status: "MUTED"
+    options:
+      verifySSL: true
+

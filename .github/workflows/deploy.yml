@@ -86,6 +86,6 @@ jobs:
     steps:
       - uses: arnaud-ritti/nr-monit@main
         with:
-          config: "_monitors.yml"
+          config: ".github/monitors.yml"
           api_key: ${{ secrets.NEW_RELIC_API_KEY }}
           eu_server: true
