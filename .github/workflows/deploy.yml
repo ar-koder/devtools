@@ -79,9 +79,15 @@ jobs:
           ignore_missing: true
           ignore_empty: true
 
+
+
+  new-relic:
+    runs-on: ubuntu-latest
+    needs: deploy
+    steps:
+      - uses: actions/checkout@v3
       - uses: arnaud-ritti/nr-monit@main
         with:
           config: ".github/monitors.yml"
           api_key: ${{ secrets.NEW_RELIC_API_KEY }}
           eu_server: true
-
