@@ -48,7 +48,7 @@ jobs:
           dep: deploy --tag=${{ inputs.TAG }} -n -vvv ${{ inputs.HOST }}
 
       - name: Deploy branch ${{ inputs.BRANCH }} to ${{ inputs.HOST }}
-        if: ${{ inputs.BRANCH }}
+        if: ${{ inputs.BRANCH && !inputs.TAG }}
         uses: deployphp/action@v1
         with:
           private-key: ${{ secrets.PRIVATE_KEY }}
