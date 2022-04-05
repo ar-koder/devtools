@@ -16,6 +16,7 @@ host('production')
     ->set('port', '22')
     ->set('hostname', 'af58e.ftp.infomaniak.com')
     ->set('remote_user', 'af58e_aritti')
+    ->set('http_user', 'uid196930')
     ->set('deploy_path', '~/sites/json-placeholder.arnaud-ritti.fr')
 ;
 
@@ -23,6 +24,7 @@ host('staging')
     ->set('port', '22')
     ->set('hostname', 'af58e.ftp.infomaniak.com')
     ->set('remote_user', 'af58e_aritti')
+    ->set('http_user', 'uid196930')
     ->set('deploy_path', '~/sites/json-placeholder.staging.arnaud-ritti.fr')
 ;
 
