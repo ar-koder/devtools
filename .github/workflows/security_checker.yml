@@ -8,7 +8,10 @@ on: # yamllint disable-line rule:truthy
       HOST:
         description: ""
         required: true
-        type: string
+        type: choice
+        options:
+          - 'http://json-placeholder.arnaud-ritti.fr/'
+          - 'http://json-placeholder.staging.arnaud-ritti.fr/'
       FULL_SCAN:
         description: ""
         required: false
