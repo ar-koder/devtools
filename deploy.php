@@ -16,13 +16,23 @@ host('production')
     ->set('port', '22')
     ->set('hostname', 'af58e.ftp.infomaniak.com')
     ->set('remote_user', 'af58e_aritti')
-    ->set('deploy_path', '~/sites/json-placeholder.arnaud-ritti.fr');
+    ->set('deploy_path', '~/sites/json-placeholder.arnaud-ritti.fr')
+    ->forwardAgent(true)
+    ->multiplexing(true)
+    ->addSshOption('UserKnownHostsFile', '/dev/null')
+    ->addSshOption('StrictHostKeyChecking', 'no')
+;
 
 host('staging')
     ->set('port', '22')
     ->set('hostname', 'af58e.ftp.infomaniak.com')
     ->set('remote_user', 'af58e_aritti')
-    ->set('deploy_path', '~/sites/json-placeholder.staging.arnaud-ritti.fr');
+    ->set('deploy_path', '~/sites/json-placeholder.staging.arnaud-ritti.fr')
+    ->forwardAgent(true)
+    ->multiplexing(true)
+    ->addSshOption('UserKnownHostsFile', '/dev/null')
+    ->addSshOption('StrictHostKeyChecking', 'no')
+    ;
 
 // Tasks
 task('npm:build', function () {
