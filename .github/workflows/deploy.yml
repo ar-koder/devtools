@@ -24,6 +24,9 @@ on: # yamllint disable-line rule:truthy
         required: false
       SENTRY_PROJECT:
         required: false
+      NEW_RELIC_API_KEY:
+        required: false
+
 
 # It is important to specify "concurrency" for the workflow,
 # to prevent concurrency between different deploys.
@@ -81,6 +84,7 @@ jobs:
   monitoring:
     runs-on: ubuntu-latest
     needs: deploy
+    if: ${{ secrets.NEW_RELIC_API_KEY }}
     steps:
       - uses: arnaud-ritti/nr-monit@main
         with:

@@ -23,17 +23,17 @@ jobs:
         uses: actions/checkout@v3
 
       - name: ZAP Scan
-        if: ${{ input.FULL_SCAN == false }}
+        if: ${{ github.event.inputs.FULL_SCAN == false }}
         uses: zaproxy/action-baseline@v0.6.1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          target: ${{ input.HOST }}
+          target: ${{ github.event.inputs.HOST }}
           cmd_options: '-z "-config view.locale=fr_FR"'
 
       - name: ZAP Scan
-        if: ${{ input.FULL_SCAN == true }}
+        if: ${{ github.event.inputs.FULL_SCAN == true }}
         uses: zaproxy/action-full-scan@v0.3.0
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          target: ${{ input.HOST }}
+          target: ${{ github.event.inputs.HOST }}
           cmd_options: '-z "-config view.locale=fr_FR"'
