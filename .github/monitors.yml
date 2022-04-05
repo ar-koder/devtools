@@ -1,6 +1,6 @@
 monitors:
   production:
-    policy_id: '123456'
+    policy_id: '114560'
     name: "JSON Placeholder"
     type: "SIMPLE"
     frequency: 10
@@ -11,7 +11,7 @@ monitors:
       verifySSL: true
 
   staging:
-    policy_id: '123456'
+    policy_id: '114560'
     name: "JSON Placeholder (staging)"
     type: "SIMPLE"
     frequency: 10
