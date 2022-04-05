@@ -24,7 +24,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
+          release_name: Release ${{ github.ref_name }}
           draft: false
           prerelease: false
   deploy:
@@ -32,7 +32,7 @@ jobs:
     needs: build
     with:
       HOST: staging
-      TAG: ${{ github.ref }}
+      TAG: ${{ github.ref_name }}
     secrets:
       PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
       SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
