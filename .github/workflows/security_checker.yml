@@ -1,0 +1,39 @@
+# https://docs.github.com/en/actions
+
+name: Deploy manually
+
+on: # yamllint disable-line rule:truthy
+  workflow_dispatch:
+    inputs:
+      HOST:
+        description: ""
+        required: true
+        type: string
+      FULL_SCAN:
+        description: ""
+        required: false
+        type: boolean
+
+jobs:
+  zap_scan:
+    runs-on: ubuntu-latest
+    name: Scan the webapplication
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: ZAP Scan
+        if: ${{ input.FULL_SCAN == false }}
+        uses: zaproxy/action-baseline@v0.6.1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          target: ${{ input.HOST }}
+          cmd_options: '-z "-config view.locale=fr_FR"'
+
+      - name: ZAP Scan
+        if: ${{ input.FULL_SCAN == true }}
+        uses: zaproxy/action-full-scan@v0.3.0
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          target: ${{ input.HOST }}
+          cmd_options: '-z "-config view.locale=fr_FR"'
