@@ -27,3 +27,15 @@ jobs:
           release_name: Release ${{ github.ref }}
           draft: false
           prerelease: false
+  deploy:
+    uses: ./.github/workflows/deploy.yml
+    needs: build
+    with:
+      HOST: staging
+      TAG: ${{ github.ref }}
+    secrets:
+      PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
+      SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+      SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
+      SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
+      NEW_RELIC_API_KEY: ${{ secrets.NEW_RELIC_API_KEY }}

@@ -1,0 +1,38 @@
+# https://docs.github.com/en/actions
+
+name: Deploy manually
+
+on: # yamllint disable-line rule:truthy
+  workflow_dispatch:
+    inputs:
+      HOST:
+        required: true
+        type: choice
+        description: ""
+        options:
+          - production
+          - staging
+      TAG:
+        description: ""
+        required: false
+        type: string
+      BRANCH:
+        description: ""
+        required: false
+        default: "main"
+        type: string
+
+jobs:
+  deploy:
+    if: ${{ github.event.inputs.HOST && (github.event.inputs.TAG || github.event.inputs.BRANCH) }}
+    uses: ./.github/workflows/deploy.yml
+    with:
+      HOST: ${{ github.event.inputs.HOST }}
+      TAG: ${{ github.event.inputs.TAG }}
+      BRANCH: ${{ github.event.inputs.BRANCH }}
+    secrets:
+      PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
+      SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+      SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
+      SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
+      NEW_RELIC_API_KEY: ${{ secrets.NEW_RELIC_API_KEY }}
