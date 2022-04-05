@@ -45,14 +45,14 @@ jobs:
         uses: deployphp/action@v1
         with:
           private-key: ${{ secrets.PRIVATE_KEY }}
-          dep: deploy --tag=${{ inputs.TAG }} -n -vv ${{ inputs.HOST }}
+          dep: deploy --tag=${{ inputs.TAG }} -n -vvv ${{ inputs.HOST }}
 
       - name: Deploy branch ${{ inputs.BRANCH }} to ${{ inputs.HOST }}
         if: ${{ inputs.BRANCH }}
         uses: deployphp/action@v1
         with:
           private-key: ${{ secrets.PRIVATE_KEY }}
-          dep: deploy --branch=${{ inputs.BRANCH }} -n -vv ${{ inputs.HOST }}
+          dep: deploy --branch=${{ inputs.BRANCH }} -n -vvv ${{ inputs.HOST }}
 
 
   sentry:
