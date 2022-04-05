@@ -63,6 +63,8 @@ jobs:
           SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
         with:
           environment: ${{ inputs.HOST }}
+          ignore_missing: true
+          ignore_empty: true
 
       - name: Create Sentry release for ${{ inputs.TAG }}
         if: ${{ inputs.TAG }}
@@ -74,6 +76,8 @@ jobs:
         with:
           environment: ${{ inputs.HOST }}
           version: ${{ inputs.TAG }}
+          ignore_missing: true
+          ignore_empty: true
 
       - uses: arnaud-ritti/nr-monit@main
         with:
