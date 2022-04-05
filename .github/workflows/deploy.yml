@@ -54,14 +54,30 @@ jobs:
 #          private-key: ${{ secrets.PRIVATE_KEY }}
 #          dep: deploy --branch=${{ inputs.BRANCH }} -n -vvv ${{ inputs.HOST }}
 
-      - uses: ./.github/workflows/sentry.yml
+      - name: Create Sentry release for ${{ inputs.BRANCH }}
+        if: ${{ inputs.BRANCH }}
+        uses: getsentry/action-release@v1
+        env:
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
+          SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
         with:
-          HOST: ${{ inputs.HOST }}
-          TAG: ${{ inputs.TAG }}
-          BRANCH: ${{ inputs.BRANCH }}
+          environment: ${{ inputs.HOST }}
 
-      - uses: ./.github/workflows/new_relic.yml
+      - name: Create Sentry release for ${{ inputs.TAG }}
+        if: ${{ inputs.TAG }}
+        uses: getsentry/action-release@v1
+        env:
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
+          SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
         with:
-          HOST: ${{ inputs.HOST }}
-          TAG: ${{ inputs.TAG }}
-          BRANCH: ${{ inputs.BRANCH }}
+          environment: ${{ inputs.HOST }}
+          version: ${{ inputs.TAG }}
+
+      - uses: arnaud-ritti/nr-monit@main
+        with:
+          config: ".github/monitors.yml"
+          api_key: ${{ secrets.NEW_RELIC_API_KEY }}
+          eu_server: true
+
