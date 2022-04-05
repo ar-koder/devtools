@@ -1,6 +1,6 @@
 # https://docs.github.com/en/actions
 
-name: Deploy
+name: Sentry release
 
 on: # yamllint disable-line rule:truthy
   workflow_call:
@@ -29,6 +29,7 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ inputs.HOST && (inputs.TAG || inputs.BRANCH) }}
     steps:
+      - uses: actions/checkout@v3
       - name: Create Sentry release for ${{ inputs.BRANCH }}
         if: ${{ inputs.BRANCH }}
         uses: getsentry/action-release@v1

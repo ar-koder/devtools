@@ -1,6 +1,6 @@
 # https://docs.github.com/en/actions
 
-name: Deploy
+name: New Relic monitoring
 
 on: # yamllint disable-line rule:truthy
   workflow_call:
@@ -14,6 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: deploy
     steps:
+      - uses: actions/checkout@v3
       - uses: arnaud-ritti/nr-monit@main
         with:
           config: ".github/monitors.yml"
