@@ -38,21 +38,21 @@ jobs:
     if: ${{ inputs.HOST && (inputs.TAG || inputs.BRANCH) }}
     steps:
       - uses: actions/checkout@v3
-#      - uses: ./.github/actions/setup-environment
-#
-#      - name: Deploy tag ${{ inputs.TAG }} to ${{ inputs.HOST }}
-#        if: ${{ inputs.TAG }}
-#        uses: deployphp/action@v1
-#        with:
-#          private-key: ${{ secrets.PRIVATE_KEY }}
-#          dep: deploy --tag=${{ inputs.TAG }} -n -vvv ${{ inputs.HOST }}
-#
-#      - name: Deploy branch ${{ inputs.BRANCH }} to ${{ inputs.HOST }}
-#        if: ${{ inputs.BRANCH }}
-#        uses: deployphp/action@v1
-#        with:
-#          private-key: ${{ secrets.PRIVATE_KEY }}
-#          dep: deploy --branch=${{ inputs.BRANCH }} -n -vvv ${{ inputs.HOST }}
+      - uses: ./.github/actions/setup-environment
+
+      - name: Deploy tag ${{ inputs.TAG }} to ${{ inputs.HOST }}
+        if: ${{ inputs.TAG }}
+        uses: deployphp/action@v1
+        with:
+          private-key: ${{ secrets.PRIVATE_KEY }}
+          dep: deploy --tag=${{ inputs.TAG }} -n -vvv ${{ inputs.HOST }}
+
+      - name: Deploy branch ${{ inputs.BRANCH }} to ${{ inputs.HOST }}
+        if: ${{ inputs.BRANCH }}
+        uses: deployphp/action@v1
+        with:
+          private-key: ${{ secrets.PRIVATE_KEY }}
+          dep: deploy --branch=${{ inputs.BRANCH }} -n -vvv ${{ inputs.HOST }}
 
   sentry:
     runs-on: ubuntu-latest
