@@ -9,7 +9,9 @@ set('repository', 'git@github.com:arnaud-ritti/symfony-demo.git');
 set('git_tty', false);
 set('ssh_multiplexing', false);
 
-set('composer_options', '{{composer_action}} --prefer-dist --no-progress --no-interaction --no-dev --optimize-autoloader');
+set('bin/php', "/opt/php8.0/bin/php -d memory_limit=-1");
+set('bin/composer', "/opt/php8.0/bin/composer2.phar");
+set('composer_options', '--no-progress --no-interaction --optimize-autoloader');
 // Hosts
 
 host('production')

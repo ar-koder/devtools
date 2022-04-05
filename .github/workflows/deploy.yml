@@ -54,11 +54,11 @@ jobs:
           private-key: ${{ secrets.PRIVATE_KEY }}
           dep: deploy --branch=${{ inputs.BRANCH }} -n -vvv ${{ inputs.HOST }}
 
-
   sentry:
     runs-on: ubuntu-latest
     needs: deploy
     steps:
+      - uses: actions/checkout@v3
       - name: Create Sentry release for ${{ inputs.BRANCH }}
         if: ${{ inputs.BRANCH }}
         uses: getsentry/action-release@v1
@@ -68,6 +68,8 @@ jobs:
           SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
         with:
           environment: ${{ inputs.HOST }}
+          ignore_missing: true
+          ignore_empty: true
 
       - name: Create Sentry release for ${{ inputs.TAG }}
         if: ${{ inputs.TAG }}
@@ -79,13 +81,16 @@ jobs:
         with:
           environment: ${{ inputs.HOST }}
           version: ${{ inputs.TAG }}
+          ignore_missing: true
+          ignore_empty: true
 
-  monitoring:
+  new-relic:
     runs-on: ubuntu-latest
     needs: deploy
     steps:
+      - uses: actions/checkout@v3
       - uses: arnaud-ritti/nr-monit@main
         with:
-          config: "_monitors.yml"
+          config: ".github/monitors.yml"
           api_key: ${{ secrets.NEW_RELIC_API_KEY }}
           eu_server: true
