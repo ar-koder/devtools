@@ -9,7 +9,7 @@ set('repository', 'git@github.com:arnaud-ritti/symfony-demo.git');
 set('git_tty', false);
 set('ssh_multiplexing', false);
 
-set('composer_options', '{{composer_action}} --prefer-dist --no-progress --no-interaction --no-dev --optimize-autoloader');
+set('composer_options', ' --prefer-dist --no-progress --no-interaction --no-dev --optimize-autoloader');
 // Hosts
 
 host('production')
