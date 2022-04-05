@@ -24,7 +24,7 @@ host('staging')
     ->set('hostname', 'af58e.ftp.infomaniak.com')
     ->set('remote_user', 'af58e_aritti')
     ->set('deploy_path', '~/sites/json-placeholder.staging.arnaud-ritti.fr')
-    ;
+;
 
 // Tasks
 task('npm:build', function () {
