@@ -9,6 +9,9 @@ updates:
     target-branch: "develop"
     schedule:
       interval: "daily"
+    allow:
+      # Allow direct updates for all packages
+      - dependency-type: "direct"
 
   # Maintain dependencies for npm
   - package-ecosystem: "npm"
@@ -16,6 +19,9 @@ updates:
     target-branch: "develop"
     schedule:
       interval: "daily"
+    allow:
+      # Allow direct updates for all packages
+      - dependency-type: "direct"
 
   # Maintain dependencies for Composer
   - package-ecosystem: "composer"
@@ -23,3 +29,6 @@ updates:
     target-branch: "develop"
     schedule:
       interval: "daily"
+    allow:
+      # Allow direct updates for all packages
+      - dependency-type: "direct"

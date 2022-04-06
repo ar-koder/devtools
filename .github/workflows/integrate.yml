@@ -14,14 +14,61 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - uses: ./.github/actions/setup-environment
+
+      # Check dependencies
+      - run: symfony composer validate
+      - run: symfony check:security
+
+      # Prepare tests
+      - run: symfony console cache:clear
+
+      # Init database
+      - run: APP_ENV=test symfony console doctrine:schema:validate --skip-sync
+      - run: APP_ENV=test symfony console doctrine:migrations:migrate --no-interaction
+      - run: APP_ENV=test symfony console doctrine:fixtures:load -vvv --no-interaction
+
+      # Lint Twig, Yaml and XLIFF files
+      - run: symfony console lint:twig templates
+      - run: symfony console lint:yaml config --parse-tags
+      - run: symfony console lint:xliff translations
+      - run: symfony console lint:container
+
+      # Run static code analysis tools
+      - run: symfony php vendor/bin/phpinsights -n --ansi --format=github-action
+      - run: symfony php vendor/bin/rector process --dry-run
+      - run: APP_ENV=test symfony php bin/phpunit # See https://github.com/symfony/symfony-docs/pull/15228
 
   javascript:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - uses: ./.github/actions/setup-environment
+
+      # Lint files
+      - run: npm run lint:js --no-fix
+      - run: npm run lint:css --no-fix
+
+      # Tests
+      - run: npm run test:unit --if-present
+
+      # Build assets for dev and prod
+      - run: npm run dev
+      - run: npm run build
 
   cypress:
     runs-on: ubuntu-latest
     name: cypress
     steps:
       - uses: actions/checkout@v3
+      - uses: ./.github/actions/setup-environment
+
+      # Start Symfony Server
+      - run: APP_ENV=test symfony serve --port 8000 --daemon
+      - run: echo "CYPRESS_BASE_URL=https://localhost:8000" >> $GITHUB_ENV
+
+      - name: Run Cypress
+        if: ${{ env.IS_DEPENDABOT == 'false' && ! github.event.pull_request.draft }}
+        uses: cypress-io/github-action@v2
+        with:
+          build: npm run build
