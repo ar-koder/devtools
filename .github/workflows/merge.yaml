@@ -22,61 +22,14 @@ jobs:
       github.event.workflow_run.conclusion == 'success' &&
       github.actor == 'dependabot[bot]'
     steps:
-      - name: "Request review from @github-actions"
-        uses: "actions/github-script@v6"
+      - name: Fetch Dependabot metadata
+        id: dependabot-metadata
+        uses: dependabot/fetch-metadata@v1.3.0
         with:
-          github-token: "${{ secrets.GITHUB_TOKEN }}"
-          script: |
-            const pullRequest = context.payload.workflow_run.pull_requests[0]
-            const repository = context.repo
-            const reviewers = [
-              "github-actions",
-            ]
-            await github.rest.pulls.requestReviewers({
-              owner: repository.owner,
-              repo: repository.repo,
-              pull_number: pullRequest.number,
-              reviewers: reviewers,
-            })
-      - name: "Assign @github-actions"
-        uses: "actions/github-script@v6"
-        with:
-          github-token: "${{ secrets.GITHUB_TOKEN }}"
-          script: |
-            const pullRequest = context.payload.workflow_run.pull_requests[0]
-            const repository = context.repo
-            const assignees = [
-              "github-actions",
-            ]
-            await github.rest.issues.addAssignees({
-              owner: repository.owner,
-              repo: repository.repo,
-              assignees: assignees,
-              issue_number: pullRequest.number
-            })
-      - name: "Approve pull request"
-        uses: "actions/github-script@v6"
-        with:
-          github-token: "${{ secrets.GITHUB_TOKEN }}"
-          script: |
-            const pullRequest = context.payload.workflow_run.pull_requests[0]
-            const repository = context.repo
-            await github.rest.pulls.createReview({
-              event: "APPROVE",
-              owner: repository.owner,
-              repo: repository.repo,
-              pull_number: pullRequest.number,
-            })
-      - name: "Merge pull request"
-        uses: "actions/github-script@v6"
-        with:
-          github-token: "${{ secrets.GITHUB_TOKEN }}"
-          script: |
-            const pullRequest = context.payload.workflow_run.pull_requests[0]
-            const repository = context.repo
-            await github.rest.pulls.merge({
-              merge_method: "merge",
-              owner: repository.owner,
-              pull_number: pullRequest.number,
-              repo: repository.repo,
-            })
+          github-token: '${{ secrets.GITHUB_TOKEN }}'
+      - run: |
+          gh pr review --approve "$PR_URL"
+          gh pr merge --auto --merge "$PR_URL"
+        env:
+          PR_URL: ${{github.event.pull_request.html_url}}
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
