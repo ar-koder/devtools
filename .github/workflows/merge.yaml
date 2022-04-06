@@ -22,14 +22,9 @@ jobs:
       github.event.workflow_run.conclusion == 'success' &&
       github.actor == 'dependabot[bot]'
     steps:
-      - name: Fetch Dependabot metadata
-        id: dependabot-metadata
-        uses: dependabot/fetch-metadata@v1.3.0
-        with:
-          github-token: '${{ secrets.GITHUB_TOKEN }}'
       - run: |
           gh pr review --approve "$PR_URL"
           gh pr merge --auto --merge "$PR_URL"
         env:
-          PR_URL: ${{github.event.pull_request.html_url}}
+          PR_URL: ${{github.event.workflow_run.event.pull_request.html_url}}
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
