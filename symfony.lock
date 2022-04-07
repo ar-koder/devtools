@@ -190,6 +190,9 @@
             "config/packages/nelmio_cors.yaml"
         ]
     },
+    "nicoverbruggen/image-generator": {
+        "version": "v2.1.0"
+    },
     "nikic/php-parser": {
         "version": "v4.13.2"
     },

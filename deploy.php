@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace Deployer;
 
 require 'recipe/symfony.php';
@@ -9,8 +12,8 @@ set('repository', 'git@github.com:arnaud-ritti/symfony-demo.git');
 set('git_tty', false);
 set('ssh_multiplexing', false);
 
-set('bin/php', "/opt/php8.0/bin/php -d memory_limit=-1");
-set('bin/composer', "/opt/php8.0/bin/composer2.phar");
+set('bin/php', '/opt/php8.0/bin/php -d memory_limit=-1');
+set('bin/composer', '/opt/php8.0/bin/composer2.phar');
 set('composer_options', '--no-progress --no-interaction --optimize-autoloader');
 // Hosts
 
@@ -31,9 +34,9 @@ host('staging')
 ;
 
 // Tasks
-task('npm:build', function () {
+task('npm:build', static function (): void {
     runLocally('npm run build');
-    upload("public/build/", '{{release_path}}/public/build/');
+    upload('public/build/', '{{release_path}}/public/build/');
 });
 
 before('deploy:symlink', 'npm:build');
