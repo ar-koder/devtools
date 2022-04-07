@@ -3,7 +3,7 @@
         "@babel/core": "^7.17.8",
         "@babel/eslint-parser": "^7.17.0",
         "@babel/plugin-proposal-class-properties": "^7.16.7",
-        "@babel/plugin-proposal-decorators": "^7.17.8",
+        "@babel/plugin-proposal-decorators": "^7.17.9",
         "@babel/plugin-transform-runtime": "^7.17.0",
         "@hotwired/stimulus": "^3.0.0",
         "@symfony/stimulus-bridge": "^3.0.0",
