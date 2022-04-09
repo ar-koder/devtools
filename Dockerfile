@@ -23,4 +23,5 @@ RUN npm run build
 
 ENV APP_ENV "prod"
 ENV APP_DEBUG "0"
+ENV IS_DOCKERIZED "1"
 
