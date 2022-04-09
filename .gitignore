@@ -5,7 +5,6 @@
 /.env.*.local
 /config/secrets/prod/prod.decrypt.private.php
 /public/bundles/
-/var/
 /vendor/
 ###< symfony/framework-bundle ###
 
@@ -37,4 +36,3 @@ yarn-error.log
 ###< symfony/phpunit-bridge ###
 
 .eslintcache
-!/var/fonts/*
