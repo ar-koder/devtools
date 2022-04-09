@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+  Placeholder APIs by Arnaud Ritti
+{% endblock %}
+{% block content %}
+  <section class="hero">
+    <div class="hero__inner">
+      <h1 data-animate="title">
+        Placeholder APIs
+        <small>Free fake API for testing and prototyping.</small>
+      </h1>
+    </div>
+  </section>
+
+  <section class="page-content__wrapper">
+    <div class="page-content__inner">
+      <!-- Replace with your content -->
+      <section>
+        <div class="max-w-3xl">
+          <div class="mx-auto space-y-24 text-lg text-left">
+            <div class="space-y-8">
+              <p class="text-base font-light text-waterloo dark:text-santa sm:text-lg md:mt-5 md:text-xl">
+                Placeholder APIs is a free online REST / GraphQL API that you
+                can use <b>whenever you need some fake data</b>. It can be in a
+                README on GitHub, for a demo on CodeSandbox, in code examples on
+                Stack Overflow, ...or simply to test things locally.
+              </p>
+            </div>
+            <div class="space-y-12" id="stack">
+              <h2 class="text-lg font-normal text-comet dark:text-manatee lg:text-2xl group">
+                  What is used ?
+              </h2>
+              <div class="space-y-6">
+                <div>
+                  <ul role="list" class="space-y-3 text-base list-none text-comet dark:text-manatee sm:text-lg md:mt-8 md:text-base">
+                    <li>-<a target="_blank" class="link mx-2" href="https://alpinejs.dev/">AlpineJS</a>is a rugged, minimal tool for composing behavior directly in your markup</li>
+                    <li>-<a target="_blank" class="link mx-2" href="https://tailwindcss.com/">Tailwind</a>is utility-first CSS framework</li>
+                    <li>-<a target="_blank" class="link mx-2" href="https://symfony.com/">Symfony 6</a>PHP framework</li>
+                    <li>-<a target="_blank" class="link mx-2" href="https://api-platform.com/">API Platform</a>a fully-featured hypermedia or GraphQL API</li>
+                    <li>-<a target="_blank" class="link mx-2" href="https://github.com/EasyCorp/EasyAdminBundle">EasyAdmin</a>a simple administration backends</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </section>
+{% endblock %}

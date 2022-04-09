@@ -1,0 +1,37 @@
+.badge {
+  @apply inline-flex;
+  @apply items-center;
+  @apply px-2.5;
+  @apply py-0.5;
+  @apply rounded-md;
+  @apply text-sm;
+  @apply font-medium;
+
+  &-primary {
+    @apply bg-oyster border border-oyster text-white;
+  }
+
+  &-secondary {
+    @apply bg-white border-smoke border dark:border-white text-oyster;
+  }
+
+  &-tertiary {
+    @apply bg-pearl border border-pearl text-white;
+  }
+
+  &-info {
+    @apply bg-white border-smoke border dark:border-white text-jade;
+  }
+
+  &-success {
+    @apply bg-white border-smoke border dark:border-white text-herbs;
+  }
+
+  &-warning {
+    @apply bg-white border-smoke border dark:border-white text-pumpikin;
+  }
+
+  &-danger {
+    @apply bg-white border-smoke border dark:border-white text-brink;
+  }
+}

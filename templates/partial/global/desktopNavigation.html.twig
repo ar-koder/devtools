@@ -1,0 +1,20 @@
+<div class="sidebar">
+  <!-- Sidebar component, swap this element with another sidebar if you like -->
+  <div class="sidebar__wrapper">
+    <div class="sidebar__inner">
+      <div class="sidebar__logo">
+        <a href="/">{% include 'partial/assets/logo.html.twig' %}</a>
+      </div>
+      <nav class="sidebar__menu">
+        {{
+          knp_menu_render(
+            'main',
+            {
+              template: 'partial/global/sidebarLinks.html.twig'
+            }
+          )
+        }}
+      </nav>
+    </div>
+  </div>
+</div>

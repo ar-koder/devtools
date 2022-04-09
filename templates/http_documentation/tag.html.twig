@@ -1,0 +1,127 @@
+{% extends 'base.html.twig' %}
+
+{% macro operation(item, method) %}
+  {% apply spaceless %}
+  {% if item %}`
+    {% set itemDocUrl %}
+      {% if item.operationId %}
+        {{ path('api_doc', {"ui": "re_doc"}) ~ '#operation/' ~ item.operationId}}
+      {% else %}
+        {{ path('api_doc', {"ui": "re_doc"}) ~ '#tag/' ~ item.tags[0]}}
+      {% endif %}
+    {% endset %}
+    <div class="operation">
+      <dt>
+        <h4 class="method method--{{ method }}">
+          {{ method|upper }}
+        </h4>
+        <h5 class="summary">
+          {{ item.summary }}
+          <a href="{{ itemDocUrl }}" class="link" title="Check in API Explorer" target="_blank">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+            </svg>
+          </a>
+        </h5>
+      </dt>
+      <dd class="information">
+        <p class="description">
+          {{ item.description }}
+        </p>
+        {% if item.parameters|filter(p => p.in == "path")|length %}
+          <div class="parameters">
+            <p class="parameters__legend">Path parameters</p>
+            <table class="parameters__table">
+              {% for parameters in item.parameters|filter(p => p.in == "path") %}
+                <tr>
+                  <th>{{ parameters.name }} {{ parameters.required ? '<span class="required">*</span>' : '' }}</th>
+                  <td>{{ parameters.description }}</td>
+                </tr>
+              {% endfor %}
+            </table>
+          </div>
+        {% endif %}
+        {% if item.parameters|filter(p => p.in == "query")|length %}
+          <div class="parameters">
+            <p class="parameters__legend">Query parameters</p>
+            <table class="parameters__table">
+              {% for parameters in item.parameters|filter(p => p.in == "query") %}
+                <tr>
+                  <th>{{ parameters.name }} {{ parameters.required ? '<span class="required">*</span>' : '' }}</th>
+                  <td>{{ parameters.description }}</td>
+                </tr>
+              {% endfor %}
+            </table>
+          </div>
+        {% endif %}
+
+        {% if item.requestBody %}
+        <div class="parameters">
+            <p class="parameters__legend">
+              Body {{ item.requestBody.required ? '<span class="required">*</span>' : '' }}
+              <span class="font-light ml-2">{{ item.requestBody.description }}</span>
+            </p>
+            <div>
+              <a href="{{ itemDocUrl }}" class="link" target="_blank">
+                Check details
+              </a>
+            </div>
+          </div>
+        {% endif %}
+      </dd>
+    </div>
+  {% endif %}
+  {% endapply %}
+{% endmacro %}
+
+{% block stylesheets %}
+  {{- parent() -}}
+  {{ encore_entry_link_tags('tags') }}
+{% endblock %}
+
+{% block javascripts %}
+  {{- parent() -}}
+  {{ encore_entry_script_tags('tags') }}
+{% endblock %}
+
+{% block title %}
+  {{ tag }} | Placeholder APIs
+{% endblock %}
+
+{% block content %}
+  <section class="hero">
+    <div class="hero__inner">
+      <h1 data-animate="title">
+        {{ tag }}
+      </h1>
+    </div>
+  </section>
+
+  <section class="page-content__wrapper">
+    <div class="page-content__inner">
+      {% for path, item in paths %}
+        <div class="api-path">
+          <div class="api-path__wrapper">
+            <div class="api-path__details">
+              <h2 class="path">{{ path }}</h2>
+              <h3 class="reference">{{ item.ref }}</h3>
+              <p class="description">
+                {{ item.description }}
+              </p>
+            </div>
+
+            <div class="mt-10">
+              <dl class="space-y-10">
+                {{ _self.operation(item.get, 'get') }}
+                {{ _self.operation(item.post, 'post') }}
+                {{ _self.operation(item.put, 'put') }}
+                {{ _self.operation(item.patch, 'patch') }}
+                {{ _self.operation(item.delete, 'delete') }}
+              </dl>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </section>
+{% endblock %}

@@ -166,6 +166,12 @@
     "justinrainbow/json-schema": {
         "version": "5.2.11"
     },
+    "knplabs/knp-menu": {
+        "version": "v3.3.0"
+    },
+    "knplabs/knp-menu-bundle": {
+        "version": "v3.2.0"
+    },
     "laminas/laminas-code": {
         "version": "4.5.1"
     },
@@ -189,6 +195,9 @@
         "files": [
             "config/packages/nelmio_cors.yaml"
         ]
+    },
+    "nicoverbruggen/image-generator": {
+        "version": "v2.1.0"
     },
     "nikic/php-parser": {
         "version": "v4.13.2"

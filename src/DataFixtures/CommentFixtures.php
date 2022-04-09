@@ -15,7 +15,7 @@ class CommentFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager): void
     {
-        $faker = Factory::create('fr_FR');
+        $faker = Factory::create();
         for ($i = 0; $i < 1000; ++$i) {
             /** @var Post $post */
             $post = $this->getReference(sprintf('%s-%s', PostFixtures::REFERENCE, $faker->numberBetween(0, 99)));

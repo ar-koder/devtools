@@ -1,0 +1,84 @@
+.api-path {
+  @apply py-12;
+
+  &__wrapper {
+    @apply mx-auto;
+  }
+
+  &__details {
+    .path {
+      @apply text-base text-white font-light inline rounded px-4 py-2 tracking-wide bg-cinder;
+    }
+
+    .reference {
+      @apply mt-3 text-3xl leading-8 font-medium tracking-tight text-cinder sm:text-4xl;
+    }
+
+    .description {
+      @apply mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto;
+    }
+  }
+}
+
+.operation {
+  @apply relative;
+
+  .method {
+    @apply absolute flex items-center justify-center w-20 h-8 rounded-md  tracking-wide text-sm text-blue-500;
+    @apply text-white font-semibold uppercase;
+
+    &--get {
+      background: #61affe;
+    }
+
+    &--post {
+      background: #49cc90;
+    }
+
+    &--put {
+      background: #fca130;
+    }
+
+    &--patch {
+      background: #50e3c2;
+    }
+
+    &--delete {
+      background: #f93e3e;
+    }
+  }
+
+  .summary {
+    @apply pt-1 ml-24 text-lg leading-6 font-medium text-cinder dark:text-white flex gap-2;
+  }
+
+  .information {
+    @apply mt-1 ml-24;
+
+    .description {
+      @apply text-base text-gray-500;
+    }
+
+    .parameters {
+      @apply dark:border-white focus-within:ring-1 focus-within:ring-oyster focus-within:border-oyster relative px-4 py-4 border-2 rounded-lg mt-4;
+
+      &__legend {
+        @apply -top-2 left-2 dark:bg-tuna dark:text-white absolute inline-block px-1 -mt-px text-xs font-medium bg-white;
+      }
+
+      &__table {
+        th {
+          @apply text-left text-black dark:text-white pr-4;
+
+          .required {
+            @apply text-coral;
+          }
+        }
+
+        td {
+          @apply text-black dark:text-white;
+        }
+      }
+    }
+  }
+}
