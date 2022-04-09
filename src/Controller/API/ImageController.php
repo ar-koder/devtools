@@ -62,7 +62,7 @@ class ImageController extends AbstractController
     public function getSpace(Request $request, string $dimensions, string $category = 'random', string $format = 'png'): Response
     {
         [$width, $height] = self::parseDimensions($dimensions);
-        $url = sprintf('https://api.lorem.space/image%s?w=%s&h=%s', $category && $category !== 'random' ? '/'.$category : '', $width ? $width : '', $height ? $height : '');
+        $url = sprintf('https://api.lorem.space/image%s?w=%s&h=%s', $category && $category !== 'random' ? '/'.$category : '', $width ?: '', $height ?: '');
         $client = HttpClient::create();
         $response = $client->request('GET', $url);
 
@@ -169,9 +169,6 @@ class ImageController extends AbstractController
         return $response;
     }
 
-    /**
-     * @return array
-     */
     private static function parseDimensions(string $dimensions): array
     {
         $dimensions = explode('x', $dimensions);

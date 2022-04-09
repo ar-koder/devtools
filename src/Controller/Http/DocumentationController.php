@@ -40,19 +40,19 @@ class DocumentationController extends AbstractController
         foreach ($this->openApi->getPaths()->getPaths() as $path => $pathItem) {
             $operations = [];
 
-            if ($operation = $pathItem->getGet()) {
+            if (($operation = $pathItem->getGet()) !== null) {
                 $operations[] = $operation;
             }
-            if ($operation = $pathItem->getPost()) {
+            if (($operation = $pathItem->getPost()) !== null) {
                 $operations[] = $operation;
             }
-            if ($operation = $pathItem->getPatch()) {
+            if (($operation = $pathItem->getPatch()) !== null) {
                 $operations[] = $operation;
             }
-            if ($operation = $pathItem->getPut()) {
+            if (($operation = $pathItem->getPut()) !== null) {
                 $operations[] = $operation;
             }
-            if ($operation = $pathItem->getDelete()) {
+            if (($operation = $pathItem->getDelete()) !== null) {
                 $operations[] = $operation;
             }
 
