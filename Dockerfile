@@ -21,6 +21,11 @@ RUN composer dump-env prod
 RUN npm ci
 RUN npm run build
 
+RUN npm cache clean --force
+RUN composer clear-cache
+
+RUN rm -rf node_modules
+
 ENV APP_ENV "prod"
 ENV APP_DEBUG "0"
 ENV IS_DOCKERIZED "1"
