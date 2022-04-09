@@ -40,5 +40,5 @@ jobs:
           context: .
           push: true
           tags: |
-            arnaud-ritti/placeholder-api:latest
-            arnaud-ritti/placeholder-api:${{ inputs.TAG }}
+            arnaudritti/placeholder-api:latest
+            arnaudritti/placeholder-api:${{ inputs.TAG }}
