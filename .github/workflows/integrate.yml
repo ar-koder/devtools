@@ -40,7 +40,7 @@ jobs:
       # Init database
       - run: APP_ENV=test symfony console doctrine:schema:validate --skip-sync
       - run: APP_ENV=test symfony console doctrine:migrations:migrate --no-interaction
-      - run: APP_ENV=test symfony console doctrine:fixtures:load -vvv --no-interaction
+      - run: APP_ENV=test symfony console doctrine:fixtures:load --no-interaction
 
       # Lint Twig, Yaml and XLIFF files
       - run: symfony console lint:twig templates

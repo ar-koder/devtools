@@ -18,7 +18,7 @@ class PhotoFixtures extends Fixture implements DependentFixtureInterface
     public function load(ObjectManager $manager): void
     {
         $faker = Factory::create();
-        for ($i = 0; $i < 5000; ++$i) {
+        for ($i = 0; $i < 2500; ++$i) {
             /** @var Album $album */
             $album = $this->getReference(sprintf('%s-%s', AlbumFixtures::REFERENCE, $faker->numberBetween(0, 99)));
             $post = (new Photo())

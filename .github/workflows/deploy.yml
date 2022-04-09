@@ -94,3 +94,4 @@ jobs:
           config: ".github/monitors.yml"
           api_key: ${{ secrets.NEW_RELIC_API_KEY }}
           eu_server: true
+

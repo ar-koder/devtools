@@ -6,6 +6,15 @@ when@dev:
     framework:
         profiler: { only_exceptions: false }
 
+when@staging:
+    web_profiler:
+        toolbar: true
+        intercept_redirects: false
+
+    framework:
+        profiler: { only_exceptions: true }
+
+
 when@test:
     web_profiler:
         toolbar: false
