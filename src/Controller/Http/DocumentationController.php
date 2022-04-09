@@ -66,7 +66,7 @@ class DocumentationController extends AbstractController
             }
         }
 
-        $paths = array_filter($paths, static fn ($key) => strtolower((string)((new AsciiSlugger())->slug($key))) === $tag, ARRAY_FILTER_USE_KEY);
+        $paths = array_filter($paths, static fn ($key) => strtolower((string) ((new AsciiSlugger())->slug($key))) === $tag, ARRAY_FILTER_USE_KEY);
 
         return $this->render('http_documentation/tag.html.twig', [
             'paths' => current(array_values($paths)),

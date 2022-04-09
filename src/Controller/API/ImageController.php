@@ -57,12 +57,6 @@ class ImageController extends AbstractController
      * @throws ServerExceptionInterface
      * @throws TransportExceptionInterface
      */
-    /**
-     * @throws ClientExceptionInterface
-     * @throws RedirectionExceptionInterface
-     * @throws ServerExceptionInterface
-     * @throws TransportExceptionInterface
-     */
     #[Route('/space/{dimensions}.{format}', name: 'api.image.space', defaults: ['format' => 'png'], methods: ['GET'])]
     #[Route('/space/{category}/{dimensions}.{format}', name: 'api.image.space_categorize', defaults: ['category' => 'random', 'format' => 'png'], methods: ['GET'])]
     public function getSpace(Request $request, string $dimensions, string $category = 'random', string $format = 'png'): Response
@@ -79,8 +73,8 @@ class ImageController extends AbstractController
     {
         $openApi->getPaths()->addPath('/api/placeholder/{dimensions}.{format}', new PathItem(
             get: new Operation(
-                tags: ['Images'],
                 operationId: 'getPlaceholder',
+                tags: ['Images'],
                 responses: [
                     '200' => [
                         'content' => [
@@ -175,6 +169,9 @@ class ImageController extends AbstractController
         return $response;
     }
 
+    /**
+     * @return array
+     */
     private static function parseDimensions(string $dimensions): array
     {
         $dimensions = explode('x', $dimensions);

@@ -65,7 +65,7 @@ final class Builder
         foreach ($paths as $tag => $pathsRoutes) {
             $menu->addChild($tag, [
                 'route' => 'app.tag',
-                'routeParameters' => ['tag' => strtolower((string)((new AsciiSlugger())->slug($tag)))],
+                'routeParameters' => ['tag' => strtolower((string) ((new AsciiSlugger())->slug($tag)))],
             ])
                 ->setLabelAttribute('class', 'item__label')
                 ->setLinkAttribute('class', 'item__link')

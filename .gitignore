@@ -37,3 +37,4 @@ yarn-error.log
 ###< symfony/phpunit-bridge ###
 
 .eslintcache
+!/var/fonts/*
