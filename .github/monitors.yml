@@ -1,10 +1,10 @@
 monitors:
   production:
     policy_id: '114560'
-    name: "JSON Placeholder"
+    name: "Placeholder APIs"
     type: "SIMPLE"
     frequency: 10
-    uri: https://json-placeholder.arnaud-ritti.fr
+    uri: https://placeholders.arnaud-ritti.fr
     locations: 2
     status: "ENABLED"
     options:
@@ -12,10 +12,10 @@ monitors:
 
   staging:
     policy_id: '114560'
-    name: "JSON Placeholder (staging)"
+    name: "Placeholder APIs (staging)"
     type: "SIMPLE"
     frequency: 10
-    uri: https://json-placeholder.staging.arnaud-ritti.fr
+    uri: https://placeholders.staging.arnaud-ritti.fr
     locations: 2
     status: "MUTED"
     options:
