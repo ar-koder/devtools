@@ -1,15 +1,26 @@
-FROM php:8.1-fpm-alpine
+FROM thecodingmachine/php:8.1-v4-apache-node16
 
-# Apk install
-RUN apk --no-cache update && apk --no-cache add bash git
+COPY --chown=docker:docker . .
+USER docker
 
-# Install pdo
-RUN docker-php-ext-install pdo_mysql
+ENV TEMPLATE_PHP_INI "production"
+ENV PHP_INI_MEMORY_LIMIT="128M"
 
-# Install composer
-RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" && php composer-setup.php && php -r "unlink('composer-setup.php');" && mv composer.phar /usr/local/bin/composer
+ENV PHP_EXTENSIONS="gd pdo_sqlite" \
+    APACHE_RUN_USER=www-data \
+    APACHE_RUN_GROUP=www-data \
+    APACHE_DOCUMENT_ROOT=public/
 
-# Symfony CLI
-RUN wget https://get.symfony.com/cli/installer -O - | bash && mv /root/.symfony/bin/symfony /usr/local/bin/symfony
+RUN composer install --no-progress --no-interaction --optimize-autoloader
 
-WORKDIR /var/www/html
+RUN php bin/console doctrine:migrations:migrate --allow-no-migration --no-interaction
+RUN php bin/console doctrine:fixtures:load --no-interaction
+
+RUN composer dump-env prod
+
+RUN npm ci
+RUN npm run build
+
+ENV APP_ENV "prod"
+ENV APP_DEBUG "0"
+

@@ -35,7 +35,7 @@ host('staging')
     ->set('deploy_path', '~/sites/json-placeholder.staging.arnaud-ritti.fr')
 ;
 
-task('dotenv:set-env', function () {
+task('dotenv:set-env', static function (): void {
     run('rm {{release_path}}/.env.local');
     run('touch {{release_path}}/.env.local');
     run('echo "APP_ENV={{symfony_env}}" >> {{release_path}}/.env.local');
