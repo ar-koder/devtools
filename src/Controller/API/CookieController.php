@@ -126,6 +126,7 @@ class CookieController extends AbstractController
 
         $collectionItem = new PathItem(
             get: new Operation(
+                operationId: 'getCookie',
                 tags: ['Cookies'],
                 responses: [
                     '200' => [
@@ -141,6 +142,7 @@ class CookieController extends AbstractController
                 summary: 'Returns cookie data.'
             ),
             post: new Operation(
+                operationId: 'postCookie',
                 tags: ['Cookies'],
                 responses: [
                     '200' => [
@@ -169,6 +171,7 @@ class CookieController extends AbstractController
 
         $singleItem = new PathItem(
             delete: new Operation(
+                operationId: 'deleteCookie',
                 tags: ['Cookies'],
                 responses: [
                     '200' => [
@@ -183,10 +186,11 @@ class CookieController extends AbstractController
                 ],
                 summary: 'Delete a cookie',
                 parameters: [
-                    new Parameter('key', 'path', '', true),
+                    new Parameter('key', 'path', 'The key of your cookie', true),
                 ]
             ),
             patch: new Operation(
+                operationId: 'patchCookie',
                 tags: ['Cookies'],
                 responses: [
                     '200' => [
@@ -201,7 +205,7 @@ class CookieController extends AbstractController
                 ],
                 summary: 'Update cookie data.',
                 parameters: [
-                    new Parameter('key', 'path', '', true),
+                    new Parameter('key', 'path', 'The key of your cookie', true),
                 ],
                 requestBody: new RequestBody(
                     description: 'Update the cookie',

@@ -21,6 +21,7 @@ Encore
      * and one CSS file (e.g. app.css) if your JavaScript imports CSS.
      */
   .addEntry('app', './assets/app.js')
+  .addEntry('tags', './assets/tags.js')
 
 // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
   .enableStimulusBridge('./assets/controllers.json')
@@ -45,7 +46,11 @@ Encore
 // enables hashed filenames (e.g. app.abc123.css)
   .enableVersioning(Encore.isProduction())
 
-  .enablePostCssLoader()
+  .enablePostCssLoader((options) => {
+    options.postcssOptions = {
+      config: './.postcss.config.js'
+    }
+  })
 
 // enables Sass/SCSS support
 // .enableSassLoader()

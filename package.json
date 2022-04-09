@@ -8,6 +8,10 @@
         "@hotwired/stimulus": "^3.0.0",
         "@symfony/stimulus-bridge": "^3.0.0",
         "@symfony/webpack-encore": "^1.7.0",
+        "@tailwindcss/aspect-ratio": "^0.4.0",
+        "@tailwindcss/forms": "^0.5.0",
+        "@tailwindcss/line-clamp": "^0.3.1",
+        "@tailwindcss/typography": "^0.5.2",
         "autoprefixer": "^10.4.4",
         "core-js": "^3.0.0",
         "cypress": "^9.5.3",
@@ -26,8 +30,11 @@
         "regenerator-runtime": "^0.13.2",
         "stylelint": "^14.6.1",
         "stylelint-config-prettier": "^9.0.3",
+        "stylelint-config-prettier-scss": "^0.0.1",
         "stylelint-config-standard": "^25.0.0",
+        "stylelint-config-standard-scss": "^3.0.0",
         "stylelint-prettier": "^2.0.0",
+        "stylelint-selector-bem-pattern": "^2.1.1",
         "tailwindcss": "^3.0.23",
         "webpack-notifier": "^1.6.0"
     },
@@ -50,8 +57,7 @@
         "cy:open": "cypress open",
         "cy:run": "cypress run",
         "cy:run:record": "cypress run --record",
-        "format": "npm run format:js && npm run format:css && npm run format:twig",
-        "format:twig": "prettier --write 'templates/**/*.twig'",
+        "format": "npm run format:js && npm run format:css",
         "format:css": "prettier --write 'assets/**/*.{css,pcss}'",
         "format:js": "prettier --write 'assets/**/*.{js,jsx}'",
         "lint": "npm run lint:js && npm run lint:css",
@@ -63,5 +69,8 @@
         "*.js": "eslint --cache --fix",
         "*.--fix": "stylelint --fix",
         "*.format:twig": "prettier --write"
+    },
+    "dependencies": {
+        "tailwind-css-extensions": "^1.0.0"
     }
 }

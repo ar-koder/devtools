@@ -17,7 +17,7 @@ class AlbumFixtures extends Fixture implements DependentFixtureInterface
 
     public function load(ObjectManager $manager): void
     {
-        $faker = Factory::create('fr_FR');
+        $faker = Factory::create();
         for ($i = 0; $i < 100; ++$i) {
             /** @var User $user */
             $user = $this->getReference(sprintf('%s-%s', UserFixtures::REFERENCE, $faker->numberBetween(0, 9)));

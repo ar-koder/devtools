@@ -40,6 +40,7 @@ class GeneratorController extends AbstractController
     {
         $openApi->getPaths()->addPath('/api/uuid', new PathItem(
             get: new Operation(
+                operationId: 'getUUIDs',
                 tags: ['Dynamic data'],
                 responses: [
                     '200' => [
@@ -68,6 +69,7 @@ class GeneratorController extends AbstractController
 
         $openApi->getPaths()->addPath('/api/encode/{decoded}', new PathItem(
             get: new Operation(
+                operationId: 'getEncoded',
                 tags: ['Dynamic data'],
                 responses: [
                     '200' => [
@@ -85,13 +87,14 @@ class GeneratorController extends AbstractController
                 ],
                 summary: 'Return a base64 encoded string.',
                 parameters: [
-                    new Parameter(name: 'decoded', in: 'path', required: true, example: 'decoded'),
+                    new Parameter(name: 'decoded', in: 'path', description: 'string', required: true, example: 'decoded'),
                 ]
             )
         ));
 
         $openApi->getPaths()->addPath('/api/decode/{encoded}', new PathItem(
             get: new Operation(
+                operationId: 'getDecoded',
                 tags: ['Dynamic data'],
                 responses: [
                     '200' => [
@@ -109,7 +112,7 @@ class GeneratorController extends AbstractController
                 ],
                 summary: 'Return a base64 decoded string.',
                 parameters: [
-                    new Parameter(name: 'encoded', in: 'path', required: true, example: 'ZGVjb2RlZA=='),
+                    new Parameter(name: 'encoded', in: 'path', description: 'A base64 encoded string', required: true, example: 'ZGVjb2RlZA=='),
                 ]
             )
         ));

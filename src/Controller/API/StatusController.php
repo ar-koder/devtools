@@ -58,17 +58,17 @@ class StatusController extends AbstractController
                     ],
                 ],
             ],
-            summary: 'Return status code or random status code if more than one are given',
+            summary: 'Return the given status code',
             parameters: [
-                new Parameter('code', 'path', '', true),
+                new Parameter('code', 'path', 'Wanted status code', true),
             ]
         );
         $collectionItem = new PathItem(
-            get: $operation,
-            put: $operation,
-            post: $operation,
-            delete: $operation,
-            patch: $operation
+            get: $operation->withOperationId('getStatusCode'),
+            put: $operation->withOperationId('putStatusCode'),
+            post: $operation->withOperationId('postStatusCode'),
+            delete: $operation->withOperationId('deleteStatusCode'),
+            patch: $operation->withOperationId('patchStatusCode')
         );
         $openApi->getPaths()->addPath('/api/status/{code}', $collectionItem);
     }

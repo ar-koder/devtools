@@ -80,6 +80,7 @@ class ImageController extends AbstractController
         $openApi->getPaths()->addPath('/api/placeholder/{dimensions}.{format}', new PathItem(
             get: new Operation(
                 tags: ['Images'],
+                operationId: 'getPlaceholder',
                 responses: [
                     '200' => [
                         'content' => [
@@ -89,17 +90,18 @@ class ImageController extends AbstractController
                 ],
                 summary: 'Return an image with the specified dimensions.',
                 parameters: [
-                    new Parameter(name: 'dimensions', in: 'path', required: true, example: '200x200'),
-                    new Parameter(name: 'format', in: 'path', required: true, schema: ['type' => 'string', 'enum' => ['png', 'jpg', 'gif', 'webp']], example: 'png'),
-                    new Parameter(name: 'bgColor', in: 'query', required: false, example: '#FFF'),
-                    new Parameter(name: 'textColor', in: 'query', required: false, example: '#000'),
-                    new Parameter(name: 'text', in: 'query', required: false, example: 'Example'),
+                    new Parameter(name: 'dimensions', in: 'path', description: 'a dimensions string (WxH)', required: true, example: '200x200'),
+                    new Parameter(name: 'format', in: 'path', description: 'return format of image (png, jpg, gif or webp)', required: true, schema: ['type' => 'string', 'enum' => ['png', 'jpg', 'gif', 'webp']], example: 'png'),
+                    new Parameter(name: 'bgColor', in: 'query', description: 'background color in #FFFFFF format', required: false, example: '#FFF'),
+                    new Parameter(name: 'textColor', in: 'query', description: 'text color in #FFFFFF format', required: false, example: '#000'),
+                    new Parameter(name: 'text', in: 'query', description: 'a custom text value', required: false, example: 'Example'),
                 ]
             )
         ));
 
         $openApi->getPaths()->addPath('/api/space/{dimensions}.{format}', new PathItem(
             get: new Operation(
+                operationId: 'getSpaceholder',
                 tags: ['Images'],
                 responses: [
                     '200' => [
@@ -110,14 +112,15 @@ class ImageController extends AbstractController
                 ],
                 summary: 'Return an image from lorem.space with the specified dimensions.',
                 parameters: [
-                    new Parameter(name: 'dimensions', in: 'path', required: true, example: '200x200'),
-                    new Parameter(name: 'format', in: 'path', required: true, schema: ['type' => 'string', 'enum' => ['png', 'jpg', 'gif', 'webp']], example: 'png'),
+                    new Parameter(name: 'dimensions', in: 'path', description: 'a dimensions string (WxH), if one is 0 only scale is applied', required: true, example: '200x200'),
+                    new Parameter(name: 'format', in: 'path', description: 'Return format of image (png, jpg, gif or webp)', required: true, schema: ['type' => 'string', 'enum' => ['png', 'jpg', 'gif', 'webp']], example: 'png'),
                 ]
             )
         ));
 
         $openApi->getPaths()->addPath('/api/space/{category}/{dimensions}.{format}', new PathItem(
             get: new Operation(
+                operationId: 'getCategorizedSpaceholder',
                 tags: ['Images'],
                 responses: [
                     '200' => [
@@ -128,9 +131,9 @@ class ImageController extends AbstractController
                 ],
                 summary: 'Return an image from lorem.space with the specified dimensions and category.',
                 parameters: [
-                    new Parameter(name: 'category', in: 'path', required: true, schema: ['type' => 'string', 'enum' => ['movie', 'game', 'album', 'book', 'face', 'fashion', 'shoes', 'watch', 'furniture', 'pizza', 'burger', 'drink', 'car', 'house', 'random']], example: 'random'),
-                    new Parameter(name: 'dimensions', in: 'path', required: true, example: '200x200'),
-                    new Parameter(name: 'format', in: 'path', required: true, schema: ['type' => 'string', 'enum' => ['png', 'jpg', 'gif', 'webp']], example: 'png'),
+                    new Parameter(name: 'category', in: 'path', description: 'the category name', required: true, schema: ['type' => 'string', 'enum' => ['movie', 'game', 'album', 'book', 'face', 'fashion', 'shoes', 'watch', 'furniture', 'pizza', 'burger', 'drink', 'car', 'house', 'random']], example: 'random'),
+                    new Parameter(name: 'dimensions', in: 'path', description: 'a dimensions string (WxH), if one is 0 only scale is applied', required: true, example: '200x200'),
+                    new Parameter(name: 'format', in: 'path', description: 'Return format of image (png, jpg, gif or webp)', required: true, schema: ['type' => 'string', 'enum' => ['png', 'jpg', 'gif', 'webp']], example: 'png'),
                 ]
             )
         ));

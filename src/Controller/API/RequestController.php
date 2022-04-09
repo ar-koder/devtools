@@ -62,6 +62,7 @@ class RequestController extends AbstractController
     {
         $openApi->getPaths()->addPath('/api/ip', new PathItem(
             get: new Operation(
+                operationId: 'getIp',
                 tags: ['Requests'],
                 responses: [
                     '200' => [
@@ -86,6 +87,7 @@ class RequestController extends AbstractController
 
         $openApi->getPaths()->addPath('/api/headers', new PathItem(
             get: new Operation(
+                operationId: 'getHeaders',
                 tags: ['Requests'],
                 responses: [
                     '200' => [
@@ -114,6 +116,7 @@ class RequestController extends AbstractController
 
         $openApi->getPaths()->addPath('/api/user-agent', new PathItem(
             get: new Operation(
+                operationId: 'getUA',
                 tags: ['Requests'],
                 responses: [
                     '200' => [
@@ -173,11 +176,11 @@ class RequestController extends AbstractController
             summary: 'Returns anything passed in request data.'
         );
         $openApi->getPaths()->addPath('/api/anything', new PathItem(
-            get: $anythingOperation,
-            put: $anythingOperation,
-            post: $anythingOperation,
-            delete: $anythingOperation,
-            patch: $anythingOperation
+            get: $anythingOperation->withOperationId('getAnything'),
+            put: $anythingOperation->withOperationId('putAnything'),
+            post: $anythingOperation->withOperationId('postAnything'),
+            delete: $anythingOperation->withOperationId('deleteAnything'),
+            patch: $anythingOperation->withOperationId('patchAnything')
         ));
     }
 }
