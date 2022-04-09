@@ -22,6 +22,7 @@ host('production')
     ->set('hostname', 'af58e.ftp.infomaniak.com')
     ->set('remote_user', 'af58e_aritti')
     ->set('http_user', 'uid196930')
+    ->set('symfony_env', 'prod')
     ->set('deploy_path', '~/sites/json-placeholder.arnaud-ritti.fr')
 ;
 
@@ -30,14 +31,23 @@ host('staging')
     ->set('hostname', 'af58e.ftp.infomaniak.com')
     ->set('remote_user', 'af58e_aritti')
     ->set('http_user', 'uid196930')
+    ->set('symfony_env', 'test')
     ->set('deploy_path', '~/sites/json-placeholder.staging.arnaud-ritti.fr')
 ;
+
+task('dotenv:set-env', function () {
+    run('rm {{release_path}}/.env.local');
+    run('touch {{release_path}}/.env.local');
+    run('echo "APP_ENV={{symfony_env}}" >> {{release_path}}/.env.local');
+});
 
 // Tasks
 task('npm:build', static function (): void {
     runLocally('npm run build');
     upload('public/build/', '{{release_path}}/public/build/');
 });
+
+after('deploy:writable', 'dotenv:set-env');
 
 before('deploy:symlink', 'npm:build');
 before('deploy:symlink', 'database:migrate');
