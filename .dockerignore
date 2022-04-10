@@ -4,7 +4,7 @@ node_modules/
 
 .github
 .husky
-cypress
+tests/cypress
 
 var/cache
 var/log

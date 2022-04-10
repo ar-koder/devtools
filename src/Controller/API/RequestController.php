@@ -42,9 +42,6 @@ class RequestController extends AbstractController
     /**
      * @throws JsonException
      */
-    /**
-     * @throws JsonException
-     */
     #[Route('/anything', name: 'api.request.anything', methods: ['GET', 'POST', 'PATCH', 'PUT', 'DELETE'])]
     public function getAnything(Request $request): Response
     {

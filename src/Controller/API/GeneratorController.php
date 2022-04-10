@@ -19,21 +19,21 @@ class GeneratorController extends AbstractController
     public function getUUID(): Response
     {
         return $this->json([
-            'uuid_v4' => Uuid::v4(),
-            'uuid_v6' => Uuid::v6(),
+            'uuid_v4' => Uuid::v4()->toRfc4122(),
+            'uuid_v6' => Uuid::v6()->toRfc4122(),
         ], Response::HTTP_OK);
     }
 
     #[Route('/encode/{decoded}', name: 'api.generator.encode_b64', methods: ['GET'])]
     public function getEncodeB64(string $decoded): Response
     {
-        return new Response(base64_encode($decoded), Response::HTTP_OK);
+        return $this->json(base64_encode($decoded), Response::HTTP_OK);
     }
 
     #[Route('/decode/{encoded}', name: 'api.generator.decode_b64', methods: ['GET'])]
     public function getDecodeB64(string $encoded): Response
     {
-        return new Response(base64_decode($encoded), Response::HTTP_OK);
+        return $this->json(base64_decode($encoded), Response::HTTP_OK);
     }
 
     public static function setupOpenApiDocumentation(OpenApi $openApi): void
@@ -74,7 +74,7 @@ class GeneratorController extends AbstractController
                 responses: [
                     '200' => [
                         'content' => [
-                            'text/plain' => [
+                            'application/json' => [
                                 'schema' => [
                                     'body' => [
                                         'type' => 'string',
@@ -99,7 +99,7 @@ class GeneratorController extends AbstractController
                 responses: [
                     '200' => [
                         'content' => [
-                            'text/plain' => [
+                            'application/json' => [
                                 'schema' => [
                                     'body' => [
                                         'type' => 'string',

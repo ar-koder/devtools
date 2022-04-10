@@ -1,1 +1,0 @@
-{"version":1,"defects":{"App\\Tests\\PostTest::testSomething":3},"times":{"App\\Tests\\PostTest::testSomething":0.732,"App\\Tests\\PostTest::testGetAll":0.726,"App\\Tests\\API\\CommentTest::testGetAll":1.05,"App\\Tests\\API\\PostTest::testGetAll":0.077}}

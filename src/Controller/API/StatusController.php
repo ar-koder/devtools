@@ -25,7 +25,7 @@ class StatusController extends AbstractController
         return $this->json([
             'code' => $code,
             'text' => Response::$statusTexts[$code],
-        ], $code);
+        ], (int) $code);
     }
 
     public static function setupOpenApiDocumentation(OpenApi $openApi): void

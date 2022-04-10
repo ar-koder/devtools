@@ -57,7 +57,7 @@ class CookieController extends AbstractController
                 );
             }
 
-            $response = $this->redirectToRoute('api.cookies.get');
+            $response = $this->json($requestPayload, Response::HTTP_CREATED);
             $response->headers->setCookie($requestPayload->toCookie());
             return $response;
         } catch (MissingConstructorArgumentsException) {
@@ -86,7 +86,7 @@ class CookieController extends AbstractController
         if (! $request->cookies->has($key)) {
             return $this->json(sprintf('No cookie found for key "%s"', $key), Response::HTTP_NOT_FOUND);
         }
-        $response = $this->json(sprintf('The cookie with key "%s" is deleted', $key), Response::HTTP_OK);
+        $response = $this->json(sprintf('The cookie with key %s is deleted', $key), Response::HTTP_OK);
         $response->headers->clearCookie($key);
         return $response;
     }
@@ -145,7 +145,7 @@ class CookieController extends AbstractController
                 operationId: 'postCookie',
                 tags: ['Cookies'],
                 responses: [
-                    '200' => [
+                    '201' => [
                         'content' => [
                             'application/json' => [
                                 'schema' => [
@@ -210,7 +210,7 @@ class CookieController extends AbstractController
                 requestBody: new RequestBody(
                     description: 'Update the cookie',
                     content: new ArrayObject([
-                        'text/plain' => [
+                        'application/json' => [
                             'schema' => [
                                 'body' => [
                                     'type' => 'string',

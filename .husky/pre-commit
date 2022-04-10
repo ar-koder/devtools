@@ -6,7 +6,7 @@ if which composer >/dev/null; then
 fi
 
 if which php >/dev/null; then
-  php bin/phpunit
+  php vendor/bin/phpunit
 fi
 
 if which npx >/dev/null; then

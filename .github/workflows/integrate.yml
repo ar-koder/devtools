@@ -51,7 +51,7 @@ jobs:
       # Run static code analysis tools
       - run: symfony php vendor/bin/phpinsights -n --ansi --format=github-action
       - run: symfony php vendor/bin/rector process --dry-run
-      - run: APP_ENV=test symfony php bin/phpunit # See https://github.com/symfony/symfony-docs/pull/15228
+      - run: APP_ENV=test symfony php vendor/bin/phpunit # See https://github.com/symfony/symfony-docs/pull/15228
 
   javascript:
     runs-on: ubuntu-latest
