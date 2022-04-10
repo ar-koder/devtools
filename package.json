@@ -62,8 +62,7 @@
         "format:js": "prettier --write 'assets/**/*.{js,jsx}'",
         "lint": "npm run lint:js && npm run lint:css",
         "lint:js": "eslint . --ext .js,.jsx,.ts,.tsx,.vue --fix",
-        "lint:css": "stylelint 'assets/**/*.{pcss,css}' --fix",
-        "test:unit": "jest"
+        "lint:css": "stylelint 'assets/**/*.{pcss,css}' --fix"
     },
     "lint-staged": {
         "*.js": "eslint --cache --fix",

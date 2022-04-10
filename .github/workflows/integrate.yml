@@ -69,7 +69,7 @@ jobs:
       - run: npm run lint:css --no-fix
 
       # Tests
-      - run: npm run test:unit --if-present
+      #- run: npm run test:unit --if-present
 
       # Build assets for dev and prod
       - run: npm run dev
@@ -88,6 +88,7 @@ jobs:
       - uses: ./.github/actions/setup-environment
 
       # Start Symfony Server
+      - run: symfony server:ca:install
       - run: APP_ENV=test symfony serve --port 8000 --daemon
       - run: echo "CYPRESS_BASE_URL=https://localhost:8000" >> $GITHUB_ENV
 

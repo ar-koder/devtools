@@ -1,5 +1,5 @@
 {
-  "baseUrl": "https://127.0.0.1:8001",
+  "baseUrl": "https://127.0.0.1:8000",
   "chromeWebSecurity": false,
   "videoCompression": false,
   "viewportWidth": 1920,
