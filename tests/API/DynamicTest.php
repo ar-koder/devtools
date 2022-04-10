@@ -19,7 +19,7 @@ class DynamicTest extends ApiTestCase
         ]);
         $this->assertResponseStatusCodeSame(Response::HTTP_OK);
         $this->assertResponseHeaderSame('content-type', 'application/json');
-        $this->assertEquals(json_encode($testString, JSON_THROW_ON_ERROR), $response->getContent());
+        $this->assertSame(json_encode($testString, JSON_THROW_ON_ERROR), $response->getContent());
     }
 
     public function testEncode()
@@ -30,7 +30,7 @@ class DynamicTest extends ApiTestCase
         ]);
         $this->assertResponseStatusCodeSame(Response::HTTP_OK);
         $this->assertResponseHeaderSame('content-type', 'application/json');
-        $this->assertEquals(json_encode(base64_encode($testString), JSON_THROW_ON_ERROR), $response->getContent());
+        $this->assertSame(json_encode(base64_encode($testString), JSON_THROW_ON_ERROR), $response->getContent());
     }
 
     public function testUUIDs()

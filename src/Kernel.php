@@ -11,7 +11,7 @@ class Kernel extends BaseKernel
 {
     use MicroKernelTrait;
 
-    public function boot() : void
+    public function boot(): void
     {
         if (
             (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'on') &&
