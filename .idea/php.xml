@@ -166,6 +166,9 @@
       <path value="$PROJECT_DIR$/vendor/nicoverbruggen/image-generator" />
       <path value="$PROJECT_DIR$/vendor/knplabs/knp-menu-bundle" />
       <path value="$PROJECT_DIR$/vendor/knplabs/knp-menu" />
+      <path value="$PROJECT_DIR$/vendor/dragonmantank/cron-expression" />
+      <path value="$PROJECT_DIR$/vendor/zenstruck/schedule-bundle" />
+      <path value="$PROJECT_DIR$/vendor/sensiolabs/ansi-to-html" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.0">

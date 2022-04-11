@@ -15,30 +15,16 @@ set('ssh_multiplexing', false);
 set('bin/php', '/opt/php8.0/bin/php -d memory_limit=-1');
 set('bin/composer', '/opt/php8.0/bin/composer2.phar');
 set('composer_options', '--no-progress --no-interaction --optimize-autoloader');
+
 // Hosts
+import('inventory.yaml');
 
-host('production')
-    ->set('port', '22')
-    ->set('hostname', 'af58e.ftp.infomaniak.com')
-    ->set('remote_user', 'af58e_aritti')
-    ->set('http_user', 'uid196930')
-    ->set('symfony_env', 'prod')
-    ->set('deploy_path', '~/sites/json-placeholder.arnaud-ritti.fr')
-;
-
-host('staging')
-    ->set('port', '22')
-    ->set('hostname', 'af58e.ftp.infomaniak.com')
-    ->set('remote_user', 'af58e_aritti')
-    ->set('http_user', 'uid196930')
-    ->set('symfony_env', 'test')
-    ->set('deploy_path', '~/sites/json-placeholder.staging.arnaud-ritti.fr')
-;
 
 task('dotenv:set-env', static function (): void {
     run('rm {{release_path}}/.env.local');
     run('touch {{release_path}}/.env.local');
     run('echo "APP_ENV={{symfony_env}}" >> {{release_path}}/.env.local');
+    run('echo "SERVICE_ACCOUNT_PASSWORD={{service_account_password}}" >> {{release_path}}/.env.local');
 });
 
 // Tasks

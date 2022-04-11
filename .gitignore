@@ -36,3 +36,4 @@ yarn-error.log
 ###< symfony/phpunit-bridge ###
 
 .eslintcache
+inventory.yaml

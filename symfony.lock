@@ -130,6 +130,9 @@
     "doctrine/sql-formatter": {
         "version": "1.1.2"
     },
+    "dragonmantank/cron-expression": {
+        "version": "v2.3.1"
+    },
     "easycorp/easyadmin-bundle": {
         "version": "4.0",
         "recipe": {
@@ -355,6 +358,18 @@
         },
         "files": [
             "config/packages/sensio_framework_extra.yaml"
+        ]
+    },
+    "sensiolabs/ansi-to-html": {
+        "version": "1.2",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "1.2",
+            "ref": "d58d11d5b998f39260d387d3a0b50adc342db7e4"
+        },
+        "files": [
+            "config/packages/ansi_to_html.yaml"
         ]
     },
     "slevomat/coding-standard": {
@@ -809,5 +824,8 @@
     },
     "willdurand/negotiation": {
         "version": "3.1.0"
+    },
+    "zenstruck/schedule-bundle": {
+        "version": "v1.2.1"
     }
 }
