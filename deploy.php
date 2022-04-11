@@ -49,7 +49,7 @@ task('npm:build', static function (): void {
 
 task('database:fixture', static function (): void {
     runLocally('npm run build');
-    run("cd {{release_or_current_path}} && {{bin/console}} doctrine:fixtures:load --purge-with-truncate {{console_options}}");
+    run('cd {{release_or_current_path}} && {{bin/console}} doctrine:fixtures:load --purge-with-truncate {{console_options}}');
 });
 
 after('deploy:writable', 'dotenv:set-env');
