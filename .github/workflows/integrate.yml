@@ -93,6 +93,8 @@ jobs:
 
       # Start Symfony Server
       - run: symfony server:ca:install
+      - run: APP_ENV=test symfony console doctrine:migrations:migrate --no-interaction
+      - run: APP_ENV=test symfony console doctrine:fixtures:load --no-interaction
       - run: APP_ENV=test symfony serve --port 8000 --daemon
       - run: echo "CYPRESS_BASE_URL=https://localhost:8000" >> $GITHUB_ENV
 
