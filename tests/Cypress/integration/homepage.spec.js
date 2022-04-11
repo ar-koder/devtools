@@ -10,9 +10,9 @@ it('RGPD Opt-In', function() {
   cy.visit('/')
   /* ==== End Cypress Studio ==== */
   /* ==== Generated with Cypress Studio ==== */
-  cy.get('#ppms_cm_popup_overlay', { timeout: 10000 }).should('be.visible');
-  cy.get('#ppms_cm_agree-to-all').click();
-  cy.get('#ppms_cm_popup_overlay').should('not.exist');
+  //cy.get('#ppms_cm_popup_overlay', { timeout: 10000 }).should('be.visible');
+  //cy.get('#ppms_cm_agree-to-all').click();
+  //cy.get('#ppms_cm_popup_overlay').should('not.exist');
   /* ==== End Cypress Studio ==== */
 });
 
