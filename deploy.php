@@ -47,9 +47,15 @@ task('npm:build', static function (): void {
     upload('public/build/', '{{release_path}}/public/build/');
 });
 
+task('database:fixture', static function (): void {
+    runLocally('npm run build');
+    run("cd {{release_or_current_path}} && {{bin/console}} doctrine:fixtures:load --purge-with-truncate {{console_options}}");
+});
+
 after('deploy:writable', 'dotenv:set-env');
 
 before('deploy:symlink', 'npm:build');
 before('deploy:symlink', 'database:migrate');
+after('database:migrate', 'database:fixture');
 
 after('deploy:failed', 'deploy:unlock');
