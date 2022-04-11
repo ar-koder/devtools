@@ -15,7 +15,6 @@ set('ssh_multiplexing', false);
 // Hosts
 import('inventory.yaml');
 
-
 task('dotenv:set-env', static function (): void {
     run('rm {{release_path}}/.env.local');
     run('touch {{release_path}}/.env.local');
@@ -34,11 +33,9 @@ task('database:fixture', static function (): void {
     run('cd {{release_or_current_path}} && {{bin/console}} doctrine:fixtures:load --purge-with-truncate {{console_options}}');
 });
 
-
 before('deploy:symlink', 'npm:build');
 before('deploy:symlink', 'database:migrate');
 after('database:migrate', 'database:fixture');
 after('database:fixture', 'dotenv:set-env');
-
 
 after('deploy:failed', 'deploy:unlock');

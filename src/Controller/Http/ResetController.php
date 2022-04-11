@@ -23,7 +23,7 @@ class ResetController extends AbstractController
         $application->setAutoExit(false);
 
         $input = new ArrayInput([
-            'command' => 'schedule:run'
+            'command' => 'schedule:run',
         ]);
 
         $output = new BufferedOutput(
@@ -35,6 +35,6 @@ class ResetController extends AbstractController
         $converter = new AnsiToHtmlConverter();
         $content = $output->fetch();
 
-        return new Response("<style>body{background-color: black}</style><pre>".$converter->convert($content)."</pre>");
+        return new Response('<style>body{background-color: black}</style><pre>'.$converter->convert($content).'</pre>');
     }
 }

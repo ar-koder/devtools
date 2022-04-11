@@ -24,20 +24,21 @@ use Symfony\Component\Routing\Annotation\Route;
 class DashboardController extends AbstractDashboardController
 {
     public function __construct(private EntityManagerInterface $manager)
-    {}
+    {
+    }
 
     #[Route('/admin', name: 'admin')]
     public function index(): Response
     {
         return $this->render('admin/dashboard.html.twig', [
-            "counts" => [
-                "users" => $this->manager->getRepository(User::class)->count([]),
-                "posts" => $this->manager->getRepository(Post::class)->count([]),
-                "comments" => $this->manager->getRepository(Comment::class)->count([]),
-                "albums" => $this->manager->getRepository(Album::class)->count([]),
-                "photos" => $this->manager->getRepository(Photo::class)->count([]),
-                "todos" => $this->manager->getRepository(Todo::class)->count([]),
-            ]
+            'counts' => [
+                'users' => $this->manager->getRepository(User::class)->count([]),
+                'posts' => $this->manager->getRepository(Post::class)->count([]),
+                'comments' => $this->manager->getRepository(Comment::class)->count([]),
+                'albums' => $this->manager->getRepository(Album::class)->count([]),
+                'photos' => $this->manager->getRepository(Photo::class)->count([]),
+                'todos' => $this->manager->getRepository(Todo::class)->count([]),
+            ],
         ]);
     }
 
@@ -53,7 +54,7 @@ class DashboardController extends AbstractDashboardController
      */
     public function configureMenuItems(): iterable
     {
-        yield MenuItem::linkToUrl(label: 'Homepage', icon: 'fa fa-home', url: "/");
+        yield MenuItem::linkToUrl(label: 'Homepage', icon: 'fa fa-home', url: '/');
 
         yield MenuItem::section();
         yield MenuItem::linkToCrud(label: 'Posts', icon: 'fas fa-newspaper', entityFqcn: Post::class);
@@ -66,14 +67,13 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::section();
         yield MenuItem::linkToCrud(label: 'Users', icon: 'fas fa-users', entityFqcn: User::class);
 
-        yield MenuItem::section(label: "Documentations", icon: "fas fa-book");
-        yield MenuItem::linkToUrl(label: "OpenAPI", icon: "fas fa-arrow-up-right-from-square", url: $this->generateUrl("api_doc"));
-        yield MenuItem::linkToUrl(label: "ReDoc", icon: "fas fa-arrow-up-right-from-square", url: $this->generateUrl("api_doc", ['ui' => 're_doc']));
-        yield MenuItem::linkToUrl(label: "GraphiQL", icon: "fas fa-arrow-up-right-from-square", url: $this->generateUrl("api_graphql_graphiql"));
-        yield MenuItem::linkToUrl(label: "GraphQL Playground", icon: "fas fa-arrow-up-right-from-square", url: $this->generateUrl("api_graphql_graphql_playground"));
+        yield MenuItem::section(label: 'Documentations', icon: 'fas fa-book');
+        yield MenuItem::linkToUrl(label: 'OpenAPI', icon: 'fas fa-arrow-up-right-from-square', url: $this->generateUrl('api_doc'));
+        yield MenuItem::linkToUrl(label: 'ReDoc', icon: 'fas fa-arrow-up-right-from-square', url: $this->generateUrl('api_doc', ['ui' => 're_doc']));
+        yield MenuItem::linkToUrl(label: 'GraphiQL', icon: 'fas fa-arrow-up-right-from-square', url: $this->generateUrl('api_graphql_graphiql'));
+        yield MenuItem::linkToUrl(label: 'GraphQL Playground', icon: 'fas fa-arrow-up-right-from-square', url: $this->generateUrl('api_graphql_graphql_playground'));
 
         yield MenuItem::section();
-        yield MenuItem::linkToUrl(label: "GitHub", icon: "fab fa-github", url: "https://github.com/arnaud-ritti/placeholder-apis");
-
+        yield MenuItem::linkToUrl(label: 'GitHub', icon: 'fab fa-github', url: 'https://github.com/arnaud-ritti/placeholder-apis');
     }
 }
