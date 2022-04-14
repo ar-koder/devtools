@@ -38,6 +38,7 @@ task('dotenv:set-env', static function (): void {
     run('touch {{release_path}}/.env.local');
     run('echo "APP_ENV={{symfony_env}}" >> {{release_path}}/.env.local');
     run('echo "SERVICE_ACCOUNT_PASSWORD={{service_account_password}}" >> {{release_path}}/.env.local');
+    run('echo "BUCKET_MODE={{bucket_mode}}" >> {{release_path}}/.env.local');
 });
 
 // Tasks
