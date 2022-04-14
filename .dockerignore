@@ -10,6 +10,7 @@ var/cache
 var/log
 var/data.db
 
+.env
 .env.*
 
 public/build

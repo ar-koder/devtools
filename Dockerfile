@@ -28,5 +28,13 @@ RUN rm -rf node_modules
 
 ENV APP_ENV "prod"
 ENV APP_DEBUG "0"
+ENV APP_SECRET "455159ee27d159bdbdeb8b34e599e80e"
+ENV MESSENGER_TRANSPORT_DSN "doctrine://default?auto_setup=0"
+ENV BUCKET_MODE "path"
+ENV DATABASE_URL "sqlite:///%kernel.project_dir%/var/data.db"
+ENV CORS_ALLOW_ORIGIN "^https?://(localhost|127\.0\.0\.1)(:[0-9]+)?$"
+ENV TRUSTED_PROXIES "127.0.0.1,REMOTE_ADDR"
 ENV IS_DOCKERIZED "1"
 
+
+VOLUME ["var/bins", "var/log"]
