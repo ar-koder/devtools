@@ -2,5 +2,6 @@ api_platform:
     resource: .
     type: api_platform
     prefix: /api
+    condition: 'context.getHost() == env("BASE_HOST")'
     defaults:
-        schemes: [ https ]
+        schemes: [https]

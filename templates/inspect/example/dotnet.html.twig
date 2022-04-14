@@ -1,0 +1,25 @@
+{% extends 'inspect/example/code.html.twig' %}
+{%- block code -%}
+using System;
+using System.Net.Http;
+using System.Threading.Tasks;
+
+namespace RequestBinExample
+{
+  class Program
+  {
+    static void Main(string[] args)
+    {
+      MakeRequest();
+    }
+
+    private static async Task MakeRequest()
+    {
+      var httpClient = new HttpClient();
+      var response = await httpClient.GetAsync(new Uri("{{ binUrl }}"));
+      var body = await response.Content.ReadAsStringAsync();
+      Console.WriteLine(body);
+    }
+  }
+}
+{%- endblock code -%}

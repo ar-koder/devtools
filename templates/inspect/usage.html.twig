@@ -1,0 +1,55 @@
+{% extends '@EasyAdmin/page/content.html.twig' %}
+
+{% set binUrl = 'https://%s.%s'|format(bin.id, base_host) %}
+
+{% block page_title %}How to use buckets{% endblock %}
+
+{% block header_custom_menu %}{% endblock %}
+
+{% block body_javascript %}
+    {{- parent() -}}
+    <script>
+      document.querySelectorAll("pre > code").forEach(el => {
+        const code = el.innerHTML;
+        el.innerHTML = hljs.highlightAuto(code).value;
+      })
+    </script>
+{% endblock body_javascript %}
+
+{% block content_header %}
+    <div class="content-header-title">
+        <h1 class="title fs-3 mb-4">
+            {{ block("content_title") }}
+        </h1>
+        {% include 'inspect/partials/_limitations.html.twig' %}
+    </div>
+{% endblock %}
+
+
+{% block content_title %}
+    <span class="d-block mb-4">How to use your bucket</span>
+    {% set urls = manager.binUrls %}
+    {% if urls|length > 1 %}
+        URLs :
+        {% for url in urls %}
+            <code class="d-block fs-4 mt-2" style="user-select: all">{{ url }}</code>
+        {% endfor %}
+    {% else %}
+        URL : <code class="fs-4" style="user-select: all">{{ urls|join("") }}</code>
+    {% endif %}
+{% endblock %}
+
+
+{% block page_content %}
+    <div class="body pt-2">
+        <div class="row">
+            <div class="col">
+                <h2 class="mb-3">Examples</h2>
+                {% for type in ['curl','dotnet','java','nodejs','php','powershell','python','ruby'] %}
+                    {% include 'inspect/example/%s.html.twig'|format(type) with {'language':type} %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

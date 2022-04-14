@@ -13,12 +13,14 @@ class Scheduler implements ScheduleBuilder
     {
         $schedule
             ->timezone('UTC')
-            ->environments('dev')
+            ->environments('dev', 'prod')
         ;
 
         $schedule->addCommand('doctrine:fixtures:load --no-interaction')
-            //->cron('0 */2 * * *')
-            ->cron('* * * * *')
+            ->cron('0 */2 * * *')
+        ;
+        $schedule->addCommand('buckets:remove-expired --no-interaction')
+            ->cron('0 * * * *')
         ;
     }
 }

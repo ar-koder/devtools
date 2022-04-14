@@ -5,9 +5,12 @@ declare(strict_types=1);
 namespace App;
 
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
+use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Parameter;
 use Symfony\Component\HttpKernel\Kernel as BaseKernel;
 
-class Kernel extends BaseKernel
+class Kernel extends BaseKernel implements CompilerPassInterface
 {
     use MicroKernelTrait;
 
@@ -22,25 +25,16 @@ class Kernel extends BaseKernel
             exit;
         }
 
-        if (PHP_SAPI === 'cli' && ! in_array($this->getEnvironment(), ['prod', 'dev', 'test'])) {
-            $valid_passwords = [
-                'aritti' => '$2y$10$meOmm44vaBwbp/LJvH/ATeB3vpmmEsU/05k2bkyYUwVNmdyrNUNyS',
-            ];
-
-            # Auth basic
-            $user = empty($_SERVER['PHP_AUTH_USER']) ? null : $_SERVER['PHP_AUTH_USER'];
-            $pass = empty($_SERVER['PHP_AUTH_PW']) ? null : $_SERVER['PHP_AUTH_PW'];
-            $validated = array_key_exists($user, $valid_passwords) && (password_verify($pass, $valid_passwords[$user]));
-
-            if (! $validated) {
-                header('WWW-Authenticate: Basic realm="Staging env"');
-                header('HTTP/1.0 401 Unauthorized');
-                echo '<h1>Unauthorized</h1>';
-                echo '<p>This server could not verify that you are authorized to access the document requested.  Either you supplied the wrong credentials (e.g., bad password), or your browser doesn\'t understand how to supply the credentials required.</p>';
-                exit;
-            }
-        }
-
         parent::boot();
+    }
+
+    public function process(ContainerBuilder $container): void
+    {
+        $container
+            ->getDefinition('doctrine.dbal.bin_connection')
+            ->addMethodCall('setBucketDir', [
+                new Parameter('buckets_dirs'),
+            ])
+        ;
     }
 }

@@ -1,0 +1,4 @@
+{% extends 'inspect/example/code.html.twig' %}
+{%- block code -%}
+curl -X POST {{ binUrl }} -d "fizz=buzz"
+{%- endblock code -%}

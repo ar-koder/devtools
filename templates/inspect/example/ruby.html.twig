@@ -1,0 +1,6 @@
+{% extends 'inspect/example/code.html.twig' %}
+{%- block code -%}
+require 'open-uri'
+result = open('{{ binUrl }}')
+result.lines { |f| f.each_line {|line| p line} }
+{%- endblock code -%}

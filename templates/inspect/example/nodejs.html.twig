@@ -1,0 +1,10 @@
+{% extends 'inspect/example/code.html.twig' %}
+{%- block code -%}
+var request = require('request');
+var url ='{{ binUrl }}'
+request(url, function (error, response, body) {
+    if (!error) {
+        console.log(body);
+    }
+});
+{%- endblock code -%}

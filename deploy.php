@@ -12,6 +12,24 @@ set('repository', 'git@github.com:arnaud-ritti/symfony-demo.git');
 set('git_tty', false);
 set('ssh_multiplexing', false);
 
+set('shared_dirs', [
+    'var/bins',
+    'var/log',
+]);
+
+set('shared_files', [
+    '.env.local',
+    'var/data.db',
+]);
+
+set('writable_dirs', [
+    'var',
+    'var/bins',
+    'var/cache',
+    'var/log',
+    'var/sessions',
+]);
+
 // Hosts
 import('inventory.yaml');
 

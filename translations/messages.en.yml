@@ -1,0 +1,8 @@
+curl: cURL
+dotnet: C# / .NET
+java: Java
+nodejs: Node.JS (with request)
+php: PHP
+powershell: PowerShell
+python: Python (with Requests)
+ruby: Ruby

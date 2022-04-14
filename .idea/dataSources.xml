@@ -13,5 +13,29 @@
         </library>
       </libraries>
     </data-source>
+    <data-source source="LOCAL" name="3cf6ad43-cea2-4f18-ba31-2e28eae2a1af" uuid="8618f962-1316-467b-82aa-a6a7e36be4c9">
+      <driver-ref>sqlite.xerial</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:$PROJECT_DIR$/var/bins/3cf6ad43-cea2-4f18-ba31-2e28eae2a1af.db</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+      <libraries>
+        <library>
+          <url>file://$APPLICATION_CONFIG_DIR$/jdbc-drivers/Xerial SQLiteJDBC/3.34.0/sqlite-jdbc-3.34.0.jar</url>
+        </library>
+      </libraries>
+    </data-source>
+    <data-source source="LOCAL" name="9e1e3fa6-4d7e-4866-bf79-ebcce4ff02c1" uuid="ccc171d7-ebff-4a65-b87c-72214e22d5a5">
+      <driver-ref>sqlite.xerial</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:$PROJECT_DIR$/var/bins/9e1e3fa6-4d7e-4866-bf79-ebcce4ff02c1.db</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+      <libraries>
+        <library>
+          <url>file://$APPLICATION_CONFIG_DIR$/jdbc-drivers/Xerial SQLiteJDBC/3.34.0/sqlite-jdbc-3.34.0.jar</url>
+        </library>
+      </libraries>
+    </data-source>
   </component>
 </project>

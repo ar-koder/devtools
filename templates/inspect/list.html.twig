@@ -1,0 +1,52 @@
+{% extends '@EasyAdmin/page/content.html.twig' %}
+
+
+
+{% block page_title %}Buckets{% endblock %}
+
+{% block header_custom_menu %}{% endblock %}
+
+{% block body_javascript %}
+    {{- parent() -}}
+    <script>
+      var renderHighlight = function (request) {
+        request.querySelectorAll("pre > code[data-code]").forEach(el => {
+          const code = el.dataset.code;
+          console.log(code, hljs.highlightAuto(code))
+          el.innerHTML = hljs.highlightAuto(code).value;
+        })
+      }
+
+      document.querySelectorAll(".requests-list").forEach(el => {
+        console.log(el)
+        renderHighlight(el);
+        el.addEventListener('live:render', event => {
+          event.preventDefault();
+          event.target.innerHTML = event.detail;
+          renderHighlight(el);
+          return false;
+        })
+      })
+    </script>
+{% endblock body_javascript %}
+
+{% block content_header %}
+<div class="content-header-title">
+    <h1 class="title fs-3 mb-3">
+        {{ block("content_title") }}
+    </h1>
+    {% include 'inspect/partials/_limitations.html.twig' %}
+</div>
+{% endblock %}
+
+
+{% block content_title %}Request for bucket <code class="fs-3">{{ bin.id }}</code>{% endblock %}
+
+{% block page_content %}
+    <div class="body">
+        <div class="row">
+            {{ component('bin_requests', {"bin": bin}) }}
+        </div>
+    </div>
+{% endblock %}
+

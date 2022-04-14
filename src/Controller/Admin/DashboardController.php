@@ -27,7 +27,7 @@ class DashboardController extends AbstractDashboardController
     {
     }
 
-    #[Route('/admin', name: 'admin')]
+    #[Route('/admin', name: 'admin', condition: 'context.getHost() == env("BASE_HOST")')]
     public function index(): Response
     {
         return $this->render('admin/dashboard.html.twig', [
