@@ -4,7 +4,8 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
-    base_host: '%env(BASE_HOST)%'
+    base_host: '%env(default:default_base_host:BASE_HOST)%'
+    default_base_host: 'localhost'
     buckets_dirs : '%kernel.project_dir%/var/bins'
     bucket_mode: '%env(default:default_bucket_mode:BUCKET_MODE)%'
     default_bucket_mode: 'path'
@@ -48,10 +49,12 @@ services:
         class: App\Manager\BinManager
 
 
-    current_bin_listener:
-        class: App\EventListener\CurrentBinListener
+    App\EventListener\CurrentBinEventSubscriber:
         arguments:
             - "@bin_manager"
             - "%base_host%"
         tags:
-            - { name: kernel.event_listener, method: onKernelRequest, event: kernel.request, priority: 250 }
+            - { name: kernel.event_subscriber, method: onKernelRequest, event: kernel.request, priority: 250 }
+
+    current_bin_listener:
+        alias: App\EventListener\CurrentBinEventSubscriber

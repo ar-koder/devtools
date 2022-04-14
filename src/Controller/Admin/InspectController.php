@@ -106,5 +106,6 @@ class InspectController extends AbstractDashboardController
         yield MenuItem::linkToUrl(label: 'How to use', icon: 'fa fa-life-ring', url: $this->generateUrl('inspect.usage', ['bin' => (string) $this->binManager->getCurrentBin()]));
         yield MenuItem::section();
         yield MenuItem::linkToUrl(label: 'Back to website', icon: 'fa fa-reply', url: sprintf('https://%s', $this->getParameter('base_host')));
+        yield MenuItem::linkToUrl(label: 'GitHub', icon: 'fab fa-github', url: 'https://github.com/arnaud-ritti/devtools');
     }
 }

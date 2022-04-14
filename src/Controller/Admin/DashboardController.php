@@ -45,7 +45,7 @@ class DashboardController extends AbstractDashboardController
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()
-            ->setTitle('Placeholder APIs')
+            ->setTitle('JSON Manager')
             ;
     }
 
@@ -54,9 +54,6 @@ class DashboardController extends AbstractDashboardController
      */
     public function configureMenuItems(): iterable
     {
-        yield MenuItem::linkToUrl(label: 'Homepage', icon: 'fa fa-home', url: '/');
-
-        yield MenuItem::section();
         yield MenuItem::linkToCrud(label: 'Posts', icon: 'fas fa-newspaper', entityFqcn: Post::class);
         yield MenuItem::linkToCrud(label: 'Comments', icon: 'fas fa-reply', entityFqcn: Comment::class);
         yield MenuItem::section();
@@ -67,13 +64,17 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::section();
         yield MenuItem::linkToCrud(label: 'Users', icon: 'fas fa-users', entityFqcn: User::class);
 
-        yield MenuItem::section(label: 'Documentations', icon: 'fas fa-book');
+        yield MenuItem::subMenu(label: 'Documentations', icon: 'fas fa-book')
+            ->setSubItems([
+
+            ]);
         yield MenuItem::linkToUrl(label: 'OpenAPI', icon: 'fas fa-arrow-up-right-from-square', url: $this->generateUrl('api_doc'));
         yield MenuItem::linkToUrl(label: 'ReDoc', icon: 'fas fa-arrow-up-right-from-square', url: $this->generateUrl('api_doc', ['ui' => 're_doc']));
         yield MenuItem::linkToUrl(label: 'GraphiQL', icon: 'fas fa-arrow-up-right-from-square', url: $this->generateUrl('api_graphql_graphiql'));
         yield MenuItem::linkToUrl(label: 'GraphQL Playground', icon: 'fas fa-arrow-up-right-from-square', url: $this->generateUrl('api_graphql_graphql_playground'));
 
         yield MenuItem::section();
-        yield MenuItem::linkToUrl(label: 'GitHub', icon: 'fab fa-github', url: 'https://github.com/arnaud-ritti/placeholder-apis');
+        yield MenuItem::linkToUrl(label: 'Back to website', icon: 'fa fa-reply', url: sprintf('https://%s', $this->getParameter('base_host')));
+        yield MenuItem::linkToUrl(label: 'GitHub', icon: 'fab fa-github', url: 'https://github.com/arnaud-ritti/devtools');
     }
 }

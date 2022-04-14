@@ -10,8 +10,7 @@ on: # yamllint disable-line rule:truthy
         required: true
         type: choice
         options:
-          - 'https://placeholders.arnaud-ritti.fr/'
-          - 'https://placeholders.staging.arnaud-ritti.fr/'
+          - 'https://devtools.arnaud-ritti.fr/'
       FULL_SCAN:
         description: ""
         required: false

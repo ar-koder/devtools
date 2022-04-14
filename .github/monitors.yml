@@ -1,23 +1,12 @@
 monitors:
   production:
     policy_id: '114560'
-    name: "Placeholder APIs"
+    name: "Devtools by Arnaud Ritti"
     type: "SIMPLE"
     frequency: 10
-    uri: https://placeholders.arnaud-ritti.fr
+    uri: https://devtools.arnaud-ritti.fr
     locations: 2
     status: "ENABLED"
-    options:
-      verifySSL: true
-
-  staging:
-    policy_id: '114560'
-    name: "Placeholder APIs (staging)"
-    type: "SIMPLE"
-    frequency: 10
-    uri: https://placeholders.staging.arnaud-ritti.fr
-    locations: 2
-    status: "MUTED"
     options:
       verifySSL: true
 

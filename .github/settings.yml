@@ -58,7 +58,7 @@ repository:
   archived: false
   default_branch: "main"
   delete_branch_on_merge: true
-  description: ":octocat: A Placeholder API services made with Symfony"
+  description: ":octocat: An AIO devtools service made with Symfony"
   enable_automated_security_fixes: true
   enable_vulnerability_alerts: true
   has_downloads: true
@@ -66,9 +66,9 @@ repository:
   has_pages: false
   has_projects: false
   has_wiki: false
-  name: "placeholder-apis"
+  name: "devtools"
   private: false
 
   # https://docs.github.com/en/rest/reference/repos#replace-all-repository-topics
 
-  topics: "symfony, application, demo, placeholder, rest, graphql"
+  topics: "symfony, application, demo, placeholder, rest, graphql, requestbin"
