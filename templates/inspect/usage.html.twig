@@ -1,7 +1,5 @@
 {% extends '@EasyAdmin/page/content.html.twig' %}
 
-{% set binUrl = 'https://%s.%s'|format(bin.id, base_host) %}
-
 {% block page_title %}How to use buckets{% endblock %}
 
 {% block header_custom_menu %}{% endblock %}
@@ -29,6 +27,7 @@
 {% block content_title %}
     <span class="d-block mb-4">How to use your bucket</span>
     {% set urls = manager.binUrls %}
+
     {% if urls|length > 1 %}
         URLs :
         {% for url in urls %}
@@ -41,6 +40,7 @@
 
 
 {% block page_content %}
+    {% set binUrl = manager.binUrls|first %}
     <div class="body pt-2">
         <div class="row">
             <div class="col">

@@ -44,9 +44,11 @@ class BinManager
 
     public function getBinUrls(): array
     {
-        $scheme = Request::createFromGlobals()->getScheme();
-        $subdomain = sprintf('%s://%s.%s', $scheme, (string) $this->getCurrentBin(), $this->parameterBag->get('base_host'));
-        $path = sprintf('%s://%s/b/%s', $scheme, $this->parameterBag->get('base_host'), (string) $this->getCurrentBin());
+        $request = Request::createFromGlobals();
+        $scheme = $request->getScheme();
+        $host = $request->getHttpHost();
+        $subdomain = sprintf('%s://%s.%s', $scheme, (string) $this->getCurrentBin(), $host);
+        $path = sprintf('%s://%s/b/%s', $scheme, $host, (string) $this->getCurrentBin());
         return match ($this->parameterBag->get('bucket_mode')) {
             'both' => [$subdomain, $path],
             'subdomain' => [$subdomain],

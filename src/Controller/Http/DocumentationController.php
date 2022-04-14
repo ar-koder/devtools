@@ -22,7 +22,7 @@ class DocumentationController extends AbstractController
         $this->openApi = $openApiFactory([]);
     }
 
-    #[Route('/', name: 'app.homepage', condition: 'context.getHost() == env("BASE_HOST")')]
+    #[Route('/', name: 'app.homepage', condition: '!request.attributes.has("_bin")')]
     public function index(Request $request): Response
     {
         return $this->render('http_documentation/index.html.twig', [
@@ -30,7 +30,7 @@ class DocumentationController extends AbstractController
         ]);
     }
 
-    #[Route('/{tag}', name: 'app.tag', condition: 'context.getHost() == env("BASE_HOST")')]
+    #[Route('/{tag}', name: 'app.tag', condition: '!request.attributes.has("_bin")')]
     public function tag(string $tag): Response
     {
         $paths = [];

@@ -9,7 +9,9 @@ use App\Manager\BinManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Uid\Uuid;
 
 class BinController extends AbstractController
 {
@@ -22,7 +24,7 @@ class BinController extends AbstractController
         name: 'api.bin.subdomain',
         requirements: ['anything' => "([a-zA-Z0-9_-]+\/?)*"],
         defaults: ['anything' => ''],
-        condition: 'request.attributes.has("_bin") and (env("BUCKET_MODE") == "subdomain" || env("BUCKET_MODE") == "both")',
+        condition: "request.attributes.has('_bin')",
         priority: 0
     )]
     #[Route(
@@ -30,7 +32,7 @@ class BinController extends AbstractController
         name: 'api.bin.path',
         requirements: ['anything' => "([a-zA-Z0-9_-]+\/?)*"],
         defaults: ['anything' => ''],
-        condition: 'request.attributes.has("_bin") and (env("BUCKET_MODE") == "path" || env("BUCKET_MODE") == "both")',
+        condition: "request.attributes.has('_bin')",
         priority: 0
     )]
     public function bin(Request $request): Response
@@ -43,11 +45,21 @@ class BinController extends AbstractController
 
         $requestBinId = $this->binManager->saveRequest(RequestBin::createFromRequest($request));
         $response = $this->json('OK');
+
         $response->headers->add([
-            'X-Inspect-Link' => sprintf('https://%s%s#%s', $this->getParameter('base_host'), $this->generateUrl('inspect', [
+            'X-Inspect-Link' => sprintf('%s://%s%s#%s', $request->getScheme(), self::getBaseHost($request), $this->generateUrl('inspect', [
                 'bin' => (string) $this->binManager->getCurrentBin(),
             ]), $requestBinId),
         ]);
         return $response;
+    }
+
+    public static function getBaseHost(Request $request){
+        $baseHost = $request->getHttpHost();
+        $pathInfo = current(explode(".", $baseHost, 2));
+        if(Uuid::isValid($pathInfo)){
+            $baseHost = str_replace("$pathInfo.", "", $baseHost);
+        }
+        return $baseHost;
     }
 }

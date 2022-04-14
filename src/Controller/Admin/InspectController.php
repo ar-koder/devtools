@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller\Admin;
 
+use App\Controller\Http\BinController;
 use Doctrine\DBAL\Exception;
 use App\Dto\Bin;
 use App\Manager\BinManager;
@@ -12,6 +13,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Config\UserMenu;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
@@ -26,7 +28,7 @@ class InspectController extends AbstractDashboardController
 
     #[Route(
         '/inspect',
-        condition: 'context.getHost() == env("BASE_HOST")'
+        condition: '!request.attributes.has("_bin")'
     )]
     public function index(): Response
     {
@@ -42,7 +44,7 @@ class InspectController extends AbstractDashboardController
     #[Route(
         '/inspect/{bin}',
         name: 'inspect',
-        condition: 'context.getHost() == env("BASE_HOST")'
+        condition: '!request.attributes.has("_bin")'
     )]
     public function inspect(string $bin): Response
     {
@@ -63,7 +65,7 @@ class InspectController extends AbstractDashboardController
     #[Route(
         '/inspect/{bin}/usage',
         name: 'inspect.usage',
-        condition: 'context.getHost() == env("BASE_HOST")'
+        condition: '!request.attributes.has("_bin")'
     )]
     public function usage(string $bin): Response
     {
@@ -105,7 +107,9 @@ class InspectController extends AbstractDashboardController
         yield MenuItem::linkToUrl(label: 'Requests', icon: 'fa fa-list', url: $this->generateUrl('inspect', ['bin' => (string) $this->binManager->getCurrentBin()]));
         yield MenuItem::linkToUrl(label: 'How to use', icon: 'fa fa-life-ring', url: $this->generateUrl('inspect.usage', ['bin' => (string) $this->binManager->getCurrentBin()]));
         yield MenuItem::section();
-        yield MenuItem::linkToUrl(label: 'Back to website', icon: 'fa fa-reply', url: sprintf('https://%s', $this->getParameter('base_host')));
+
+        $request = Request::createFromGlobals();
+        yield MenuItem::linkToUrl(label: 'Back to website', icon: 'fa fa-reply', url: sprintf('%s://%s', $request->getScheme(), BinController::getBaseHost($request)));
         yield MenuItem::linkToUrl(label: 'GitHub', icon: 'fab fa-github', url: 'https://github.com/arnaud-ritti/devtools');
     }
 }

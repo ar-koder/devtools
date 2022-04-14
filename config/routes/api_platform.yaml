@@ -2,6 +2,6 @@ api_platform:
     resource: .
     type: api_platform
     prefix: /api
-    condition: 'context.getHost() == env("BASE_HOST")'
+    condition: '!request.attributes.has("_bin")'
     defaults:
         schemes: [https]

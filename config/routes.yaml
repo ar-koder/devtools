@@ -8,7 +8,7 @@ api_controllers:
     resource: ../src/Controller/API/
     type: annotation
     prefix: /api
-    condition: 'context.getHost() == env("BASE_HOST")'
+    condition: '!request.attributes.has("_bin")'
     defaults:
         schemes: [https]
 

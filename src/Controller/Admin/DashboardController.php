@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller\Admin;
 
+use App\Controller\Http\BinController;
 use App\Entity\Album;
 use App\Entity\Comment;
 use App\Entity\Photo;
@@ -18,6 +19,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Menu\SectionMenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
 use Iterator;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -27,7 +29,7 @@ class DashboardController extends AbstractDashboardController
     {
     }
 
-    #[Route('/admin', name: 'admin', condition: 'context.getHost() == env("BASE_HOST")')]
+    #[Route('/admin', name: 'admin', condition: '!request.attributes.has("_bin")')]
     public function index(): Response
     {
         return $this->render('admin/dashboard.html.twig', [
@@ -74,7 +76,8 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToUrl(label: 'GraphQL Playground', icon: 'fas fa-arrow-up-right-from-square', url: $this->generateUrl('api_graphql_graphql_playground'));
 
         yield MenuItem::section();
-        yield MenuItem::linkToUrl(label: 'Back to website', icon: 'fa fa-reply', url: sprintf('https://%s', $this->getParameter('base_host')));
+        $request = Request::createFromGlobals();
+        yield MenuItem::linkToUrl(label: 'Back to website', icon: 'fa fa-reply', url: sprintf('%s://%s', $request->getScheme(), BinController::getBaseHost($request)));
         yield MenuItem::linkToUrl(label: 'GitHub', icon: 'fab fa-github', url: 'https://github.com/arnaud-ritti/devtools');
     }
 }
