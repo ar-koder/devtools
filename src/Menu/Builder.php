@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace App\Menu;
 
-use ApiPlatform\Core\OpenApi\Factory\OpenApiFactoryInterface;
-use ApiPlatform\Core\OpenApi\OpenApi;
 use Knp\Menu\FactoryInterface;
 use Knp\Menu\ItemInterface;
 use Symfony\Component\String\Slugger\AsciiSlugger;

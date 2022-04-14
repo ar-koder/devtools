@@ -34,7 +34,5 @@ ENV BUCKET_MODE "path"
 ENV DATABASE_URL "sqlite:///%kernel.project_dir%/var/data.db"
 ENV CORS_ALLOW_ORIGIN "^https?://(localhost|127\.0\.0\.1)(:[0-9]+)?$"
 ENV TRUSTED_PROXIES "127.0.0.1,REMOTE_ADDR"
-ENV IS_DOCKERIZED "1"
-
 
 VOLUME ["var/bins", "var/log"]

@@ -9,7 +9,6 @@ use App\Manager\BinManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Uid\Uuid;
 
@@ -54,11 +53,12 @@ class BinController extends AbstractController
         return $response;
     }
 
-    public static function getBaseHost(Request $request){
+    public static function getBaseHost(Request $request)
+    {
         $baseHost = $request->getHttpHost();
-        $pathInfo = current(explode(".", $baseHost, 2));
-        if(Uuid::isValid($pathInfo)){
-            $baseHost = str_replace("$pathInfo.", "", $baseHost);
+        $pathInfo = current(explode('.', $baseHost, 2));
+        if (Uuid::isValid($pathInfo)) {
+            $baseHost = str_replace("${pathInfo}.", '', $baseHost);
         }
         return $baseHost;
     }

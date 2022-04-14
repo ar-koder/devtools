@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Manager;
 
-use Doctrine\DBAL\Exception;
-use DateTime;
 use App\DBAL\BinConnectionWrapper;
 use App\Dto\Bin;
 use App\Dto\RequestBin;
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\DBAL\Exception;
 use Doctrine\DBAL\Types\Type;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\Persistence\ManagerRegistry;

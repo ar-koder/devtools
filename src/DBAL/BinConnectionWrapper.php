@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace App\DBAL;
 
-use Doctrine\DBAL\Exception;
-use Doctrine\DBAL\Schema\SchemaException;
 use App\Dto\Bin;
 use Doctrine\Common\EventManager;
 use Doctrine\DBAL\Configuration;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Driver;
+use Doctrine\DBAL\Exception;
 use Doctrine\DBAL\Schema\Comparator;
+use Doctrine\DBAL\Schema\SchemaException;
 
 class BinConnectionWrapper extends Connection
 {

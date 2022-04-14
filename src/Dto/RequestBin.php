@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Dto;
 
+use DateTimeImmutable;
 use DateTimeInterface;
 use Exception;
-use DateTimeImmutable;
 use JetBrains\PhpStorm\Pure;
 use Symfony\Component\HttpFoundation\Request;
 

@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace App\Controller\Admin;
 
 use App\Controller\Http\BinController;
-use Doctrine\DBAL\Exception;
 use App\Dto\Bin;
 use App\Manager\BinManager;
+use Doctrine\DBAL\Exception;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Assets;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;

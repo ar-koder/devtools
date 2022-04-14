@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Dto;
 
-use Stringable;
 use JetBrains\PhpStorm\Pure;
+use Stringable;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Uid\Uuid;
 use Symfony\Component\Uid\UuidV4;

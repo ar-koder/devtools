@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Components\Bin;
 
-use Doctrine\DBAL\Exception;
 use App\Dto\Bin;
 use App\Manager\BinManager;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\DBAL\Exception;
 use Symfony\UX\LiveComponent\Attribute\AsLiveComponent;
 use Symfony\UX\LiveComponent\Attribute\LiveProp;
 use Symfony\UX\LiveComponent\DefaultActionTrait;

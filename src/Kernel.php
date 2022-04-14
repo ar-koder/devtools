@@ -14,20 +14,6 @@ class Kernel extends BaseKernel implements CompilerPassInterface
 {
     use MicroKernelTrait;
 
-    public function boot(): void
-    {
-        if (
-            (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'on') &&
-            (empty($_SERVER['IS_DOCKERIZED']) || ! $_SERVER['IS_DOCKERIZED']) &&
-            in_array($this->getEnvironment(), ['prod', 'staging'])
-        ) {
-            header('Location: https://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'], true, 301);
-            exit;
-        }
-
-        parent::boot();
-    }
-
     public function process(ContainerBuilder $container): void
     {
         $container
