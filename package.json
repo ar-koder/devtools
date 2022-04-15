@@ -44,7 +44,6 @@
       "prettier --write"
     ],
     "*.twig": [
-      "prettier --write",
       "bin/console lint:twig"
     ],
     "*.{yml,yaml}": [
