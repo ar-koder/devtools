@@ -49,7 +49,13 @@ class BinManager
         $host = $request->getHttpHost();
         $subdomain = sprintf('%s://%s.%s', $scheme, (string) $this->getCurrentBin(), $host);
         $path = sprintf('%s://%s/b/%s', $scheme, $host, (string) $this->getCurrentBin());
-        return match ($this->parameterBag->get('bucket_mode')) {
+        $bucketMode = $this->parameterBag->get('bucket_mode');
+
+        if(filter_var($request->getHost(), FILTER_VALIDATE_IP) && $bucketMode == "both"){
+            $bucketMode = "path";
+        }
+
+        return match ($bucketMode) {
             'both' => [$subdomain, $path],
             'subdomain' => [$subdomain],
             default => [$path]

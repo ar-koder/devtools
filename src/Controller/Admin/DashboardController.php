@@ -66,14 +66,14 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::section();
         yield MenuItem::linkToCrud(label: 'Users', icon: 'fas fa-users', entityFqcn: User::class);
 
+        yield MenuItem::section();
         yield MenuItem::subMenu(label: 'Documentations', icon: 'fas fa-book')
             ->setSubItems([
-
+                MenuItem::linkToUrl(label: 'OpenAPI', icon: 'fas fa-arrow-up-right-from-square', url: $this->generateUrl('api_doc')),
+                MenuItem::linkToUrl(label: 'ReDoc', icon: 'fas fa-arrow-up-right-from-square', url: $this->generateUrl('api_doc', ['ui' => 're_doc'])),
+                MenuItem::linkToUrl(label: 'GraphiQL', icon: 'fas fa-arrow-up-right-from-square', url: $this->generateUrl('api_graphql_graphiql')),
+                MenuItem::linkToUrl(label: 'GraphQL Playground', icon: 'fas fa-arrow-up-right-from-square', url: $this->generateUrl('api_graphql_graphql_playground')),
             ]);
-        yield MenuItem::linkToUrl(label: 'OpenAPI', icon: 'fas fa-arrow-up-right-from-square', url: $this->generateUrl('api_doc'));
-        yield MenuItem::linkToUrl(label: 'ReDoc', icon: 'fas fa-arrow-up-right-from-square', url: $this->generateUrl('api_doc', ['ui' => 're_doc']));
-        yield MenuItem::linkToUrl(label: 'GraphiQL', icon: 'fas fa-arrow-up-right-from-square', url: $this->generateUrl('api_graphql_graphiql'));
-        yield MenuItem::linkToUrl(label: 'GraphQL Playground', icon: 'fas fa-arrow-up-right-from-square', url: $this->generateUrl('api_graphql_graphql_playground'));
 
         yield MenuItem::section();
         $request = Request::createFromGlobals();
