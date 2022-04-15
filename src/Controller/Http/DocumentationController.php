@@ -27,7 +27,7 @@ class DocumentationController extends AbstractController
     {
         return $this->render('http_documentation/index.html.twig', [
             'controller_name' => 'HttpDocumentationController',
-        ]);
+        ])->setPublic()->setMaxAge(3600);
     }
 
     #[Route('/doc/{tag}', name: 'app.tag', condition: '!request.attributes.has("_bin")')]
@@ -72,6 +72,6 @@ class DocumentationController extends AbstractController
         return $this->render('http_documentation/tag.html.twig', [
             'paths' => current(array_values($paths)),
             'tag' => current(array_keys($paths)),
-        ]);
+        ])->setPublic()->setMaxAge(3600);
     }
 }

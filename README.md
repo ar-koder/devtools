@@ -27,10 +27,12 @@ docker run --rm -p 80:80 arnaudritti/devtools
 
 #### Environement variables
 
-| Name        | default value | options                    |
-| ----------- | ------------- | -------------------------- |
-| APP_ENV     | `prod`        | `prod`, `dev`              |
-| BUCKET_MODE | `path`        | `path`, `sudomain`, `both` |
+| Name                 | default value | options                    |
+| -------------------- | ------------- | -------------------------- |
+| APP_ENV              | `prod`        | `prod`, `dev`              |
+| BUCKET_MODE          | `path`        | `path`, `sudomain`, `both` |
+| BUCKET_REQUEST_LIMIT | `50`          | integer                    |
+| BUCKET_EXPIRE_AFTER  | `48`          | hours (integer)            |
 
 Or use the hosted service at [https://devtools.arnaud-ritti.fr/](https://devtools.arnaud-ritti.fr/)
 
