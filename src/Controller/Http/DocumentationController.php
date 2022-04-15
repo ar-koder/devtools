@@ -30,7 +30,7 @@ class DocumentationController extends AbstractController
         ]);
     }
 
-    #[Route('/{tag}', name: 'app.tag', condition: '!request.attributes.has("_bin")')]
+    #[Route('/doc/{tag}', name: 'app.tag', condition: '!request.attributes.has("_bin")')]
     public function tag(string $tag): Response
     {
         $paths = [];

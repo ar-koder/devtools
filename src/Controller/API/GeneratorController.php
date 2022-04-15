@@ -38,7 +38,7 @@ class GeneratorController extends AbstractController
 
     public static function setupOpenApiDocumentation(OpenApi $openApi): void
     {
-        $openApi->getPaths()->addPath('/api/uuid', new PathItem(
+        $openApi->getPaths()->addPath('/uuid', new PathItem(
             get: new Operation(
                 operationId: 'getUUIDs',
                 tags: ['Dynamic data'],
@@ -67,7 +67,7 @@ class GeneratorController extends AbstractController
             )
         ));
 
-        $openApi->getPaths()->addPath('/api/encode/{decoded}', new PathItem(
+        $openApi->getPaths()->addPath('/encode/{decoded}', new PathItem(
             get: new Operation(
                 operationId: 'getEncoded',
                 tags: ['Dynamic data'],
@@ -92,7 +92,7 @@ class GeneratorController extends AbstractController
             )
         ));
 
-        $openApi->getPaths()->addPath('/api/decode/{encoded}', new PathItem(
+        $openApi->getPaths()->addPath('/decode/{encoded}', new PathItem(
             get: new Operation(
                 operationId: 'getDecoded',
                 tags: ['Dynamic data'],

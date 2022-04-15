@@ -8,7 +8,7 @@ use Symfony\Component\Mime\MimeTypes;
 class ImageTest extends ApiTestCase
 {
     protected function getImage($width, $height, $format){
-        $response = static::createClient()->request('GET', sprintf('/api/placeholder/%sx%s.%s', $width, $height, $format));
+        $response = static::createClient()->request('GET', sprintf('/placeholder/%sx%s.%s', $width, $height, $format));
 
         $imageSize = getimagesizefromstring($response->getContent());
         $this->assertEquals($width, $imageSize[0]);
@@ -18,9 +18,9 @@ class ImageTest extends ApiTestCase
 
     protected function getSpaceImage($width, $height, $format, $category = null){
         if($category){
-            $response = static::createClient()->request('GET', sprintf('/api/space/%s/%sx%s.%s', $category, $width, $height, $format));
+            $response = static::createClient()->request('GET', sprintf('/space/%s/%sx%s.%s', $category, $width, $height, $format));
         }else{
-            $response = static::createClient()->request('GET', sprintf('/api/space/%sx%s.%s', $width, $height, $format));
+            $response = static::createClient()->request('GET', sprintf('/space/%sx%s.%s', $width, $height, $format));
         }
 
         $imageSize = getimagesizefromstring($response->getContent());

@@ -3,5 +3,3 @@ api_platform:
     type: api_platform
     prefix: /api
     condition: '!request.attributes.has("_bin")'
-    defaults:
-        schemes: [https]

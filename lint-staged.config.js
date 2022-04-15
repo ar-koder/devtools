@@ -1,5 +1,5 @@
 module.exports = {
-  '*.php': ['vendor/bin/phpinsights -n --ansi --format=github-action --fix', 'vendor/bin/rector process'],
+  '*.php': ['vendor/bin/phpinsights -n --fix', 'vendor/bin/rector process'],
   '*.{js,jsx,ts,tsx,vue}': ['prettier --write', 'npm run lint:js --'],
   '*.{pcss,css}': ['prettier --write', 'npm run lint:css --'],
   '*.{json,md}': ['prettier --write'],

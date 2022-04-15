@@ -10,7 +10,7 @@ class StatusCodeTest extends ApiTestCase
     protected function requestTest($method, $code){
         if (! array_key_exists($code, Response::$statusTexts)) return;
 
-        static::createClient()->request($method, sprintf('/api/status/%s', $code));
+        static::createClient()->request($method, sprintf('/status/%s', $code));
         $this->assertResponseStatusCodeSame($code);
     }
 

@@ -22,7 +22,7 @@ use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 
 class ImageController extends AbstractController
 {
-    #[Route('/placeholder/{dimensions}.{format}', name: 'api.image.placeholder', methods: ['GET'], defaults: ['format' => 'png'])]
+    #[Route('/placeholder/{dimensions}.{format}', name: 'api.image.placeholder', defaults: ['format' => 'png'], methods: ['GET'])]
     public function getPlaceholder(Request $request, string $dimensions, string $format = 'png'): Response
     {
         [$width, $height] = self::parseDimensions($dimensions);
@@ -71,7 +71,7 @@ class ImageController extends AbstractController
 
     public static function setupOpenApiDocumentation(OpenApi $openApi): void
     {
-        $openApi->getPaths()->addPath('/api/placeholder/{dimensions}.{format}', new PathItem(
+        $openApi->getPaths()->addPath('/placeholder/{dimensions}.{format}', new PathItem(
             get: new Operation(
                 operationId: 'getPlaceholder',
                 tags: ['Images'],
@@ -93,7 +93,7 @@ class ImageController extends AbstractController
             )
         ));
 
-        $openApi->getPaths()->addPath('/api/space/{dimensions}.{format}', new PathItem(
+        $openApi->getPaths()->addPath('/space/{dimensions}.{format}', new PathItem(
             get: new Operation(
                 operationId: 'getSpaceholder',
                 tags: ['Images'],
@@ -112,7 +112,7 @@ class ImageController extends AbstractController
             )
         ));
 
-        $openApi->getPaths()->addPath('/api/space/{category}/{dimensions}.{format}', new PathItem(
+        $openApi->getPaths()->addPath('/space/{category}/{dimensions}.{format}', new PathItem(
             get: new Operation(
                 operationId: 'getCategorizedSpaceholder',
                 tags: ['Images'],

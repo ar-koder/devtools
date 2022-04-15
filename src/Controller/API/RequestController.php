@@ -57,7 +57,7 @@ class RequestController extends AbstractController
 
     public static function setupOpenApiDocumentation(OpenApi $openApi): void
     {
-        $openApi->getPaths()->addPath('/api/ip', new PathItem(
+        $openApi->getPaths()->addPath('/ip', new PathItem(
             get: new Operation(
                 operationId: 'getIp',
                 tags: ['Requests'],
@@ -82,7 +82,7 @@ class RequestController extends AbstractController
             )
         ));
 
-        $openApi->getPaths()->addPath('/api/headers', new PathItem(
+        $openApi->getPaths()->addPath('/headers', new PathItem(
             get: new Operation(
                 operationId: 'getHeaders',
                 tags: ['Requests'],
@@ -111,7 +111,7 @@ class RequestController extends AbstractController
             )
         ));
 
-        $openApi->getPaths()->addPath('/api/user-agent', new PathItem(
+        $openApi->getPaths()->addPath('/user-agent', new PathItem(
             get: new Operation(
                 operationId: 'getUA',
                 tags: ['Requests'],
@@ -172,7 +172,7 @@ class RequestController extends AbstractController
             ],
             summary: 'Returns anything passed in request data.'
         );
-        $openApi->getPaths()->addPath('/api/anything', new PathItem(
+        $openApi->getPaths()->addPath('/anything', new PathItem(
             get: $anythingOperation->withOperationId('getAnything'),
             put: $anythingOperation->withOperationId('putAnything'),
             post: $anythingOperation->withOperationId('postAnything'),

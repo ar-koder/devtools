@@ -52,7 +52,7 @@ services:
             - "@bin_manager"
             - "%bucket_mode%"
         tags:
-            - { name: kernel.event_subscriber, method: onKernelRequest, event: kernel.request, priority: 250 }
+            - { name: kernel.event_subscriber}
 
     current_bin_listener:
         alias: App\EventListener\CurrentBinEventSubscriber

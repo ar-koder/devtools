@@ -223,8 +223,8 @@ class CookieController extends AbstractController
             ),
         );
 
-        $openApi->getPaths()->addPath('/api/cookies', $collectionItem);
-        $openApi->getPaths()->addPath('/api/cookies/{key}', $singleItem);
+        $openApi->getPaths()->addPath('/cookies', $collectionItem);
+        $openApi->getPaths()->addPath('/cookies/{key}', $singleItem);
     }
 
     #[Pure] private function createErrorFromSerialization(): FormErrorRfc7807DTO

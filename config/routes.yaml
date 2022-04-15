@@ -1,16 +1,11 @@
 controllers:
     resource: ../src/Controller/
     type: annotation
-    defaults:
-        schemes: [https]
 
 api_controllers:
     resource: ../src/Controller/API/
     type: annotation
-    prefix: /api
     condition: '!request.attributes.has("_bin")'
-    defaults:
-        schemes: [https]
 
 kernel:
     resource: ../src/Kernel.php

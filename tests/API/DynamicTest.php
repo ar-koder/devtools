@@ -13,8 +13,8 @@ class DynamicTest extends ApiTestCase
 
     public function testDecode()
     {
-        $testString = "Hello World";
-        $response = static::createClient()->request('GET', sprintf('/api/decode/%s', base64_encode($testString)),[
+        $testString = "decoded";
+        $response = static::createClient()->request('GET', sprintf('/decode/%s', base64_encode($testString)),[
             'headers' => ['Content-Type' => 'application/json'],
         ]);
         $this->assertResponseStatusCodeSame(Response::HTTP_OK);
@@ -24,8 +24,8 @@ class DynamicTest extends ApiTestCase
 
     public function testEncode()
     {
-        $testString = "Hello World";
-        $response = static::createClient()->request('GET', sprintf('/api/encode/%s', $testString),[
+        $testString = "decoded";
+        $response = static::createClient()->request('GET', sprintf('/encode/%s', $testString),[
             'headers' => ['Content-Type' => 'application/json'],
         ]);
         $this->assertResponseStatusCodeSame(Response::HTTP_OK);
@@ -35,7 +35,7 @@ class DynamicTest extends ApiTestCase
 
     public function testUUIDs()
     {
-        $response = static::createClient()->request('GET', '/api/uuid',[
+        $response = static::createClient()->request('GET', '/uuid',[
             'headers' => ['Content-Type' => 'application/json'],
         ]);
         $this->assertResponseStatusCodeSame(Response::HTTP_OK);

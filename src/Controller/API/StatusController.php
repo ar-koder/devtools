@@ -70,6 +70,6 @@ class StatusController extends AbstractController
             delete: $operation->withOperationId('deleteStatusCode'),
             patch: $operation->withOperationId('patchStatusCode')
         );
-        $openApi->getPaths()->addPath('/api/status/{code}', $collectionItem);
+        $openApi->getPaths()->addPath('/status/{code}', $collectionItem);
     }
 }

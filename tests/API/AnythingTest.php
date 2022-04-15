@@ -7,7 +7,7 @@ use ApiPlatform\Core\Bridge\Symfony\Bundle\Test\ApiTestCase;
 class AnythingTest extends ApiTestCase
 {
     protected function requestTest($method, $options){
-        static::createClient()->request($method,'/api/anything', $options);
+        static::createClient()->request($method,'/anything', $options);
 
         $this->assertJsonContains([
             'method' => $method,

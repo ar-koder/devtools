@@ -10,7 +10,7 @@ class RequestTest extends ApiTestCase
 
     public function testUA()
     {
-        static::createClient()->request('GET', '/api/user-agent',[
+        static::createClient()->request('GET', '/user-agent',[
             'headers' => [
                 'User-Agent' => "UA-TEST"
             ],
@@ -25,7 +25,7 @@ class RequestTest extends ApiTestCase
 
     public function testIPs()
     {
-        static::createClient()->request('GET', '/api/ip',[
+        static::createClient()->request('GET', '/ip',[
             'headers' => [
                 'User-Agent' => "UA-TEST"
             ],
@@ -42,7 +42,7 @@ class RequestTest extends ApiTestCase
 
     public function testHeaders(): void
     {
-        static::createClient()->request('GET', '/api/headers',[
+        static::createClient()->request('GET', '/headers',[
             'headers' => [
                 'User-Agent' => "UA-TEST"
             ],

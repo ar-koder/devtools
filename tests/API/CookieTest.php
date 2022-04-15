@@ -14,7 +14,7 @@ class CookieTest extends ApiTestCase
             "value" => "example"
         ];
 
-        static::createClient()->request('POST', '/api/cookies', [
+        static::createClient()->request('POST', '/cookies', [
             'headers' => ['Content-Type' => 'application/json'],
             "json" => $body
         ]);
@@ -28,7 +28,7 @@ class CookieTest extends ApiTestCase
         $client = static::createClient();
         $client->getCookieJar()->set(new Cookie("freeform", "example"));
 
-        $client->request('PATCH', sprintf('/api/cookies/%s', "freeform"), [
+        $client->request('PATCH', sprintf('/cookies/%s', "freeform"), [
             'headers' => ['Content-Type' => 'application/json'],
             "body" => "edited-example"
         ]);
@@ -42,7 +42,7 @@ class CookieTest extends ApiTestCase
         $client = static::createClient();
         $client->getCookieJar()->set(new Cookie("freeform", "example"));
 
-        $response = $client->request('DELETE', sprintf('/api/cookies/%s', "freeform"), [
+        $response = $client->request('DELETE', sprintf('/cookies/%s', "freeform"), [
             'headers' => ['Content-Type' => 'application/json']
         ]);
 
@@ -55,7 +55,7 @@ class CookieTest extends ApiTestCase
         $client = static::createClient();
         $client->getCookieJar()->set(new Cookie("freeform", "example"));
 
-        $client->request('GET', '/api/cookies', [
+        $client->request('GET', '/cookies', [
             'headers' => ['Content-Type' => 'application/json']
         ]);
 
