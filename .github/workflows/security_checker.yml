@@ -1,0 +1,41 @@
+# https://docs.github.com/en/actions
+
+name: Run security OWASP checks
+
+on: # yamllint disable-line rule:truthy
+  workflow_dispatch:
+    inputs:
+      HOST:
+        description: ""
+        required: true
+        type: choice
+        options:
+          - 'https://devtools.arnaud-ritti.fr/'
+      FULL_SCAN:
+        description: ""
+        required: false
+        type: boolean
+
+jobs:
+  zap_scan:
+    runs-on: ubuntu-latest
+    name: Scan the webapplication
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: ZAP Scan
+        if: ${{ !github.event.inputs.FULL_SCAN || github.event.inputs.FULL_SCAN == 'false' }}
+        uses: zaproxy/action-baseline@v0.6.1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          target: ${{ github.event.inputs.HOST }}
+          cmd_options: '-z "-config view.locale=fr_FR"'
+
+      - name: ZAP Scan
+        if: ${{ github.event.inputs.FULL_SCAN && github.event.inputs.FULL_SCAN != 'false' }}
+        uses: zaproxy/action-full-scan@v0.3.0
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          target: ${{ github.event.inputs.HOST }}
+          cmd_options: '-z "-config view.locale=fr_FR"'

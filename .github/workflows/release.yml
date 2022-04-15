@@ -1,0 +1,47 @@
+# https://docs.github.com/en/actions
+
+name: Release
+
+on:
+    release:
+        types: [published]
+
+jobs:
+    integrate:
+        uses: ./.github/workflows/integrate.yml
+    deploy-staging:
+        uses: ./.github/workflows/deploy.yml
+        if: ${{ github.event.release.prerelease }}
+        needs: integrate
+        with:
+            HOST: staging
+            TAG: ${{ github.ref_name }}
+        secrets:
+            DEPLOYER_INVENTORY: ${{ secrets.DEPLOYER_INVENTORY }}
+            PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
+            SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+            SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
+            SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
+            NEW_RELIC_API_KEY: ${{ secrets.NEW_RELIC_API_KEY }}
+    deploy-production:
+        uses: ./.github/workflows/deploy.yml
+        if: ${{ !github.event.release.prerelease }}
+        needs: integrate
+        with:
+            HOST: production
+            TAG: ${{ github.ref_name }}
+        secrets:
+            DEPLOYER_INVENTORY: ${{ secrets.DEPLOYER_INVENTORY }}
+            PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
+            SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+            SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
+            SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
+            NEW_RELIC_API_KEY: ${{ secrets.NEW_RELIC_API_KEY }}
+    docker:
+        uses: ./.github/workflows/docker.yml
+        needs: deploy-production
+        with:
+            TAG: ${{ github.ref_name }}
+        secrets:
+            DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+            DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}

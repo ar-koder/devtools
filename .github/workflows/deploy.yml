@@ -1,0 +1,104 @@
+# https://docs.github.com/en/actions
+
+name: Deploy
+
+on: # yamllint disable-line rule:truthy
+    workflow_call:
+        inputs:
+            HOST:
+                required: true
+                type: string
+            TAG:
+                required: false
+                type: string
+            BRANCH:
+                required: false
+                default: 'main'
+                type: string
+        secrets:
+            DEPLOYER_INVENTORY:
+                required: true
+            PRIVATE_KEY:
+                required: true
+            SENTRY_AUTH_TOKEN:
+                required: false
+            SENTRY_ORG:
+                required: false
+            SENTRY_PROJECT:
+                required: false
+            NEW_RELIC_API_KEY:
+                required: false
+
+# It is important to specify "concurrency" for the workflow,
+# to prevent concurrency between different deploys.
+concurrency: production_environment
+
+jobs:
+    deploy:
+        runs-on: ubuntu-latest
+        if: ${{ inputs.HOST && (inputs.TAG || inputs.BRANCH) }}
+        steps:
+            - uses: actions/checkout@v3
+
+            - name: Retrieve the secret inventory and decode it to a file
+              env:
+                  DEPLOYER_INVENTORY: ${{ secrets.DEPLOYER_INVENTORY }}
+              run: |
+                  echo $DEPLOYER_INVENTORY | base64 --decode > inventory.yaml
+
+            - uses: ./.github/actions/setup-environment
+
+            - name: Deploy tag ${{ inputs.TAG }} to ${{ inputs.HOST }}
+              if: ${{ inputs.TAG }}
+              uses: deployphp/action@v1
+              with:
+                  private-key: ${{ secrets.PRIVATE_KEY }}
+                  dep: deploy --tag=${{ inputs.TAG }} -n ${{ inputs.HOST }}
+
+            - name: Deploy branch ${{ inputs.BRANCH }} to ${{ inputs.HOST }}
+              if: ${{ inputs.BRANCH && !inputs.TAG }}
+              uses: deployphp/action@v1
+              with:
+                  private-key: ${{ secrets.PRIVATE_KEY }}
+                  dep: deploy --branch=${{ inputs.BRANCH }} -n ${{ inputs.HOST }}
+
+    sentry:
+        runs-on: ubuntu-latest
+        needs: deploy
+        steps:
+            - uses: actions/checkout@v3
+            - name: Create Sentry release for ${{ inputs.BRANCH }}
+              if: ${{ inputs.BRANCH }}
+              uses: getsentry/action-release@v1
+              env:
+                  SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+                  SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
+                  SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
+              with:
+                  environment: ${{ inputs.HOST }}
+                  ignore_missing: true
+                  ignore_empty: true
+
+            - name: Create Sentry release for ${{ inputs.TAG }}
+              if: ${{ inputs.TAG }}
+              uses: getsentry/action-release@v1
+              env:
+                  SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+                  SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
+                  SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
+              with:
+                  environment: ${{ inputs.HOST }}
+                  version: ${{ inputs.TAG }}
+                  ignore_missing: true
+                  ignore_empty: true
+
+    new-relic:
+        runs-on: ubuntu-latest
+        needs: deploy
+        steps:
+            - uses: actions/checkout@v3
+            - uses: arnaud-ritti/nr-monit@main
+              with:
+                  config: '.github/monitors.yml'
+                  api_key: ${{ secrets.NEW_RELIC_API_KEY }}
+                  eu_server: true

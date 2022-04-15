@@ -1,0 +1,12 @@
+controllers:
+    resource: ../src/Controller/
+    type: annotation
+
+api_controllers:
+    resource: ../src/Controller/API/
+    type: annotation
+    condition: '!request.attributes.has("_bin")'
+
+kernel:
+    resource: ../src/Kernel.php
+    type: annotation

@@ -1,0 +1,12 @@
+monitors:
+  production:
+    policy_id: '114560'
+    name: "Devtools by Arnaud Ritti"
+    type: "SIMPLE"
+    frequency: 10
+    uri: https://devtools.arnaud-ritti.fr
+    locations: 2
+    status: "ENABLED"
+    options:
+      verifySSL: true
+

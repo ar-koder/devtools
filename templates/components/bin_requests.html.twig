@@ -1,0 +1,79 @@
+<div
+    class="requests-list"
+    {{ attributes }}
+    data-poll
+>
+    {% for request in computed.requests %}
+        <div class="pt-2 mb-3" id="{{ request.id }}">
+            <div class="card">
+                <div class="card-header">
+                    <p class="mb-3 pt-2 d-flex align-items-center"><span class="badge method method--{{ request.method|lower }}">{{ request.method }}</span>&nbsp;<code class="fs-5">{{ request.path }}</code></p>
+                    <ul class="list-unstyled mb-0">
+                        <li><span><strong class="fa-fw d-inline-block">ID</strong>&nbsp;{{ request.id }}</span></li>
+                        <li><span><i class="fas fa-fw fa-server"></i>&nbsp;{{ request.host }}</span></li>
+                        <li><span><i class="fas fa-fw fa-clock"></i> {{ request.date|date("m/d/Y H:i:s") }}</span></li>
+                        {% if request.contentType %}
+                            <li><span><i class="fas fa-fw fa-file-code"></i> {{ request.contentType }}</span></li>
+                        {% endif %}
+                        {% if request.contentLength %}
+                            <li><span><i class="fas fa-fw fa-weight-hanging"></i> {{ request.contentLength }} bytes</span></li>
+                        {% endif %}
+                    </ul>
+                </div>
+                <div class="card-body">
+                    <div class="row row-cols-1 row-cols-md-2 g-4 mb-4">
+                        <div class="col col-md-4">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title">Query string arguments</h5>
+                                    <table class="table table-sm table-borderless">
+                                        {% for key, value  in request.queryArgs %}
+                                            <tr><th>{{ key }}</th><td><code>{{ value }}</code></td></tr>
+                                        {% endfor %}
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col col-md-8">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Headers</h5>
+                                    <table class="table table-sm table-borderless">
+                                        {% for key, value in request.headers %}
+                                            <tr><th>{{ key }}</th><td><code>{{ value }}</code></td></tr>
+                                        {% endfor %}
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% if request.rawBody or request.body %}
+                        <div class="row row-cols-1 g-4">
+                            <div class="col">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title row row-cols-1 row-cols-md-3 g-4 justify-content-between">
+                                            <span class="col">Body</span>
+                                            <ul class="col-md-auto list-inline text-md-end fs-6">
+                                                <li class="list-inline-item mb-1"><span><i class="fas fa-fw fa-file-code"></i> {{ request.contentType }}</span></li>
+                                                <li class="list-inline-item mb-1"><span><i class="fas fa-fw fa-weight-hanging"></i> {{ request.contentLength }} bytes</span></li>
+                                            </ul>
+                                        </h5>
+                                        <div>
+                                            {% if request.rawBody %}
+                                                <pre class="m-0"><code class="hljs" data-code="{{ request.rawBody }}"></code></pre>
+                                            {% elseif (request.body) %}
+                                                <pre class="m-0"><code class="hljs" data-code="{{ request.body|json_encode(constant('JSON_PRETTY_PRINT')) }}"></code></pre>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>

@@ -1,0 +1,14 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+if which composer >/dev/null; then
+  composer validate
+fi
+
+if which php >/dev/null; then
+  php vendor/bin/phpunit
+fi
+
+if which npx >/dev/null; then
+  npx lint-staged --relative
+fi

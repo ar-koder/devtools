@@ -1,0 +1,17 @@
+.idea/
+vendor/
+node_modules/
+
+.github
+.husky
+tests/cypress
+
+var/cache
+var/log
+var/data.db
+
+.env
+.env.*
+
+public/build
+public/bundles

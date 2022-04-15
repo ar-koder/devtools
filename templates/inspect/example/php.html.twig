@@ -1,0 +1,5 @@
+{% extends 'inspect/example/code.html.twig' %}
+{%- block code -%}
+$result = file_get_contents('{{ binUrl }}');
+echo $result;
+{%- endblock code -%}

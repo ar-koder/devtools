@@ -1,0 +1,65 @@
+name: Setup environment
+description: Setup environment
+
+runs:
+    using: 'composite'
+
+    steps:
+        - run: echo "TZ=Europe/Paris" >> $GITHUB_ENV
+          shell: bash
+
+        - run: echo "PHP_VERSION=8.0" >> $GITHUB_ENV
+          shell: bash
+
+        - run: echo "NODE_VERSION=16" >> $GITHUB_ENV
+          shell: bash
+
+        - run: echo "IS_DEPENDABOT=${{ startsWith(github.head_ref, 'dependabot') == true }}" >> $GITHUB_ENV
+          shell: bash
+
+        # Composer cache
+        - id: composer-cache
+          run: echo "::set-output name=dir::$(composer global config cache-files-dir)"
+          shell: bash
+
+        - run: echo "COMPOSER_CACHE_DIR=${{ steps.composer-cache.outputs.dir }}" >> $GITHUB_ENV
+          shell: bash
+
+        # NPM cache
+        - id: npm-cache
+          run: echo "::set-output name=dir::$(npm config get cache)"
+          shell: bash
+
+        - run: echo "NPM_CACHE_DIR=${{ steps.npm-cache.outputs.dir }}" >> $GITHUB_ENV
+          shell: bash
+
+        - uses: actions/cache@v2
+          with:
+              path: ${{ env.NPM_CACHE_DIR }}
+              key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+              restore-keys: ${{ runner.os }}-node-
+
+        - uses: actions/cache@v2
+          with:
+              path: ${{ env.COMPOSER_CACHE_DIR }}
+              key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+              restore-keys: ${{ runner.os }}-composer-
+
+        - uses: shivammathur/setup-php@v2
+          with:
+              php-version: ${{ env.PHP_VERSION }}
+              coverage: none
+              extensions: iconv, intl
+              ini-values: date.timezone=${{ env.TZ }}
+              tools: symfony
+
+        - uses: actions/setup-node@v2
+          with:
+              node-version: ${{ env.NODE_VERSION }}
+              cache: 'npm'
+
+        - run: composer install --ansi --no-interaction --no-progress --prefer-dist --optimize-autoloader
+          shell: bash
+
+        - run: npm install --no-audit
+          shell: bash

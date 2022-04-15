@@ -1,0 +1,63 @@
+.user-menu-wrapper{
+    @apply invisible;
+}
+.dropdown.dropdown-appearance {
+    @apply relative -top-10;
+
+}
+@media (min-width: 992px) {
+    .dropdown.dropdown-appearance{
+        @apply top-0;
+    }
+}
+.method {
+    @apply mr-2;
+    @apply inline-flex items-center justify-center w-20 h-8 rounded-md tracking-wide text-sm text-blue-500;
+    @apply text-white font-semibold uppercase border-0;
+    &--get {
+        background: #61affe;
+    }
+
+    &--post {
+        background: #49cc90;
+    }
+
+    &--put {
+        background: #fca130;
+    }
+
+    &--patch {
+        background: #50e3c2;
+    }
+
+    &--delete {
+        background: #f93e3e;
+    }
+}
+
+.ea-dark-scheme{
+    .card {
+        background-color: var(--body-bg);
+        border: 1px solid var(--responsive-header-border-color);
+
+        &-header {
+            background-color: var(--sidebar-bg);
+            border-bottom: 1px solid var(--responsive-header-border-color);
+        }
+    }
+
+    .table{
+        color: var(--text-primary-color);
+    }
+}
+
+pre.highlight{
+    @apply py-2 px-3 rounded-sm;
+}
+
+.requests-list{
+    .table code{
+        white-space: normal;
+        overflow-wrap: anywhere;
+    }
+}

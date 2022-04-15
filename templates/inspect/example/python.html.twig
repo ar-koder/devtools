@@ -1,0 +1,7 @@
+{% extends 'inspect/example/code.html.twig' %}
+{%- block code -%}
+import requests, time
+r = requests.post('{{ binUrl }}', data={"ts":time.time()})
+print r.status_code
+print r.content
+{%- endblock code -%}

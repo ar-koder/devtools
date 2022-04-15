@@ -1,0 +1,65 @@
+.btn {
+  @apply focus:outline-none;
+  @apply focus:ring-2;
+  @apply focus:ring-offset-2;
+  @apply items-center;
+  @apply block;
+  @apply px-10;
+  @apply py-2;
+  @apply font-normal;
+  @apply text-center;
+  @apply transition;
+  @apply duration-500;
+  @apply ease-in-out;
+  @apply transform;
+  @apply rounded-md;
+
+  &-primary {
+    @apply border-ultramarine;
+    @apply hover:border-ultramarine;
+    @apply bg-ultramarine;
+    @apply hover:shadow-none hover:bg-oyster;
+    @apply focus:ring-ultramarine;
+    @apply text-white;
+    @apply border;
+  }
+
+  &-secondary {
+    @apply text-ultramarine text-blue;
+    @apply hover:border-ultramarine;
+    @apply focus:ring-ultramarine;
+    @apply hover:shadow-none;
+    @apply text-base;
+    @apply bg-white;
+    @apply border-2;
+  }
+
+  &-tertiary {
+    @apply border-gun;
+    @apply bg-gun;
+    @apply hover:shadow-none hover:bg-river;
+    @apply focus:ring-river;
+    @apply hover:border-river;
+    @apply text-white;
+    @apply border-2;
+  }
+
+  &--icon {
+    .icon {
+      @apply mr-0;
+    }
+  }
+
+  .icon {
+    @apply w-6 h-6 mr-4;
+  }
+}
+
+a.link {
+  @apply text-oyster;
+  @apply hover:text-comet;
+  @apply dark:text-periblue;
+  @apply dark:hover:text-metal;
+  @apply text-base;
+  @apply font-light;
+}

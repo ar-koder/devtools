@@ -1,0 +1,122 @@
+# https://docs.github.com/en/actions
+
+name: 'Integrate'
+
+on: # yamllint disable-line rule:truthy
+    pull_request:
+        types: [opened, synchronize, reopened, ready_for_review]
+    pull_request_target:
+        types: [opened, synchronize, reopened, ready_for_review]
+    workflow_call: null
+    push:
+        branches:
+            - 'main'
+
+permissions:
+    pull-requests: write
+    issues: write
+    repository-projects: write
+    contents: write
+
+jobs:
+    php:
+        runs-on: ubuntu-latest
+        if: |
+            (github.event_name == 'pull_request_target' && github.actor == 'dependabot[bot]') ||
+            (github.event_name != 'pull_request_target' && github.actor != 'dependabot[bot]')
+        steps:
+            - uses: actions/checkout@v3
+              with:
+                  ref: ${{ github.event_name == 'pull_request_target' && github.event.pull_request.head.sha || '' }}
+            - uses: ./.github/actions/setup-environment
+
+            # Check dependencies
+            - run: symfony composer validate
+            - run: symfony check:security
+
+            # Prepare tests
+            - run: symfony console cache:clear
+
+            # Init database
+            - run: APP_ENV=test symfony console doctrine:schema:validate --skip-sync
+            - run: APP_ENV=test symfony console doctrine:migrations:migrate --no-interaction
+            - run: APP_ENV=test symfony console doctrine:fixtures:load --no-interaction
+
+            # Lint Twig, Yaml and XLIFF files
+            - run: symfony console lint:twig templates
+            - run: symfony console lint:yaml config --parse-tags
+            - run: symfony console lint:xliff translations
+            - run: symfony console lint:container
+
+            # Run static code analysis tools
+            - run: symfony php vendor/bin/phpinsights -n --ansi --format=github-action
+            - run: APP_ENV=test symfony php vendor/bin/phpunit # See https://github.com/symfony/symfony-docs/pull/15228
+
+    javascript:
+        runs-on: ubuntu-latest
+        if: |
+            (github.event_name == 'pull_request_target' && github.actor == 'dependabot[bot]') ||
+            (github.event_name != 'pull_request_target' && github.actor != 'dependabot[bot]')
+        steps:
+            - uses: actions/checkout@v3
+              with:
+                  ref: ${{ github.event_name == 'pull_request_target' && github.event.pull_request.head.sha || '' }}
+            - uses: ./.github/actions/setup-environment
+
+            # Lint files
+            - run: npm run lint:js --no-fix
+            - run: npm run lint:css --no-fix
+
+            # Tests
+            #- run: npm run test:unit --if-present
+
+            # Build assets for dev and prod
+            - run: npm run dev
+            - run: npm run build
+
+    cypress:
+        runs-on: ubuntu-latest
+        name: cypress
+        if: |
+            (github.event_name == 'pull_request_target' && github.actor == 'dependabot[bot]') ||
+            (github.event_name != 'pull_request_target' && github.actor != 'dependabot[bot]')
+        steps:
+            - uses: actions/checkout@v3
+              with:
+                  ref: ${{ github.event_name == 'pull_request_target' && github.event.pull_request.head.sha || '' }}
+            - uses: ./.github/actions/setup-environment
+
+            # Start Symfony Server
+            - run: symfony server:ca:install
+            - run: APP_ENV=test symfony console doctrine:migrations:migrate --no-interaction
+            - run: APP_ENV=test symfony console doctrine:fixtures:load --no-interaction
+            - run: APP_ENV=test symfony serve --port 8000 --daemon
+            - run: echo "CYPRESS_BASE_URL=https://localhost:8000" >> $GITHUB_ENV
+
+            - name: Run Cypress
+              if: ${{ env.IS_DEPENDABOT == 'false' && ! github.event.pull_request.draft }}
+              uses: cypress-io/github-action@v2
+              with:
+                  build: npm run build
+
+    auto_approve_and_merge:
+        runs-on: ubuntu-latest
+        needs: [php, javascript, cypress]
+        if: ${{ github.actor == 'dependabot[bot]' }}
+        steps:
+            - name: Fetch Dependabot metadata
+              id: dependabot-metadata
+              uses: dependabot/fetch-metadata@v1.3.0
+              with:
+                  github-token: '${{ secrets.GITHUB_TOKEN }}'
+
+            - name: Approve and merge the PR
+              if: |
+                  (steps.dependabot-metadata.outputs.dependency-type == 'direct:production' && steps.dependabot-metadata.outputs.update-type == 'version-update:semver-minor' || steps.dependabot-metadata.outputs.update-type == 'version-update:semver-patch')
+                  || (steps.dependabot-metadata.outputs.dependency-type == 'direct:development' && (steps.dependabot-metadata.outputs.update-type == 'version-update:semver-minor' || steps.dependabot-metadata.outputs.update-type == 'version-update:semver-patch'))
+              run: |
+                  gh pr review --approve "$PR_URL"
+                  gh pr merge --merge --auto --delete-branch "$PR_URL"
+              env:
+                  PR_URL: '${{ github.event.pull_request.html_url }}'
+                  GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'

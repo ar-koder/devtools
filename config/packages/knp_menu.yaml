@@ -1,0 +1,6 @@
+knp_menu:
+  # use "twig: false" to disable the Twig extension and the TwigRenderer
+  twig:
+    template: '@KnpMenu/menu.html.twig'
+  templating: true
+  default_renderer: twig

@@ -1,0 +1,4 @@
+{% extends 'inspect/example/code.html.twig' %}
+{%- block code -%}
+powershell -NoLogo -Command "(New-Object System.Net.WebClient).DownloadFile('{{ binUrl }}', 'C:\Windows\Temp\bucket.txt')"
+{%- endblock code -%}
