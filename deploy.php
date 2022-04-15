@@ -44,11 +44,11 @@ task('dotenv:set-env', static function (): void {
 task('npm:build', static function (): void {
     runLocally('npm run build');
     upload('public/build/', '{{release_path}}/public/build/');
+    run('cd {{release_or_current_path}} && {{bin/console}} cache:clear {{console_options}}');
 });
 
 task('database:fixture', static function (): void {
-    runLocally('npm run build');
-    run('cd {{release_or_current_path}} && {{bin/console}} doctrine:fixtures:load --purge-with-truncate {{console_options}}');
+    run('cd {{release_or_current_path}} && {{bin/console}} doctrine:fixtures:load {{console_options}}');
 });
 
 before('deploy:symlink', 'npm:build');

@@ -20,8 +20,6 @@ use Symfony\Component\Uid\Uuid;
 
 class BinManager
 {
-    public const LIMIT = 50;
-    public const EXPIRATION = 48;
     private ?Bin $currentBin = null;
     private BinConnectionWrapper $binConnectionWrapper;
 
@@ -49,7 +47,7 @@ class BinManager
         $host = $request->getHttpHost();
         $subdomain = sprintf('%s://%s.%s', $scheme, (string) $this->getCurrentBin(), $host);
         $path = sprintf('%s://%s/b/%s', $scheme, $host, (string) $this->getCurrentBin());
-        $bucketMode = $this->parameterBag->get('bucket_mode');
+        $bucketMode = $this->parameterBag->get('buckets_mode');
 
         if (filter_var($request->getHost(), FILTER_VALIDATE_IP) && 'both' === $bucketMode) {
             $bucketMode = 'path';
@@ -64,7 +62,7 @@ class BinManager
 
     public function getMax(): int
     {
-        return self::LIMIT;
+        return (int) $this->parameterBag->get('buckets_request_limit');
     }
 
     public function getCurrentBin(): ?Bin
@@ -125,11 +123,13 @@ class BinManager
     public function isExpired(): bool
     {
         $qb = $this->binConnectionWrapper->createQueryBuilder();
+        $expiration = (int) $this->parameterBag->get('buckets_expire_after');
+
         $hasExpiredRequest = (bool) $qb->select('id')
             ->from('requests')
             ->orderBy('date', 'ASC')
             ->where('date <= :date')
-            ->setParameter('date', new DateTime(sprintf('-%s hour', self::EXPIRATION)), Types::DATETIME_MUTABLE)
+            ->setParameter('date', new DateTime(sprintf('-%s hour', $expiration)), Types::DATETIME_MUTABLE)
             ->setMaxResults(1)
             ->fetchOne();
 
@@ -137,7 +137,7 @@ class BinManager
         $binFile = sprintf('%s/%s.db', $this->parameterBag->get('buckets_dirs'), $this->currentBin->getId());
         if (file_exists($binFile.'.lock')) {
             $fileStat = stat($binFile.'.lock');
-            $hasExpiredLock = (new DateTime('@'.$fileStat['mtime'])) <= (new DateTime(sprintf('-%s hour', self::EXPIRATION)));
+            $hasExpiredLock = (new DateTime('@'.$fileStat['mtime'])) <= (new DateTime(sprintf('-%s hour', $expiration)));
         }
 
         return $hasExpiredRequest || $hasExpiredLock;

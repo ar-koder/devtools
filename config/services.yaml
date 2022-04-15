@@ -5,8 +5,12 @@
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
     buckets_dirs: '%kernel.project_dir%/var/bins'
-    bucket_mode: '%env(default:default_bucket_mode:BUCKET_MODE)%'
-    default_bucket_mode: 'path'
+    buckets_request_limit: '%env(default:default_buckets_request_limit:BUCKET_REQUEST_LIMIT)%'
+    default_buckets_request_limit: 50
+    buckets_expire_after: '%env(default:default_buckets_expire_after:BUCKET_EXPIRE_AFTER)%'
+    default_buckets_expire_after: 48
+    buckets_mode: '%env(default:default_buckets_mode:BUCKET_MODE)%'
+    default_buckets_mode: 'path'
 
 services:
     # default configuration for services in *this* file
@@ -49,7 +53,7 @@ services:
     App\EventListener\CurrentBinEventSubscriber:
         arguments:
             - '@bin_manager'
-            - '%bucket_mode%'
+            - '%buckets_mode%'
         tags:
             - { name: kernel.event_subscriber }
 

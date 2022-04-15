@@ -28,7 +28,7 @@
     "release": "release-it"
   },
   "lint-staged": {
-    "*.php": [
+    "{src,tests}/**/*.php": [
       "vendor/bin/php-cs-fixer fix --diff --config .php-cs-fixer.dist.php --no-ansi",
       "vendor/bin/phpstan analyse --no-ansi --no-progress"
     ],
