@@ -12,6 +12,10 @@ on: # yamllint disable-line rule:truthy
         branches:
             - 'main'
 
+concurrency:
+    group: ${{ github.sha }}
+    cancel-in-progress: true
+
 permissions:
     pull-requests: write
     issues: write
