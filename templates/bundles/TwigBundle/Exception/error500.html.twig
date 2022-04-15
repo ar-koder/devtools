@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    <section class="hero">
+        <div class="hero__inner">
+            <h1 data-animate="title" class="text-center uppercase">
+                INTERNAL SERVER ERROR
+            </h1>
+        </div>
+    </section>
+
+    <section class="page-content__wrapper">
+        <div class="page-content__inner">
+            <section>
+                <div class="max-w-3xl">
+                    <div class="mx-auto space-y-16 text-lg text-left">
+                        <div class="space-y-8">
+                            <p class="text-base text-center font-light text-waterloo dark:text-santa md:mt-5">
+                                <b class="inline-block mb-4">THE PAGE YOU WERE LOOKING FOR DOESN'T EXIST.</b><br>
+                                Checkout for any URL misspelling or <a href="/" class="link">return to the homepage</a>.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </section>
+{% endblock %}
