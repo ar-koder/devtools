@@ -31,7 +31,7 @@ jobs:
     uses: ./.github/workflows/deploy.yml
     needs: build
     with:
-      HOST: staging
+      HOST: production
       TAG: ${{ github.ref_name }}
     secrets:
       PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
