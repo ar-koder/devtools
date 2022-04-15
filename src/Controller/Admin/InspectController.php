@@ -38,9 +38,6 @@ class InspectController extends AbstractDashboardController
     /**
      * @throws Exception
      */
-    /**
-     * @throws Exception
-     */
     #[Route(
         '/inspect/{bin}',
         name: 'inspect',
@@ -56,9 +53,6 @@ class InspectController extends AbstractDashboardController
         ]);
     }
 
-    /**
-     * @throws Exception
-     */
     /**
      * @throws Exception
      */

@@ -13,7 +13,6 @@ use App\Dto\CookieRequestPayload;
 use App\Dto\Errors\FormErrorItemRfc7807DTO;
 use App\Dto\Errors\FormErrorRfc7807DTO;
 use ArrayObject;
-use JetBrains\PhpStorm\Pure;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -230,15 +229,14 @@ class CookieController extends AbstractController
         $openApi->getPaths()->addPath('/cookies/{key}', $singleItem);
     }
 
-    #[Pure]
- private function createErrorFromSerialization(): FormErrorRfc7807DTO
- {
-     $mainDto = new FormErrorRfc7807DTO();
-     $mainDto->title = 'Bad Request';
-     $mainDto->type = 'Missing JSON node';
+    private function createErrorFromSerialization(): FormErrorRfc7807DTO
+    {
+        $mainDto = new FormErrorRfc7807DTO();
+        $mainDto->title = 'Bad Request';
+        $mainDto->type = 'Missing JSON node';
 
-     return $mainDto;
- }
+        return $mainDto;
+    }
 
     private function createErrorFromValidation(ConstraintViolationListInterface $violations): FormErrorRfc7807DTO
     {

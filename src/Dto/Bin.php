@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Dto;
 
-use JetBrains\PhpStorm\Pure;
 use Stringable;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Uid\Uuid;
@@ -19,11 +18,10 @@ class Bin implements Stringable
         }
     }
 
-    #[Pure]
- public function __toString(): string
- {
-     return $this->getId();
- }
+    public function __toString(): string
+    {
+        return $this->getId();
+    }
 
     public function getId(): string
     {

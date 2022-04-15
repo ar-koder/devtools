@@ -7,7 +7,6 @@ namespace App\Dto;
 use DateTimeImmutable;
 use DateTimeInterface;
 use Exception;
-use JetBrains\PhpStorm\Pure;
 use Symfony\Component\HttpFoundation\Request;
 
 class RequestBin
@@ -45,26 +44,22 @@ class RequestBin
     /**
      * @throws Exception
      */
-    /**
-     * @throws Exception
-     */
-    #[Pure]
- public static function createFromArray(array $data): RequestBin
- {
-     $dto = new self();
-     $dto->id = $data['id'] ?? null;
-     $dto->method = $data['method'] ?? null;
-     $dto->origins = $data['origins'] ? unserialize($data['origins'], ['allowed_classes' => false]) : null;
-     $dto->contentType = $data['content_type'] ?? null;
-     $dto->contentLength = $data['content_length'] ?? null;
-     $dto->host = $data['host'] ?? null;
-     $dto->path = $data['path'] ?? null;
-     $dto->queryArgs = $data['query_args'] ? unserialize($data['query_args'], ['allowed_classes' => false]) : null;
-     $dto->headers = $data['headers'] ? unserialize($data['headers'], ['allowed_classes' => false]) : null;
-     $dto->rawBody = $data['raw_body'] ?? null;
-     $dto->body = $data['body'] ? unserialize($data['body'], ['allowed_classes' => false]) : null;
-     $dto->date = $data['date'] ? new DateTimeImmutable($data['date']) : null;
+    public static function createFromArray(array $data): RequestBin
+    {
+        $dto = new self();
+        $dto->id = $data['id'] ?? null;
+        $dto->method = $data['method'] ?? null;
+        $dto->origins = $data['origins'] ? unserialize($data['origins'], ['allowed_classes' => false]) : null;
+        $dto->contentType = $data['content_type'] ?? null;
+        $dto->contentLength = $data['content_length'] ?? null;
+        $dto->host = $data['host'] ?? null;
+        $dto->path = $data['path'] ?? null;
+        $dto->queryArgs = $data['query_args'] ? unserialize($data['query_args'], ['allowed_classes' => false]) : null;
+        $dto->headers = $data['headers'] ? unserialize($data['headers'], ['allowed_classes' => false]) : null;
+        $dto->rawBody = $data['raw_body'] ?? null;
+        $dto->body = $data['body'] ? unserialize($data['body'], ['allowed_classes' => false]) : null;
+        $dto->date = $data['date'] ? new DateTimeImmutable($data['date']) : null;
 
-     return $dto;
- }
+        return $dto;
+    }
 }

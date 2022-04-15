@@ -4,14 +4,14 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
-    buckets_dirs : '%kernel.project_dir%/var/bins'
+    buckets_dirs: '%kernel.project_dir%/var/bins'
     bucket_mode: '%env(default:default_bucket_mode:BUCKET_MODE)%'
     default_bucket_mode: 'path'
 
 services:
     # default configuration for services in *this* file
     _defaults:
-        autowire: true      # Automatically injects dependencies in your services.
+        autowire: true # Automatically injects dependencies in your services.
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
 
     # makes classes in src/ available to be used as services
@@ -28,7 +28,7 @@ services:
 
     App\Controller\:
         resource: '../src/Controller/'
-        tags: [ 'controller.service_arguments' ]
+        tags: ['controller.service_arguments']
 
     App\OpenApi\OpenApiFactory:
         decorates: 'api_platform.openapi.factory'
@@ -39,20 +39,19 @@ services:
 
     app.menu_builder:
         class: App\Menu\Builder
-        arguments: ["@knp_menu.factory"]
+        arguments: ['@knp_menu.factory']
         tags:
             - { name: knp_menu.menu_builder, method: createMainMenu, alias: main }
 
     bin_manager:
         class: App\Manager\BinManager
 
-
     App\EventListener\CurrentBinEventSubscriber:
         arguments:
-            - "@bin_manager"
-            - "%bucket_mode%"
+            - '@bin_manager'
+            - '%bucket_mode%'
         tags:
-            - { name: kernel.event_subscriber}
+            - { name: kernel.event_subscriber }
 
     current_bin_listener:
         alias: App\EventListener\CurrentBinEventSubscriber
