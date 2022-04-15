@@ -7,8 +7,8 @@ namespace App\Repository;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
- * @method E|null find($id, $lockMode = null, $lockVersion = null)
- * @method E|null findOneBy(array $criteria, array $orderBy = null)
+ * @method E|null   find($id, $lockMode = null, $lockVersion = null)
+ * @method E|null   findOneBy(array $criteria, array $orderBy = null)
  * @method array<E> findAll()
  * @method array<E> findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */

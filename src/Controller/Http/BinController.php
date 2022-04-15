@@ -37,7 +37,7 @@ class BinController extends AbstractController
     public function bin(Request $request): Response
     {
         $this->binManager->setCurrentBin($request->attributes->get('_bin'));
-        if ($request->getContentType() === 'json' && $request->getContent()) {
+        if ('json' === $request->getContentType() && $request->getContent()) {
             $data = json_decode($request->getContent(), true, 512, JSON_THROW_ON_ERROR);
             $request->request->replace(is_array($data) ? $data : []);
         }
@@ -50,6 +50,7 @@ class BinController extends AbstractController
                 'bin' => (string) $this->binManager->getCurrentBin(),
             ]), $requestBinId),
         ]);
+
         return $response;
     }
 
@@ -60,6 +61,7 @@ class BinController extends AbstractController
         if (Uuid::isValid($pathInfo)) {
             $baseHost = str_replace("${pathInfo}.", '', $baseHost);
         }
+
         return $baseHost;
     }
 }

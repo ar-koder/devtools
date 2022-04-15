@@ -20,7 +20,7 @@ class CurrentBinEventSubscriber implements EventSubscriberInterface
 
     public function onKernelRequest(RequestEvent $event): void
     {
-        if (! $event->isMainRequest()) {
+        if (!$event->isMainRequest()) {
             return;
         }
         $request = $event->getRequest();
@@ -34,7 +34,7 @@ class CurrentBinEventSubscriber implements EventSubscriberInterface
             }
         } elseif (str_starts_with($request->getPathInfo(), '/b/') && in_array($this->bucketMode, ['both', 'path'])) {
             $binId = current(explode('/', str_replace('/b/', '', $request->getPathInfo())));
-            if ($binId !== '' && $binId !== '0') {
+            if ('' !== $binId && '0' !== $binId) {
                 $this->setBin($event, $binId);
             }
         }

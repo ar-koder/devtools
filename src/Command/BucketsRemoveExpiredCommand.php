@@ -34,7 +34,7 @@ class BucketsRemoveExpiredCommand extends Command
             $this->binManager->setBinByUuid($binId);
             if ($this->binManager->isExpired()) {
                 $this->binManager->deleteBin();
-                $deleted++;
+                ++$deleted;
             }
         }
 

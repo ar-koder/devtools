@@ -18,7 +18,7 @@ set('shared_dirs', [
 ]);
 
 set('shared_files', [
-    '.env.local'
+    '.env.local',
 ]);
 
 set('writable_dirs', [

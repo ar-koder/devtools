@@ -51,7 +51,7 @@ class RequestController extends AbstractController
             'headers' => array_map(static fn ($entry) => implode('', $entry), $request->headers->all()),
             'content-type' => $request->getContentType(),
             'raw_body' => $request->getContent(),
-            'body' => $request->getContentType() === 'json' ? json_decode($request->getContent(), false, 512, JSON_THROW_ON_ERROR) : $request->getContent(),
+            'body' => 'json' === $request->getContentType() ? json_decode($request->getContent(), false, 512, JSON_THROW_ON_ERROR) : $request->getContent(),
         ]);
     }
 

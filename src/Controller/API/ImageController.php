@@ -28,19 +28,19 @@ class ImageController extends AbstractController
         [$width, $height] = self::parseDimensions($dimensions);
 
         $bgColor = $request->query->get('bgColor', '#2b2d42');
-        $bgColor = $bgColor === 'random' ? null : $bgColor;
+        $bgColor = 'random' === $bgColor ? null : $bgColor;
 
         $textColor = $request->query->get('textColor', '#edf2f4');
-        $textColor = $textColor === 'random' ? null : $textColor;
+        $textColor = 'random' === $textColor ? null : $textColor;
 
         $projectRoot = $this->getParameter('kernel.project_dir');
 
         ob_start();
         (new ImageGenerator(
-            $width . 'x' . $height,
+            $width.'x'.$height,
             $textColor,
             $bgColor,
-            $projectRoot . '/var/fonts/Noto.ttf',
+            $projectRoot.'/var/fonts/Noto.ttf',
             min($width, $height) * 0.125,
             2
         ))
@@ -62,7 +62,7 @@ class ImageController extends AbstractController
     public function getSpace(Request $request, string $dimensions, string $category = 'random', string $format = 'png'): Response
     {
         [$width, $height] = self::parseDimensions($dimensions);
-        $url = sprintf('https://api.lorem.space/image%s?w=%s&h=%s', $category && $category !== 'random' ? '/'.$category : '', $width ? $width : '', $height ? $height : '');
+        $url = sprintf('https://api.lorem.space/image%s?w=%s&h=%s', $category && 'random' !== $category ? '/'.$category : '', $width ? $width : '', $height ? $height : '');
         $client = HttpClient::create();
         $response = $client->request('GET', $url);
 
@@ -161,7 +161,7 @@ class ImageController extends AbstractController
         $content = ob_get_clean();
 
         $response = new Response();
-        $disposition = $response->headers->makeDisposition(ResponseHeaderBag::DISPOSITION_INLINE, uniqid('', true). ".${format}");
+        $disposition = $response->headers->makeDisposition(ResponseHeaderBag::DISPOSITION_INLINE, uniqid('', true).".${format}");
         $response->headers->set('Content-Disposition', $disposition);
         $response->headers->set('Content-Type', $mimeType);
         $response->setContent($content);
@@ -172,10 +172,11 @@ class ImageController extends AbstractController
     private static function parseDimensions(string $dimensions): array
     {
         $dimensions = explode('x', $dimensions);
-        if (count($dimensions) === 1) {
+        if (1 === count($dimensions)) {
             $dimensions[1] = $dimensions[0];
         }
         $dimensions = implode('x', $dimensions);
+
         return explode('x', $dimensions);
     }
 }

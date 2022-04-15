@@ -18,7 +18,7 @@ class StatusController extends AbstractController
     #[Route('/status/{code}', name: 'api.status.code', methods: ['DELETE', 'GET', 'POST', 'PUT', 'PATCH'])]
     public function getStatusCode(string $code): Response
     {
-        if (! array_key_exists($code, Response::$statusTexts)) {
+        if (!array_key_exists($code, Response::$statusTexts)) {
             return new Response('Invalid status code', Response::HTTP_BAD_REQUEST);
         }
 

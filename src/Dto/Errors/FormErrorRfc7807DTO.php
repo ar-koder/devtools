@@ -7,7 +7,7 @@ namespace App\Dto\Errors;
 use JsonSerializable;
 
 /**
- * DTO: This type of object is only responsible to carry data without behaviour (except being serializable)
+ * DTO: This type of object is only responsible to carry data without behaviour (except being serializable).
  *
  * Following RFC-7807
  *
@@ -22,7 +22,7 @@ class FormErrorRfc7807DTO implements JsonSerializable
     public array $violations = [];
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function jsonSerialize()
     {

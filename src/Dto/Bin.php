@@ -14,18 +14,16 @@ class Bin implements Stringable
 {
     public function __construct(private string $id)
     {
-        if (! Uuid::isValid($id) || ! (Uuid::fromString($id) instanceof UuidV4)) {
-            throw new NotFoundHttpException(sprintf(
-                '"%s" is an invalid bin',
-                $id
-            ));
+        if (!Uuid::isValid($id) || !(Uuid::fromString($id) instanceof UuidV4)) {
+            throw new NotFoundHttpException(sprintf('"%s" is an invalid bin', $id));
         }
     }
 
-    #[Pure] public function __toString(): string
-    {
-        return $this->getId();
-    }
+    #[Pure]
+ public function __toString(): string
+ {
+     return $this->getId();
+ }
 
     public function getId(): string
     {

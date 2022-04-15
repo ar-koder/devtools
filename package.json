@@ -28,6 +28,11 @@
     "release": "release-it"
   },
   "lint-staged": {
+    "*.php": [
+      "vendor/bin/php-cs-fixer fix --diff --config .php-cs-fixer.dist.php --no-ansi",
+      "vendor/bin/phpcs --no-colors",
+      "vendor/bin/phpstan analyse --no-ansi --no-progress"
+    ],
     "*.{js,jsx,ts,tsx,vue}": [
       "prettier --write",
       "npm run lint:js --"

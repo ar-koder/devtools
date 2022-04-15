@@ -35,7 +35,7 @@ class DocumentationController extends AbstractController
     {
         $paths = [];
         /**
-         * @var string $path
+         * @var string   $path
          * @var PathItem $pathItem
          */
         foreach ($this->openApi->getPaths()->getPaths() as $path => $pathItem) {
@@ -59,7 +59,7 @@ class DocumentationController extends AbstractController
 
             foreach ($operations as $operation) {
                 foreach ($operation->getTags() as $tagName) {
-                    if (! isset($paths[$tagName])) {
+                    if (!isset($paths[$tagName])) {
                         $paths[$tagName] = [];
                     }
                     $paths[$tagName][$path] = $pathItem;

@@ -8,42 +8,45 @@ use Symfony\Component\HttpFoundation\Response;
 
 class CookieTest extends ApiTestCase
 {
-    public function testCreate(){
+    public function testCreate()
+    {
         $body = [
-            "key" => "freeform",
-            "value" => "example"
+            'key' => 'freeform',
+            'value' => 'example',
         ];
 
         static::createClient()->request('POST', '/cookies', [
             'headers' => ['Content-Type' => 'application/json'],
-            "json" => $body
+            'json' => $body,
         ]);
 
         $this->assertResponseStatusCodeSame(Response::HTTP_CREATED);
         $this->assertResponseHasCookie('freeform');
-        $this->assertResponseCookieValueSame('freeform', "example");
+        $this->assertResponseCookieValueSame('freeform', 'example');
     }
 
-    public function testPatch(){
+    public function testPatch()
+    {
         $client = static::createClient();
-        $client->getCookieJar()->set(new Cookie("freeform", "example"));
+        $client->getCookieJar()->set(new Cookie('freeform', 'example'));
 
-        $client->request('PATCH', sprintf('/cookies/%s', "freeform"), [
+        $client->request('PATCH', sprintf('/cookies/%s', 'freeform'), [
             'headers' => ['Content-Type' => 'application/json'],
-            "body" => "edited-example"
+            'body' => 'edited-example',
         ]);
 
         $this->assertResponseStatusCodeSame(Response::HTTP_OK);
         $this->assertResponseHasCookie('freeform');
-        $this->assertResponseCookieValueSame('freeform', "edited-example");
+        $this->assertResponseCookieValueSame('freeform', 'edited-example');
     }
 
-    public function testDelete(){
+    public function testDelete()
+    {
         $client = static::createClient();
-        $client->getCookieJar()->set(new Cookie("freeform", "example"));
+        $client->getCookieJar()->set(new Cookie('freeform', 'example'));
 
-        $response = $client->request('DELETE', sprintf('/cookies/%s', "freeform"), [
-            'headers' => ['Content-Type' => 'application/json']
+        $response = $client->request('DELETE', sprintf('/cookies/%s', 'freeform'), [
+            'headers' => ['Content-Type' => 'application/json'],
         ]);
 
         $this->assertResponseStatusCodeSame(Response::HTTP_OK);
@@ -51,21 +54,22 @@ class CookieTest extends ApiTestCase
         $this->assertSame(json_encode('The cookie with key freeform is deleted', JSON_THROW_ON_ERROR), $response->getContent());
     }
 
-    public function testGet(){
+    public function testGet()
+    {
         $client = static::createClient();
-        $client->getCookieJar()->set(new Cookie("freeform", "example"));
+        $client->getCookieJar()->set(new Cookie('freeform', 'example'));
 
         $client->request('GET', '/cookies', [
-            'headers' => ['Content-Type' => 'application/json']
+            'headers' => ['Content-Type' => 'application/json'],
         ]);
 
         $this->assertResponseStatusCodeSame(Response::HTTP_OK);
         $this->assertBrowserHasCookie('freeform');
-        $this->assertBrowserCookieValueSame('freeform', "example");
+        $this->assertBrowserCookieValueSame('freeform', 'example');
         $this->assertJsonContains([
-            "cookies" => [
-                "freeform" => "example"
-            ]
+            'cookies' => [
+                'freeform' => 'example',
+            ],
         ]);
     }
 }

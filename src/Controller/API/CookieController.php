@@ -35,7 +35,7 @@ class CookieController extends AbstractController
     public function getCookies(Request $request): Response
     {
         return $this->json([
-            'cookies' => array_filter($request->cookies->all(), static fn ($key) => $key !== 'sf_redirect', ARRAY_FILTER_USE_KEY),
+            'cookies' => array_filter($request->cookies->all(), static fn ($key) => 'sf_redirect' !== $key, ARRAY_FILTER_USE_KEY),
         ], Response::HTTP_OK);
     }
 
@@ -59,6 +59,7 @@ class CookieController extends AbstractController
 
             $response = $this->json($requestPayload, Response::HTTP_CREATED);
             $response->headers->setCookie($requestPayload->toCookie());
+
             return $response;
         } catch (MissingConstructorArgumentsException) {
             return $this->json(
@@ -71,23 +72,25 @@ class CookieController extends AbstractController
     #[Route('/cookies/{key}', name: 'api.cookies.update', methods: ['PATCH'])]
     public function updateCookie(Request $request, string $key): Response
     {
-        if (! $request->cookies->has($key)) {
+        if (!$request->cookies->has($key)) {
             return $this->json(sprintf('No cookie found for key "%s"', $key), Response::HTTP_NOT_FOUND);
         }
         $requestPayload = new CookieRequestPayload($key, $request->getContent());
         $response = $this->json($requestPayload, Response::HTTP_OK);
         $response->headers->setCookie($requestPayload->toCookie());
+
         return $response;
     }
 
     #[Route('/cookies/{key}', name: 'api.cookies.delete', methods: ['DELETE'])]
     public function deleteCookie(Request $request, string $key): Response
     {
-        if (! $request->cookies->has($key)) {
+        if (!$request->cookies->has($key)) {
             return $this->json(sprintf('No cookie found for key "%s"', $key), Response::HTTP_NOT_FOUND);
         }
         $response = $this->json(sprintf('The cookie with key %s is deleted', $key), Response::HTTP_OK);
         $response->headers->clearCookie($key);
+
         return $response;
     }
 
@@ -227,14 +230,15 @@ class CookieController extends AbstractController
         $openApi->getPaths()->addPath('/cookies/{key}', $singleItem);
     }
 
-    #[Pure] private function createErrorFromSerialization(): FormErrorRfc7807DTO
-    {
-        $mainDto = new FormErrorRfc7807DTO();
-        $mainDto->title = 'Bad Request';
-        $mainDto->type = 'Missing JSON node';
+    #[Pure]
+ private function createErrorFromSerialization(): FormErrorRfc7807DTO
+ {
+     $mainDto = new FormErrorRfc7807DTO();
+     $mainDto->title = 'Bad Request';
+     $mainDto->type = 'Missing JSON node';
 
-        return $mainDto;
-    }
+     return $mainDto;
+ }
 
     private function createErrorFromValidation(ConstraintViolationListInterface $violations): FormErrorRfc7807DTO
     {

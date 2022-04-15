@@ -51,7 +51,7 @@ class BinManager
         $path = sprintf('%s://%s/b/%s', $scheme, $host, (string) $this->getCurrentBin());
         $bucketMode = $this->parameterBag->get('bucket_mode');
 
-        if (filter_var($request->getHost(), FILTER_VALIDATE_IP) && $bucketMode === 'both') {
+        if (filter_var($request->getHost(), FILTER_VALIDATE_IP) && 'both' === $bucketMode) {
             $bucketMode = 'path';
         }
 
@@ -86,6 +86,7 @@ class BinManager
     public function getConnection(): BinConnectionWrapper
     {
         $this->binConnectionWrapper->selectBin($this->getCurrentBin());
+
         return $this->binConnectionWrapper;
     }
 
@@ -93,6 +94,7 @@ class BinManager
     {
         $bin = new Bin(Uuid::v4());
         $this->setCurrentBin($bin);
+
         return $bin;
     }
 
@@ -116,6 +118,7 @@ class BinManager
         foreach ($rows as $row) {
             $results->add(RequestBin::createFromArray($row));
         }
+
         return $results;
     }
 
@@ -175,6 +178,7 @@ class BinManager
             ->executeQuery();
 
         $this->removeOverfilled();
+
         return $id;
     }
 

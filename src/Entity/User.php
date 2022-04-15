@@ -129,7 +129,7 @@ class User
 
     public function addPost(Post $post): self
     {
-        if (! $this->posts->contains($post)) {
+        if (!$this->posts->contains($post)) {
             $this->posts[] = $post;
             $post->setUser($this);
         }
@@ -157,7 +157,7 @@ class User
 
     public function addTodo(Todo $todo): self
     {
-        if (! $this->todos->contains($todo)) {
+        if (!$this->todos->contains($todo)) {
             $this->todos[] = $todo;
             $todo->setUser($this);
         }
@@ -185,7 +185,7 @@ class User
 
     public function addAlbum(Album $album): self
     {
-        if (! $this->albums->contains($album)) {
+        if (!$this->albums->contains($album)) {
             $this->albums[] = $album;
             $album->setUser($this);
         }

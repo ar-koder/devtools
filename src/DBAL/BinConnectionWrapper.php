@@ -48,7 +48,7 @@ class BinConnectionWrapper extends Connection
         parent::__construct($params, $this->_driver, $this->_config, $this->_eventManager);
 
         $exist = file_exists($params['path']);
-        if (! $exist) {
+        if (!$exist) {
             touch($params['path']);
             touch($params['path'].'.lock');
             $this->generateBinSchema();

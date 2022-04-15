@@ -12,8 +12,8 @@ class PostTest extends ApiTestCase
     protected function setUp(): void
     {
         $user = new User();
-        $user->setEmail("test@example.com");
-        $user->setName("test user");
+        $user->setEmail('test@example.com');
+        $user->setName('test user');
         $em = self::getContainer()->get('doctrine')->getManager();
         $em->persist($user);
         $em->flush();
@@ -22,28 +22,29 @@ class PostTest extends ApiTestCase
     protected function tearDown(): void
     {
         $em = self::getContainer()->get('doctrine')->getManager();
-        $user = $em->getRepository(User::class)->findOneByEmail("test@example.com");
+        $user = $em->getRepository(User::class)->findOneByEmail('test@example.com');
         $em->remove($user);
         $em->flush();
     }
 
-    protected function createEntity() : array
+    protected function createEntity(): array
     {
         $em = self::getContainer()->get('doctrine')->getManager();
-        $user = $em->getRepository(User::class)->findOneByEmail("test@example.com");
+        $user = $em->getRepository(User::class)->findOneByEmail('test@example.com');
         $body = [
-            "title" => "Post title",
-            "body" => "Post content",
-            "user" => sprintf("/api/users/%s", $user->getId())
+            'title' => 'Post title',
+            'body' => 'Post content',
+            'user' => sprintf('/api/users/%s', $user->getId()),
         ];
 
         $response = static::createClient()->request('POST', '/api/posts', [
             'headers' => ['Content-Type' => 'application/json'],
-            "json" => $body
+            'json' => $body,
         ]);
         $this->assertResponseStatusCodeSame(Response::HTTP_CREATED);
         $this->assertJsonContains($body);
         $this->assertMatchesResourceItemJsonSchema(Post::class);
+
         return $response->toArray();
     }
 
@@ -65,37 +66,35 @@ class PostTest extends ApiTestCase
         $data = $this->createEntity();
 
         $em = self::getContainer()->get('doctrine')->getManager();
-        $user = $em->getRepository(User::class)->findOneByEmail("test@example.com");
+        $user = $em->getRepository(User::class)->findOneByEmail('test@example.com');
         $body = [
-            "title" => "PUT - Post title",
-            "body" => "Post content",
-            "user" => sprintf("/api/users/%s", $user->getId())
+            'title' => 'PUT - Post title',
+            'body' => 'Post content',
+            'user' => sprintf('/api/users/%s', $user->getId()),
         ];
 
-        static::createClient()->request('PUT', sprintf('/api/posts/%s', $data["id"]), [
+        static::createClient()->request('PUT', sprintf('/api/posts/%s', $data['id']), [
             'headers' => ['Content-Type' => 'application/json'],
-            "json" => $body
+            'json' => $body,
         ]);
         $this->assertResponseStatusCodeSame(Response::HTTP_OK);
         $this->assertMatchesResourceItemJsonSchema(Post::class);
     }
-
 
     public function testPatch()
     {
         $data = $this->createEntity();
 
         $body = [
-            "title" => "PATCH - Post title"
+            'title' => 'PATCH - Post title',
         ];
 
-        static::createClient()->request('PUT', sprintf('/api/posts/%s', $data["id"]), [
+        static::createClient()->request('PUT', sprintf('/api/posts/%s', $data['id']), [
             'headers' => ['Content-Type' => 'application/json'],
-            "json" => $body
+            'json' => $body,
         ]);
         $this->assertResponseStatusCodeSame(Response::HTTP_OK);
         $this->assertMatchesResourceItemJsonSchema(Post::class);
-
     }
 
     public function testDelete(): void
@@ -116,7 +115,7 @@ class PostTest extends ApiTestCase
     {
         $this->createEntity();
         $em = self::getContainer()->get('doctrine')->getManager();
-        $user = $em->getRepository(User::class)->findOneByEmail("test@example.com");
+        $user = $em->getRepository(User::class)->findOneByEmail('test@example.com');
         static::createClient()->request('GET', sprintf('/api/users/%s/posts', $user->getId()));
         $this->assertResponseIsSuccessful();
         $this->assertMatchesResourceCollectionJsonSchema(Post::class);

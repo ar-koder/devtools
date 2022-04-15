@@ -15,13 +15,13 @@ class CommentTest extends ApiTestCase
         $em = self::getContainer()->get('doctrine')->getManager();
 
         $user = new User();
-        $user->setEmail("test@example.com");
-        $user->setName("test user");
+        $user->setEmail('test@example.com');
+        $user->setName('test user');
         $em->persist($user);
 
         $post = new Post();
-        $post->setTitle("title");
-        $post->setBody("body");
+        $post->setTitle('title');
+        $post->setBody('body');
         $post->setUser($user);
 
         $em->persist($post);
@@ -32,30 +32,30 @@ class CommentTest extends ApiTestCase
     {
         $em = self::getContainer()->get('doctrine')->getManager();
 
-        $user = $em->getRepository(User::class)->findOneByEmail("test@example.com");
+        $user = $em->getRepository(User::class)->findOneByEmail('test@example.com');
         $em->remove($user);
 
-        $post = $em->getRepository(Post::class)->findOneByTitle("title");
+        $post = $em->getRepository(Post::class)->findOneByTitle('title');
         $em->remove($post);
 
         $em->flush();
     }
 
-    protected function createEntity() : array
+    protected function createEntity(): array
     {
         $em = self::getContainer()->get('doctrine')->getManager();
-        $post = $em->getRepository(Post::class)->findOneByTitle("title");
+        $post = $em->getRepository(Post::class)->findOneByTitle('title');
 
         $body = [
-            "title" => "title",
-            "body" => "body",
-            "email" => "example@example.com",
-            "post" => sprintf("/api/posts/%s", $post->getId())
+            'title' => 'title',
+            'body' => 'body',
+            'email' => 'example@example.com',
+            'post' => sprintf('/api/posts/%s', $post->getId()),
         ];
 
         $response = static::createClient()->request('POST', '/api/comments', [
             'headers' => ['Content-Type' => 'application/json'],
-            "json" => $body
+            'json' => $body,
         ]);
 
         $this->assertResponseStatusCodeSame(Response::HTTP_CREATED);
@@ -82,38 +82,36 @@ class CommentTest extends ApiTestCase
         $data = $this->createEntity();
 
         $em = self::getContainer()->get('doctrine')->getManager();
-        $post = $em->getRepository(Post::class)->findOneByTitle("title");
+        $post = $em->getRepository(Post::class)->findOneByTitle('title');
         $body = [
-            "title" => "title",
-            "body" => "body",
-            "email" => "example@example.com",
-            "post" => sprintf("/api/posts/%s", $post->getId())
+            'title' => 'title',
+            'body' => 'body',
+            'email' => 'example@example.com',
+            'post' => sprintf('/api/posts/%s', $post->getId()),
         ];
 
-        static::createClient()->request('PUT', sprintf('/api/comments/%s', $data["id"]), [
+        static::createClient()->request('PUT', sprintf('/api/comments/%s', $data['id']), [
             'headers' => ['Content-Type' => 'application/json'],
-            "json" => $body
+            'json' => $body,
         ]);
         $this->assertResponseStatusCodeSame(Response::HTTP_OK);
         $this->assertMatchesResourceItemJsonSchema(Comment::class);
     }
-
 
     public function testPatch()
     {
         $data = $this->createEntity();
 
         $body = [
-            "title" => "title"
+            'title' => 'title',
         ];
 
-        static::createClient()->request('PUT', sprintf('/api/comments/%s', $data["id"]), [
+        static::createClient()->request('PUT', sprintf('/api/comments/%s', $data['id']), [
             'headers' => ['Content-Type' => 'application/json'],
-            "json" => $body
+            'json' => $body,
         ]);
         $this->assertResponseStatusCodeSame(Response::HTTP_OK);
         $this->assertMatchesResourceItemJsonSchema(Comment::class);
-
     }
 
     public function testDelete(): void
@@ -134,7 +132,7 @@ class CommentTest extends ApiTestCase
     {
         $this->createEntity();
         $em = self::getContainer()->get('doctrine')->getManager();
-        $user = $em->getRepository(User::class)->findOneByEmail("test@example.com");
+        $user = $em->getRepository(User::class)->findOneByEmail('test@example.com');
         static::createClient()->request('GET', sprintf('/api/posts/%s/comments', $user->getId()));
         $this->assertResponseIsSuccessful();
         $this->assertMatchesResourceCollectionJsonSchema(Comment::class);

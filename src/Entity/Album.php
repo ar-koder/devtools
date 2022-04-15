@@ -84,7 +84,7 @@ class Album
 
     public function addPhoto(Photo $photo): self
     {
-        if (! $this->photos->contains($photo)) {
+        if (!$this->photos->contains($photo)) {
             $this->photos[] = $photo;
             $photo->setAlbum($this);
         }

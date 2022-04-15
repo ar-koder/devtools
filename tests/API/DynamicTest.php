@@ -10,11 +10,10 @@ use Symfony\Component\Uid\UuidV6;
 
 class DynamicTest extends ApiTestCase
 {
-
     public function testDecode()
     {
-        $testString = "decoded";
-        $response = static::createClient()->request('GET', sprintf('/decode/%s', base64_encode($testString)),[
+        $testString = 'decoded';
+        $response = static::createClient()->request('GET', sprintf('/decode/%s', base64_encode($testString)), [
             'headers' => ['Content-Type' => 'application/json'],
         ]);
         $this->assertResponseStatusCodeSame(Response::HTTP_OK);
@@ -24,8 +23,8 @@ class DynamicTest extends ApiTestCase
 
     public function testEncode()
     {
-        $testString = "decoded";
-        $response = static::createClient()->request('GET', sprintf('/encode/%s', $testString),[
+        $testString = 'decoded';
+        $response = static::createClient()->request('GET', sprintf('/encode/%s', $testString), [
             'headers' => ['Content-Type' => 'application/json'],
         ]);
         $this->assertResponseStatusCodeSame(Response::HTTP_OK);
@@ -35,18 +34,18 @@ class DynamicTest extends ApiTestCase
 
     public function testUUIDs()
     {
-        $response = static::createClient()->request('GET', '/uuid',[
+        $response = static::createClient()->request('GET', '/uuid', [
             'headers' => ['Content-Type' => 'application/json'],
         ]);
         $this->assertResponseStatusCodeSame(Response::HTTP_OK);
         $this->assertResponseHeaderSame('content-type', 'application/json');
         $this->assertMatchesJsonSchema([
-            "uuid_v4" => "string",
-            "uuid_v6" => "string"
+            'uuid_v4' => 'string',
+            'uuid_v6' => 'string',
         ]);
 
         $data = $response->toArray();
-        $this->assertInstanceOf(UuidV4::class, Uuid::fromString($data["uuid_v4"]));
-        $this->assertInstanceOf(UuidV6::class, Uuid::fromString($data["uuid_v6"]));
+        $this->assertInstanceOf(UuidV4::class, Uuid::fromString($data['uuid_v4']));
+        $this->assertInstanceOf(UuidV6::class, Uuid::fromString($data['uuid_v6']));
     }
 }

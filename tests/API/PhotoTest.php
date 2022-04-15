@@ -15,12 +15,12 @@ class PhotoTest extends ApiTestCase
         $em = self::getContainer()->get('doctrine')->getManager();
 
         $user = new User();
-        $user->setEmail("test@example.com");
-        $user->setName("test user");
+        $user->setEmail('test@example.com');
+        $user->setName('test user');
         $em->persist($user);
 
         $album = new Album();
-        $album->setTitle("title");
+        $album->setTitle('title');
         $album->setUser($user);
 
         $em->persist($album);
@@ -31,30 +31,30 @@ class PhotoTest extends ApiTestCase
     {
         $em = self::getContainer()->get('doctrine')->getManager();
 
-        $user = $em->getRepository(User::class)->findOneByEmail("test@example.com");
+        $user = $em->getRepository(User::class)->findOneByEmail('test@example.com');
         $em->remove($user);
 
-        $album = $em->getRepository(Album::class)->findOneByTitle("title");
+        $album = $em->getRepository(Album::class)->findOneByTitle('title');
         $em->remove($album);
 
         $em->flush();
     }
 
-    protected function createEntity() : array
+    protected function createEntity(): array
     {
         $em = self::getContainer()->get('doctrine')->getManager();
-        $album = $em->getRepository(Album::class)->findOneByTitle("title");
+        $album = $em->getRepository(Album::class)->findOneByTitle('title');
 
         $body = [
-            "title" => "title",
-            "url" => "https://placeholders.arnaud-ritti.fr/api/placeholder/800x600.png",
-            "thumbnailUrl" => "https://placeholders.arnaud-ritti.fr/api/placeholder/200x200.png?bgColor=%23FFF&textColor=%23000&text=Thumb",
-            "album" => sprintf("/api/albums/%s", $album->getId())
+            'title' => 'title',
+            'url' => 'https://placeholders.arnaud-ritti.fr/api/placeholder/800x600.png',
+            'thumbnailUrl' => 'https://placeholders.arnaud-ritti.fr/api/placeholder/200x200.png?bgColor=%23FFF&textColor=%23000&text=Thumb',
+            'album' => sprintf('/api/albums/%s', $album->getId()),
         ];
 
         $response = static::createClient()->request('POST', '/api/photos', [
             'headers' => ['Content-Type' => 'application/json'],
-            "json" => $body
+            'json' => $body,
         ]);
 
         $this->assertResponseStatusCodeSame(Response::HTTP_CREATED);
@@ -81,38 +81,36 @@ class PhotoTest extends ApiTestCase
         $data = $this->createEntity();
 
         $em = self::getContainer()->get('doctrine')->getManager();
-        $album = $em->getRepository(Album::class)->findOneByTitle("title");
+        $album = $em->getRepository(Album::class)->findOneByTitle('title');
         $body = [
-            "title" => "title",
-            "url" => "https://placeholders.arnaud-ritti.fr/api/placeholder/800x600.png",
-            "thumbnailUrl" => "https://placeholders.arnaud-ritti.fr/api/placeholder/200x200.png?bgColor=%23FFF&textColor=%23000&text=Thumb",
-            "album" => sprintf("/api/albums/%s", $album->getId())
+            'title' => 'title',
+            'url' => 'https://placeholders.arnaud-ritti.fr/api/placeholder/800x600.png',
+            'thumbnailUrl' => 'https://placeholders.arnaud-ritti.fr/api/placeholder/200x200.png?bgColor=%23FFF&textColor=%23000&text=Thumb',
+            'album' => sprintf('/api/albums/%s', $album->getId()),
         ];
 
-        static::createClient()->request('PUT', sprintf('/api/photos/%s', $data["id"]), [
+        static::createClient()->request('PUT', sprintf('/api/photos/%s', $data['id']), [
             'headers' => ['Content-Type' => 'application/json'],
-            "json" => $body
+            'json' => $body,
         ]);
         $this->assertResponseStatusCodeSame(Response::HTTP_OK);
         $this->assertMatchesResourceItemJsonSchema(Photo::class);
     }
-
 
     public function testPatch()
     {
         $data = $this->createEntity();
 
         $body = [
-            "title" => "title"
+            'title' => 'title',
         ];
 
-        static::createClient()->request('PUT', sprintf('/api/photos/%s', $data["id"]), [
+        static::createClient()->request('PUT', sprintf('/api/photos/%s', $data['id']), [
             'headers' => ['Content-Type' => 'application/json'],
-            "json" => $body
+            'json' => $body,
         ]);
         $this->assertResponseStatusCodeSame(Response::HTTP_OK);
         $this->assertMatchesResourceItemJsonSchema(Photo::class);
-
     }
 
     public function testDelete(): void
@@ -133,7 +131,7 @@ class PhotoTest extends ApiTestCase
     {
         $this->createEntity();
         $em = self::getContainer()->get('doctrine')->getManager();
-        $user = $em->getRepository(User::class)->findOneByEmail("test@example.com");
+        $user = $em->getRepository(User::class)->findOneByEmail('test@example.com');
         static::createClient()->request('GET', sprintf('/api/albums/%s/photos', $user->getId()));
         $this->assertResponseIsSuccessful();
         $this->assertMatchesResourceCollectionJsonSchema(Photo::class);

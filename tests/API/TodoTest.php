@@ -12,8 +12,8 @@ class TodoTest extends ApiTestCase
     protected function setUp(): void
     {
         $user = new User();
-        $user->setEmail("test@example.com");
-        $user->setName("test user");
+        $user->setEmail('test@example.com');
+        $user->setName('test user');
         $em = self::getContainer()->get('doctrine')->getManager();
         $em->persist($user);
         $em->flush();
@@ -22,28 +22,29 @@ class TodoTest extends ApiTestCase
     protected function tearDown(): void
     {
         $em = self::getContainer()->get('doctrine')->getManager();
-        $user = $em->getRepository(User::class)->findOneByEmail("test@example.com");
+        $user = $em->getRepository(User::class)->findOneByEmail('test@example.com');
         $em->remove($user);
         $em->flush();
     }
 
-    protected function createEntity() : array
+    protected function createEntity(): array
     {
         $em = self::getContainer()->get('doctrine')->getManager();
-        $user = $em->getRepository(User::class)->findOneByEmail("test@example.com");
+        $user = $em->getRepository(User::class)->findOneByEmail('test@example.com');
         $body = [
-            "title" => "title",
-            "completed" => false,
-            "user" => sprintf("/api/users/%s", $user->getId())
+            'title' => 'title',
+            'completed' => false,
+            'user' => sprintf('/api/users/%s', $user->getId()),
         ];
 
         $response = static::createClient()->request('POST', '/api/todos', [
             'headers' => ['Content-Type' => 'application/json'],
-            "json" => $body
+            'json' => $body,
         ]);
         $this->assertResponseStatusCodeSame(Response::HTTP_CREATED);
         $this->assertJsonContains($body);
         $this->assertMatchesResourceItemJsonSchema(Todo::class);
+
         return $response->toArray();
     }
 
@@ -65,37 +66,35 @@ class TodoTest extends ApiTestCase
         $data = $this->createEntity();
 
         $em = self::getContainer()->get('doctrine')->getManager();
-        $user = $em->getRepository(User::class)->findOneByEmail("test@example.com");
+        $user = $em->getRepository(User::class)->findOneByEmail('test@example.com');
         $body = [
-            "title" => "title",
-            "completed" => true,
-            "user" => sprintf("/api/users/%s", $user->getId())
+            'title' => 'title',
+            'completed' => true,
+            'user' => sprintf('/api/users/%s', $user->getId()),
         ];
 
-        static::createClient()->request('PUT', sprintf('/api/todos/%s', $data["id"]), [
+        static::createClient()->request('PUT', sprintf('/api/todos/%s', $data['id']), [
             'headers' => ['Content-Type' => 'application/json'],
-            "json" => $body
+            'json' => $body,
         ]);
         $this->assertResponseStatusCodeSame(Response::HTTP_OK);
         $this->assertMatchesResourceItemJsonSchema(Todo::class);
     }
-
 
     public function testPatch()
     {
         $data = $this->createEntity();
 
         $body = [
-            "completed" => true,
+            'completed' => true,
         ];
 
-        static::createClient()->request('PUT', sprintf('/api/todos/%s', $data["id"]), [
+        static::createClient()->request('PUT', sprintf('/api/todos/%s', $data['id']), [
             'headers' => ['Content-Type' => 'application/json'],
-            "json" => $body
+            'json' => $body,
         ]);
         $this->assertResponseStatusCodeSame(Response::HTTP_OK);
         $this->assertMatchesResourceItemJsonSchema(Todo::class);
-
     }
 
     public function testDelete(): void
@@ -116,7 +115,7 @@ class TodoTest extends ApiTestCase
     {
         $this->createEntity();
         $em = self::getContainer()->get('doctrine')->getManager();
-        $user = $em->getRepository(User::class)->findOneByEmail("test@example.com");
+        $user = $em->getRepository(User::class)->findOneByEmail('test@example.com');
         static::createClient()->request('GET', sprintf('/api/users/%s/todos', $user->getId()));
         $this->assertResponseIsSuccessful();
         $this->assertMatchesResourceCollectionJsonSchema(Todo::class);

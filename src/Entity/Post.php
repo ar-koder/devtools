@@ -87,7 +87,7 @@ class Post
 
     public function addComment(Comment $comment): self
     {
-        if (! $this->comments->contains($comment)) {
+        if (!$this->comments->contains($comment)) {
             $this->comments[] = $comment;
             $comment->setPost($this);
         }
