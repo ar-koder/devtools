@@ -4,8 +4,8 @@
   <br/>
 
 ![](https://img.shields.io/github/workflow/status/arnaud-ritti/devtools/Release?style=flat-square)
-[![](https://img.shields.io/github/v/release/arnaud-ritti/devtools?style=flat-square&color=orange)](https://github.com/arnaud-ritti/nr-monit/releases)
-![](https://img.shields.io/docker/v/arnaudritti/placeholder-api?label=Docker%20release&style=flat-square)
+[![](https://img.shields.io/github/v/release/arnaud-ritti/devtools?style=flat-square&color=orange)](https://github.com/arnaud-ritti/devtools/releases)
+![](https://img.shields.io/docker/v/arnaudritti/devtools?label=Docker%20release&style=flat-square)
 
   <br/>
   <p>
