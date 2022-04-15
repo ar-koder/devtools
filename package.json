@@ -71,7 +71,7 @@
     "@tailwindcss/line-clamp": "^0.3.1",
     "@tailwindcss/typography": "^0.5.2",
     "autoprefixer": "^10.4.4",
-    "core-js": "^3.0.0",
+    "core-js": "^3.22.0",
     "cypress": "^9.5.4",
     "eslint": "^7.32.0",
     "eslint-config-standard": "^16.0.3",
