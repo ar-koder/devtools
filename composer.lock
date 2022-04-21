@@ -1289,16 +1289,16 @@
         },
         {
             "name": "doctrine/orm",
-            "version": "2.11.2",
+            "version": "2.12.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/orm.git",
-                "reference": "9c351e044478135aec1755e2c0c0493a4b6309db"
+                "reference": "d5503644314ed825fe4b276a588458a033fa3e7c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/orm/zipball/9c351e044478135aec1755e2c0c0493a4b6309db",
-                "reference": "9c351e044478135aec1755e2c0c0493a4b6309db",
+                "url": "https://api.github.com/repos/doctrine/orm/zipball/d5503644314ed825fe4b276a588458a033fa3e7c",
+                "reference": "d5503644314ed825fe4b276a588458a033fa3e7c",
                 "shasum": ""
             },
             "require": {
@@ -1311,14 +1311,14 @@
                 "doctrine/event-manager": "^1.1",
                 "doctrine/inflector": "^1.4 || ^2.0",
                 "doctrine/instantiator": "^1.3",
-                "doctrine/lexer": "^1.0",
-                "doctrine/persistence": "^2.2",
+                "doctrine/lexer": "^1.2.3",
+                "doctrine/persistence": "^2.4 || ^3",
                 "ext-ctype": "*",
                 "php": "^7.1 || ^8.0",
                 "psr/cache": "^1 || ^2 || ^3",
                 "symfony/console": "^3.0 || ^4.0 || ^5.0 || ^6.0",
                 "symfony/polyfill-php72": "^1.23",
-                "symfony/polyfill-php80": "^1.15"
+                "symfony/polyfill-php80": "^1.16"
             },
             "conflict": {
                 "doctrine/annotations": "<1.13 || >= 2.0"
@@ -1327,8 +1327,9 @@
                 "doctrine/annotations": "^1.13",
                 "doctrine/coding-standard": "^9.0",
                 "phpbench/phpbench": "^0.16.10 || ^1.0",
-                "phpstan/phpstan": "1.4.6",
+                "phpstan/phpstan": "~1.4.10 || 1.5.0",
                 "phpunit/phpunit": "^7.5 || ^8.5 || ^9.4",
+                "psr/log": "^1 || ^2 || ^3",
                 "squizlabs/php_codesniffer": "3.6.2",
                 "symfony/cache": "^4.4 || ^5.4 || ^6.0",
                 "symfony/yaml": "^3.4 || ^4.0 || ^5.0 || ^6.0",
@@ -1381,9 +1382,9 @@
             ],
             "support": {
                 "issues": "https://github.com/doctrine/orm/issues",
-                "source": "https://github.com/doctrine/orm/tree/2.11.2"
+                "source": "https://github.com/doctrine/orm/tree/2.12.0"
             },
-            "time": "2022-03-09T15:23:58+00:00"
+            "time": "2022-04-19T18:34:28+00:00"
         },
         {
             "name": "doctrine/persistence",
@@ -7686,16 +7687,16 @@
         },
         {
             "name": "symfony/ux-live-component",
-            "version": "v2.1.0",
+            "version": "v2.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/ux-live-component.git",
-                "reference": "068ea22fa530c1eb9499b96b6030f4981487b5b1"
+                "reference": "195d556619910f33e1600a078d177c7bcf6e7d2f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/ux-live-component/zipball/068ea22fa530c1eb9499b96b6030f4981487b5b1",
-                "reference": "068ea22fa530c1eb9499b96b6030f4981487b5b1",
+                "url": "https://api.github.com/repos/symfony/ux-live-component/zipball/195d556619910f33e1600a078d177c7bcf6e7d2f",
+                "reference": "195d556619910f33e1600a078d177c7bcf6e7d2f",
                 "shasum": ""
             },
             "require": {
@@ -7750,7 +7751,7 @@
                 "twig"
             ],
             "support": {
-                "source": "https://github.com/symfony/ux-live-component/tree/v2.1.0"
+                "source": "https://github.com/symfony/ux-live-component/tree/v2.1.1"
             },
             "funding": [
                 {
@@ -7766,20 +7767,20 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-03-04T14:48:57+00:00"
+            "time": "2022-03-21T11:16:10+00:00"
         },
         {
             "name": "symfony/ux-twig-component",
-            "version": "v2.1.0",
+            "version": "v2.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/ux-twig-component.git",
-                "reference": "4193b5d870070fd6df0bf880a542dcc6fcf2e5fc"
+                "reference": "aa332fe20ea58a5a8248c2ee39378b970b7bb44b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/ux-twig-component/zipball/4193b5d870070fd6df0bf880a542dcc6fcf2e5fc",
-                "reference": "4193b5d870070fd6df0bf880a542dcc6fcf2e5fc",
+                "url": "https://api.github.com/repos/symfony/ux-twig-component/zipball/aa332fe20ea58a5a8248c2ee39378b970b7bb44b",
+                "reference": "aa332fe20ea58a5a8248c2ee39378b970b7bb44b",
                 "shasum": ""
             },
             "require": {
@@ -7827,7 +7828,7 @@
                 "twig"
             ],
             "support": {
-                "source": "https://github.com/symfony/ux-twig-component/tree/v2.1.0"
+                "source": "https://github.com/symfony/ux-twig-component/tree/v2.1.1"
             },
             "funding": [
                 {
@@ -7843,7 +7844,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-02-22T14:21:01+00:00"
+            "time": "2022-03-14T13:15:13+00:00"
         },
         {
             "name": "symfony/validator",
@@ -9555,21 +9556,21 @@
         },
         {
             "name": "doctrine/data-fixtures",
-            "version": "1.5.2",
+            "version": "1.5.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/data-fixtures.git",
-                "reference": "51c1890e8c5467c421c7cab4579f059ebf720278"
+                "reference": "ba37bfb776de763c5bf04a36d074cd5f5a083c42"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/data-fixtures/zipball/51c1890e8c5467c421c7cab4579f059ebf720278",
-                "reference": "51c1890e8c5467c421c7cab4579f059ebf720278",
+                "url": "https://api.github.com/repos/doctrine/data-fixtures/zipball/ba37bfb776de763c5bf04a36d074cd5f5a083c42",
+                "reference": "ba37bfb776de763c5bf04a36d074cd5f5a083c42",
                 "shasum": ""
             },
             "require": {
                 "doctrine/common": "^2.13|^3.0",
-                "doctrine/persistence": "^1.3.3|^2.0",
+                "doctrine/persistence": "^1.3.3|^2.0|^3.0",
                 "php": "^7.2 || ^8.0"
             },
             "conflict": {
@@ -9582,9 +9583,9 @@
                 "doctrine/mongodb-odm": "^1.3.0 || ^2.0.0",
                 "doctrine/orm": "^2.7.0",
                 "ext-sqlite3": "*",
-                "jangregor/phpstan-prophecy": "^0.8.1",
-                "phpstan/phpstan": "^0.12.99",
-                "phpunit/phpunit": "^8.0",
+                "jangregor/phpstan-prophecy": "^1",
+                "phpstan/phpstan": "^1.5",
+                "phpunit/phpunit": "^8.5 || ^9.5",
                 "symfony/cache": "^5.0 || ^6.0",
                 "vimeo/psalm": "^4.10"
             },
@@ -9617,7 +9618,7 @@
             ],
             "support": {
                 "issues": "https://github.com/doctrine/data-fixtures/issues",
-                "source": "https://github.com/doctrine/data-fixtures/tree/1.5.2"
+                "source": "https://github.com/doctrine/data-fixtures/tree/1.5.3"
             },
             "funding": [
                 {
@@ -9633,7 +9634,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-01-20T17:10:56+00:00"
+            "time": "2022-04-19T10:01:44+00:00"
         },
         {
             "name": "doctrine/doctrine-fixtures-bundle",
@@ -10589,16 +10590,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.5.6",
+            "version": "1.5.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "799dd8c2d2c9c704bb55d2078078cb970cf0f6d1"
+                "reference": "7fb7e2e1e9f3d59a26a413b2d3d5e47f0edb75ac"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/799dd8c2d2c9c704bb55d2078078cb970cf0f6d1",
-                "reference": "799dd8c2d2c9c704bb55d2078078cb970cf0f6d1",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/7fb7e2e1e9f3d59a26a413b2d3d5e47f0edb75ac",
+                "reference": "7fb7e2e1e9f3d59a26a413b2d3d5e47f0edb75ac",
                 "shasum": ""
             },
             "require": {
@@ -10624,7 +10625,7 @@
             "description": "PHPStan - PHP Static Analysis Tool",
             "support": {
                 "issues": "https://github.com/phpstan/phpstan/issues",
-                "source": "https://github.com/phpstan/phpstan/tree/1.5.6"
+                "source": "https://github.com/phpstan/phpstan/tree/1.5.7"
             },
             "funding": [
                 {
@@ -10644,7 +10645,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-04-15T11:13:37+00:00"
+            "time": "2022-04-20T12:20:27+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -13047,5 +13048,5 @@
         "ext-iconv": "*"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.3.0"
+    "plugin-api-version": "2.2.0"
 }
