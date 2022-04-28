@@ -75,7 +75,7 @@
     "@tailwindcss/typography": "^0.5.2",
     "autoprefixer": "^10.4.5",
     "core-js": "^3.22.2",
-    "cypress": "^9.5.4",
+    "cypress": "^9.6.0",
     "eslint": "^7.32.0",
     "eslint-config-standard": "^16.0.3",
     "eslint-plugin-import": "^2.26.0",
