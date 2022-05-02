@@ -60,7 +60,7 @@
     "tailwind-css-extensions": "^1.0.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.17.9",
+    "@babel/core": "^7.17.10",
     "@babel/eslint-parser": "^7.17.0",
     "@babel/plugin-proposal-class-properties": "^7.16.7",
     "@babel/plugin-proposal-decorators": "^7.17.9",
@@ -90,7 +90,7 @@
     "prettier-plugin-twig-melody": "^0.4.6",
     "regenerator-runtime": "^0.13.2",
     "release-it": "^14.14.2",
-    "stylelint": "^14.7.1",
+    "stylelint": "^14.8.1",
     "stylelint-config-prettier": "^9.0.3",
     "stylelint-config-prettier-scss": "^0.0.1",
     "stylelint-config-standard": "^25.0.0",
