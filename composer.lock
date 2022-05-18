@@ -1388,16 +1388,16 @@
         },
         {
             "name": "doctrine/persistence",
-            "version": "3.0.1",
+            "version": "3.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/persistence.git",
-                "reference": "b7f12af9973c3861ca5489dd065c85fb2b99436c"
+                "reference": "25ec98a8cbd1f850e60fdb62c0ef77c162da8704"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/persistence/zipball/b7f12af9973c3861ca5489dd065c85fb2b99436c",
-                "reference": "b7f12af9973c3861ca5489dd065c85fb2b99436c",
+                "url": "https://api.github.com/repos/doctrine/persistence/zipball/25ec98a8cbd1f850e60fdb62c0ef77c162da8704",
+                "reference": "25ec98a8cbd1f850e60fdb62c0ef77c162da8704",
                 "shasum": ""
             },
             "require": {
@@ -1469,7 +1469,7 @@
             ],
             "support": {
                 "issues": "https://github.com/doctrine/persistence/issues",
-                "source": "https://github.com/doctrine/persistence/tree/3.0.1"
+                "source": "https://github.com/doctrine/persistence/tree/3.0.2"
             },
             "funding": [
                 {
@@ -1485,7 +1485,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-05-02T17:41:58+00:00"
+            "time": "2022-05-06T06:10:05+00:00"
         },
         {
             "name": "doctrine/sql-formatter",
@@ -1602,16 +1602,16 @@
         },
         {
             "name": "easycorp/easyadmin-bundle",
-            "version": "v4.1.2",
+            "version": "v4.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/EasyCorp/EasyAdminBundle.git",
-                "reference": "428c1fa868562a70b684e7df5e41d9d7365c5cb9"
+                "reference": "6738c4eb2b997e2b29f01b486aafb3aa94e48fd3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/EasyCorp/EasyAdminBundle/zipball/428c1fa868562a70b684e7df5e41d9d7365c5cb9",
-                "reference": "428c1fa868562a70b684e7df5e41d9d7365c5cb9",
+                "url": "https://api.github.com/repos/EasyCorp/EasyAdminBundle/zipball/6738c4eb2b997e2b29f01b486aafb3aa94e48fd3",
+                "reference": "6738c4eb2b997e2b29f01b486aafb3aa94e48fd3",
                 "shasum": ""
             },
             "require": {
@@ -1678,7 +1678,7 @@
             ],
             "support": {
                 "issues": "https://github.com/EasyCorp/EasyAdminBundle/issues",
-                "source": "https://github.com/EasyCorp/EasyAdminBundle/tree/v4.1.2"
+                "source": "https://github.com/EasyCorp/EasyAdminBundle/tree/v4.2.1"
             },
             "funding": [
                 {
@@ -1686,7 +1686,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2022-04-23T15:40:27+00:00"
+            "time": "2022-05-16T08:14:40+00:00"
         },
         {
             "name": "egulias/email-validator",
@@ -8560,16 +8560,16 @@
         },
         {
             "name": "twig/twig",
-            "version": "v3.3.10",
+            "version": "v3.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig.git",
-                "reference": "8442df056c51b706793adf80a9fd363406dd3674"
+                "reference": "e939eae92386b69b49cfa4599dd9bead6bf4a342"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/8442df056c51b706793adf80a9fd363406dd3674",
-                "reference": "8442df056c51b706793adf80a9fd363406dd3674",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/e939eae92386b69b49cfa4599dd9bead6bf4a342",
+                "reference": "e939eae92386b69b49cfa4599dd9bead6bf4a342",
                 "shasum": ""
             },
             "require": {
@@ -8584,7 +8584,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.3-dev"
+                    "dev-master": "3.4-dev"
                 }
             },
             "autoload": {
@@ -8620,7 +8620,7 @@
             ],
             "support": {
                 "issues": "https://github.com/twigphp/Twig/issues",
-                "source": "https://github.com/twigphp/Twig/tree/v3.3.10"
+                "source": "https://github.com/twigphp/Twig/tree/v3.4.1"
             },
             "funding": [
                 {
@@ -8632,7 +8632,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-04-06T06:47:41+00:00"
+            "time": "2022-05-17T05:48:52+00:00"
         },
         {
             "name": "webmozart/assert",
@@ -12232,16 +12232,16 @@
         },
         {
             "name": "symfony/maker-bundle",
-            "version": "v1.41.0",
+            "version": "v1.43.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/maker-bundle.git",
-                "reference": "4b994dfdd0196dcb3d333fdd6a1d72d5955a9532"
+                "reference": "e3f9a1d9e0f4968f68454403e820dffc7db38a59"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/maker-bundle/zipball/4b994dfdd0196dcb3d333fdd6a1d72d5955a9532",
-                "reference": "4b994dfdd0196dcb3d333fdd6a1d72d5955a9532",
+                "url": "https://api.github.com/repos/symfony/maker-bundle/zipball/e3f9a1d9e0f4968f68454403e820dffc7db38a59",
+                "reference": "e3f9a1d9e0f4968f68454403e820dffc7db38a59",
                 "shasum": ""
             },
             "require": {
@@ -12303,7 +12303,7 @@
             ],
             "support": {
                 "issues": "https://github.com/symfony/maker-bundle/issues",
-                "source": "https://github.com/symfony/maker-bundle/tree/v1.41.0"
+                "source": "https://github.com/symfony/maker-bundle/tree/v1.43.0"
             },
             "funding": [
                 {
@@ -12319,7 +12319,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-05-04T16:32:52+00:00"
+            "time": "2022-05-17T15:46:50+00:00"
         },
         {
             "name": "symfony/phpunit-bridge",
