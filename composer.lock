@@ -5696,16 +5696,16 @@
         },
         {
             "name": "symfony/polyfill-intl-idn",
-            "version": "v1.25.0",
+            "version": "v1.26.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-intl-idn.git",
-                "reference": "749045c69efb97c70d25d7463abba812e91f3a44"
+                "reference": "59a8d271f00dd0e4c2e518104cc7963f655a1aa8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-intl-idn/zipball/749045c69efb97c70d25d7463abba812e91f3a44",
-                "reference": "749045c69efb97c70d25d7463abba812e91f3a44",
+                "url": "https://api.github.com/repos/symfony/polyfill-intl-idn/zipball/59a8d271f00dd0e4c2e518104cc7963f655a1aa8",
+                "reference": "59a8d271f00dd0e4c2e518104cc7963f655a1aa8",
                 "shasum": ""
             },
             "require": {
@@ -5719,7 +5719,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-main": "1.23-dev"
+                    "dev-main": "1.26-dev"
                 },
                 "thanks": {
                     "name": "symfony/polyfill",
@@ -5763,7 +5763,7 @@
                 "shim"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-intl-idn/tree/v1.25.0"
+                "source": "https://github.com/symfony/polyfill-intl-idn/tree/v1.26.0"
             },
             "funding": [
                 {
@@ -5779,7 +5779,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-09-14T14:02:44+00:00"
+            "time": "2022-05-24T11:49:31+00:00"
         },
         {
             "name": "symfony/polyfill-intl-normalizer",
@@ -8815,16 +8815,16 @@
         },
         {
             "name": "zenstruck/schedule-bundle",
-            "version": "v1.3.0",
+            "version": "v1.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zenstruck/schedule-bundle.git",
-                "reference": "7c8a2257d62a7db39656e919dee69fc618eaf2aa"
+                "reference": "191e1134d9e594a8bce99e2ff58b104b448bd89b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zenstruck/schedule-bundle/zipball/7c8a2257d62a7db39656e919dee69fc618eaf2aa",
-                "reference": "7c8a2257d62a7db39656e919dee69fc618eaf2aa",
+                "url": "https://api.github.com/repos/zenstruck/schedule-bundle/zipball/191e1134d9e594a8bce99e2ff58b104b448bd89b",
+                "reference": "191e1134d9e594a8bce99e2ff58b104b448bd89b",
                 "shasum": ""
             },
             "require": {
@@ -8888,7 +8888,7 @@
             ],
             "support": {
                 "issues": "https://github.com/zenstruck/schedule-bundle/issues",
-                "source": "https://github.com/zenstruck/schedule-bundle/tree/v1.3.0"
+                "source": "https://github.com/zenstruck/schedule-bundle/tree/v1.4.0"
             },
             "funding": [
                 {
@@ -8896,7 +8896,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2022-04-14T18:11:09+00:00"
+            "time": "2022-04-16T13:10:24+00:00"
         }
     ],
     "packages-dev": [
