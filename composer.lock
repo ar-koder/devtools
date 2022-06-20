@@ -7700,20 +7700,21 @@
         },
         {
             "name": "symfony/ux-live-component",
-            "version": "v2.1.1",
+            "version": "v2.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/ux-live-component.git",
-                "reference": "195d556619910f33e1600a078d177c7bcf6e7d2f"
+                "reference": "9ed191e29ed599059929469a24dd74ee7ca548e0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/ux-live-component/zipball/195d556619910f33e1600a078d177c7bcf6e7d2f",
-                "reference": "195d556619910f33e1600a078d177c7bcf6e7d2f",
+                "url": "https://api.github.com/repos/symfony/ux-live-component/zipball/9ed191e29ed599059929469a24dd74ee7ca548e0",
+                "reference": "9ed191e29ed599059929469a24dd74ee7ca548e0",
                 "shasum": ""
             },
             "require": {
                 "php": ">=8.0",
+                "symfony/property-access": "^5.4|^6.0",
                 "symfony/serializer": "^5.4|^6.0",
                 "symfony/ux-twig-component": "^2.1"
             },
@@ -7764,7 +7765,7 @@
                 "twig"
             ],
             "support": {
-                "source": "https://github.com/symfony/ux-live-component/tree/v2.1.1"
+                "source": "https://github.com/symfony/ux-live-component/tree/v2.2.0"
             },
             "funding": [
                 {
@@ -7780,20 +7781,20 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-03-21T11:16:10+00:00"
+            "time": "2022-06-14T19:28:41+00:00"
         },
         {
             "name": "symfony/ux-twig-component",
-            "version": "v2.1.1",
+            "version": "v2.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/ux-twig-component.git",
-                "reference": "aa332fe20ea58a5a8248c2ee39378b970b7bb44b"
+                "reference": "9a6575f0902bc364ddfc605eda0c9720500b2527"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/ux-twig-component/zipball/aa332fe20ea58a5a8248c2ee39378b970b7bb44b",
-                "reference": "aa332fe20ea58a5a8248c2ee39378b970b7bb44b",
+                "url": "https://api.github.com/repos/symfony/ux-twig-component/zipball/9a6575f0902bc364ddfc605eda0c9720500b2527",
+                "reference": "9a6575f0902bc364ddfc605eda0c9720500b2527",
                 "shasum": ""
             },
             "require": {
@@ -7841,7 +7842,7 @@
                 "twig"
             ],
             "support": {
-                "source": "https://github.com/symfony/ux-twig-component/tree/v2.1.1"
+                "source": "https://github.com/symfony/ux-twig-component/tree/v2.2.0"
             },
             "funding": [
                 {
@@ -7857,7 +7858,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-03-14T13:15:13+00:00"
+            "time": "2022-05-31T14:16:19+00:00"
         },
         {
             "name": "symfony/validator",
