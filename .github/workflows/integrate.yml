@@ -99,7 +99,7 @@ jobs:
 
             - name: Run Cypress
               if: ${{ env.IS_DEPENDABOT == 'false' && ! github.event.pull_request.draft }}
-              uses: cypress-io/github-action@v2
+              uses: cypress-io/github-action@v5
               with:
                   build: npm run build
 
