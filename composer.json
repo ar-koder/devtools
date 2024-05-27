@@ -10,7 +10,7 @@
     "ext-ctype": "*",
     "ext-gd": "*",
     "ext-iconv": "*",
-    "api-platform/core": "^2.6",
+    "api-platform/core": "^3.3",
     "doctrine/annotations": "^1.0",
     "doctrine/doctrine-bundle": "^2.6",
     "doctrine/doctrine-migrations-bundle": "^3.2",
